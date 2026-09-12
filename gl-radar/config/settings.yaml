@@ -1,0 +1,104 @@
+# GL Radar — runtime settings
+
+poll:
+  # How often each collector family runs, in minutes.
+  # Instagram is the expensive one; don't set it below 30.
+  news_minutes: 30
+  website_minutes: 120
+  instagram_minutes: 60
+  linkedin_minutes: 360
+  events_minutes: 720
+  supervisor_minutes: 60
+  # The dashboard checks with the server every minute and triggers a cycle when
+  # this many minutes have passed, however many tabs are open.
+  auto_refresh_minutes: 60
+  auto_refresh_default: true
+  # A guaranteed full sweep once a day, in the timezone set under `notify`
+  # below, so the board is never more than 24 hours behind even if every other
+  # trigger was missed. 7 means the queue is ready before you start work.
+  daily_sweep_hour: 7
+
+freshness:
+  # The recency contract. Enforced at ingest, classification, display,
+  # notification and ticket creation, and independently audited by the
+  # supervisor after every cycle.
+  #
+  # Nothing published more than this many days ago is ever shown.
+  lookback_days: 6
+  # Alert on scheduled events this many days out. Hard ceiling is 5;
+  # anything higher is clamped and logged.
+  lookahead_days: 2
+  # Which day marks fire a countdown. Values above lookahead_days are dropped.
+  reminder_marks: [2, 1]
+  # Pending items that age out of the window are marked expired rather than
+  # left sitting in the queue looking actionable.
+  auto_expire: true
+
+scoring:
+  # Classifier importance is 0-100. Below `min_importance` the item is stored
+  # but never surfaces. At or above `auto_ticket_at` it skips the review queue
+  # and goes straight to ClickUp.
+  min_importance: 45
+  notify_at: 60
+  auto_ticket_at: 85
+  # Priority-1 companies get a bump so nothing from Gross Labs itself is missed.
+  priority_boost:
+    1: 15
+    2: 0
+    3: -10
+
+classifier:
+  # auto   use Claude when ANTHROPIC_API_KEY is set, free keyword rules when not
+  # rules  always free keyword rules, no API key needed, noisier
+  # claude always Claude, fails loudly if the key is missing
+  mode: auto
+  model: claude-sonnet-4-6
+  max_tokens: 1200
+  # Items from an owned account (our own IG handles) skip classification
+  # for relevance but still get a caption suggestion.
+  trust_owned_accounts: true
+
+collectors:
+  google_news: true
+  rss: true
+  website_diff: true
+  instagram: true      # requires IG Graph API creds, see .env.example
+  linkedin: false      # requires Apify token; off by default, see README
+  events: true         # requires Ticketmaster API key
+  youtube: false
+
+clickup:
+  # Where repost tickets land. Run `python -m radar.cli lists` to print every
+  # list in your workspace with its id, then paste the one you want here.
+  list_id: "${CLICKUP_LIST_ID}"
+  # Optional per-company routing. Anything not listed uses list_id above.
+  #   list_overrides:
+  #     breakaway: "901111111"    # events team
+  #     beeup: "902222222"        # brand team
+  list_overrides: {}
+  task_name_prefix: "[Repost] "
+  default_tags: ["gl-radar", "repost"]
+  # Optional: map a custom field on your ClickUp list to the source URL.
+  # Find IDs via GET /api/v2/list/{list_id}/field
+  custom_fields:
+    source_url: ""
+    company: ""
+    importance: ""
+
+notify:
+  desktop: true
+  slack_webhook: "${SLACK_WEBHOOK_URL}"
+  # Quiet hours in your local timezone. Notifications queue instead of firing.
+  timezone: "Asia/Kolkata"
+  quiet_start: 23
+  quiet_end: 8
+
+export:
+  # After you push to GitHub, put "yourname/gl-radar" here. The Refresh button
+  # on the published page then links straight to the workflow's Run button,
+  # which is the only refresh a static page can honestly offer.
+  github_repo: ""
+
+server:
+  host: "127.0.0.1"
+  port: 8787

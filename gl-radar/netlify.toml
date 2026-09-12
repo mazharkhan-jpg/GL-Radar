@@ -1,0 +1,18 @@
+# Netlify build settings.
+#
+# The site is a set of static files produced by `radar export`. Netlify does not
+# build it — GitHub Actions does, then pushes the result here. Netlify has no
+# Python runtime for a long-running scheduler, so it cannot run GL Radar itself.
+
+[build]
+  publish = "public"
+  command = "echo 'Built by GitHub Actions; nothing to do here.'"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
+    # The queue can name unannounced deals. Keep it out of search results.
+    X-Robots-Tag = "noindex, nofollow"

@@ -1,0 +1,146 @@
+# Verified events — checked by hand against the sources listed, 12 September 2026.
+#
+# This file exists so the app opens with real data instead of sample data, and
+# so you can see exactly where each line came from. Every entry carries the URL
+# it was verified against. Nothing here is inferred or generated.
+#
+# Ticketmaster keeps this current once TICKETMASTER_API_KEY is set. Until then,
+# `python scripts/seed_live.py` loads this file.
+
+verified_on: "2026-09-12"
+
+events:
+  # ---- Inside the alert window ----
+
+  - event_id: "seed_warped_mexico_2026"
+    entity_key: goldfinger
+    name: "Vans Warped Tour Mexico City 2026"
+    event_date: "2026-09-12"
+    end_date: "2026-09-13"
+    venue: "Autódromo Hermanos Rodríguez"
+    city: "Mexico City, Mexico"
+    url: "https://www.vanswarpedtourmexico.com/"
+    lineup: "Goldfinger, girlfriends, Mod Sun, Jimmy Eat World, Papa Roach, Rise Against, Dropkick Murphys, Taking Back Sunday, Yellowcard, The All-American Rejects"
+    source: "https://www.setlist.fm/festival/2026/vans-warped-tour-mexico-city-2026-4bd50b96.html"
+    note: >
+      Three Gross Labs acts on one bill: Goldfinger and girlfriends both feature
+      Nick Gross, and Mod Sun is signed to Big Noise. First Warped Tour ever
+      held in Mexico, after a 2017 edition was announced and cancelled. Gates
+      11:00 both days. Warped does not publish set times in advance.
+
+  - event_id: "seed_warped_mexico_2026_gf"
+    entity_key: girlfriends
+    name: "Vans Warped Tour Mexico City 2026"
+    event_date: "2026-09-12"
+    end_date: "2026-09-13"
+    venue: "Autódromo Hermanos Rodríguez"
+    city: "Mexico City, Mexico"
+    url: "https://www.vanswarpedtourmexico.com/lineup"
+    lineup: "girlfriends, Goldfinger, Mod Sun, Atreyu, Glassjaw, Destroy Boys"
+    source: "https://www.jambase.com/festival/vans-warped-tour-mexico-city-2026"
+    note: >
+      girlfriends on the same bill as Goldfinger. Same festival, tracked
+      separately so it appears under both brands in the queue.
+
+  - event_id: "seed_breakaway_philly_2026"
+    entity_key: breakaway
+    name: "Breakaway Philadelphia 2026"
+    event_date: "2026-09-11"
+    end_date: "2026-09-12"
+    venue: "Subaru Park Festival Grounds"
+    city: "Chester, PA"
+    url: "https://www.breakawayfestival.com/festival/philadelphia-2026"
+    lineup: "Tiësto, Marshmello, SOFI TUKKER, ISOxo, Malaa (Alter Ego), KREAM, Layton Giordani, Whethan, CID, Devault, ARMNHMR, Deathpact"
+    source: "https://www.ticketmaster.com/breakaway-music-festival-tickets/artist/1882167"
+    note: >
+      Running now. Doors were 16:00 on the 11th. Sponsor activations on site
+      from CELSIUS and White Claw Surge.
+
+  # ---- Beyond the window: tracked, not alerted, until they come close ----
+
+  - event_id: "seed_breakaway_carolina_2026"
+    entity_key: breakaway
+    name: "Breakaway Carolina 2026"
+    event_date: "2026-09-25"
+    end_date: "2026-09-26"
+    venue: "zMAX Dragway"
+    city: "Concord, NC"
+    url: "https://www.breakawayfestival.com/festival/carolina-2026"
+    lineup: "TBA"
+    source: "https://www.musicfestivalwizard.com/festivals/breakaway-festival-carolina-2026/"
+
+  - event_id: "seed_breakaway_utah_2026"
+    entity_key: breakaway
+    name: "Breakaway Utah 2026"
+    event_date: "2026-10-02"
+    end_date: "2026-10-03"
+    venue: "America First Field"
+    city: "Sandy, UT"
+    url: "https://www.breakawayfestival.com/all-dates"
+    lineup: "TBA"
+    source: "https://www.ticketmaster.com/breakaway-music-festival-tickets/artist/1882167"
+
+  - event_id: "seed_breakaway_houston_2026"
+    entity_key: breakaway
+    name: "Breakaway Houston 2026"
+    event_date: "2026-11-13"
+    end_date: "2026-11-14"
+    venue: "TBA"
+    city: "Houston, TX"
+    url: "https://www.breakawayfestival.com/all-dates"
+    lineup: "TBA"
+    source: "https://thedailyfrequency.com/breakaway-music-festival-calendar/"
+
+  - event_id: "seed_goldfinger_bayfest_2026"
+    entity_key: goldfinger
+    name: "Mission Bayfest 2026"
+    event_date: "2026-10-18"
+    venue: "Mission Bay"
+    city: "San Diego, CA"
+    url: "https://www.goldfingermusic.com/"
+    lineup: "Goldfinger, Rebelution, The Offspring, Kolohe Kai"
+    source: "https://www.jambase.com/band/goldfinger"
+
+  - event_id: "seed_goldfinger_roxian_2026"
+    entity_key: goldfinger
+    name: "Goldfinger at The Roxian Theatre"
+    event_date: "2026-11-19"
+    venue: "Roxian Theatre"
+    city: "McKees Rocks, PA"
+    url: "https://www.goldfingermusic.com/"
+    lineup: "Goldfinger, Mustard Plug, The Planet Smashers, sullvn"
+    source: "https://www.setlist.fm/setlists/goldfinger-6bd68aca.html"
+
+  - event_id: "seed_goldfinger_nevermore_2026"
+    entity_key: goldfinger
+    name: "Goldfinger at Nevermore Hall"
+    event_date: "2026-11-20"
+    venue: "Nevermore Hall"
+    city: "Baltimore, MD"
+    url: "https://www.goldfingermusic.com/"
+    lineup: "Goldfinger, Mustard Plug, The Planet Smashers, sullvn"
+    source: "https://www.setlist.fm/setlists/goldfinger-6bd68aca.html"
+
+  - event_id: "seed_goldfinger_skanksgiving_2026"
+    entity_key: goldfinger
+    name: "Skanksgiving 2026"
+    event_date: "2026-11-21"
+    venue: "Starland Ballroom"
+    city: "Sayreville, NJ"
+    url: "https://www.goldfingermusic.com/"
+    lineup: "Goldfinger, Mustard Plug, The Planet Smashers, Catbite, Millington, sullvn"
+    source: "https://www.setlist.fm/setlists/goldfinger-6bd68aca.html"
+
+# Checked and found nothing inside the 6-day news window on 12 September 2026.
+# Recorded so a later run can tell "no news" apart from "never looked".
+checked_no_news:
+  - entity: beeup
+    note: "Latest coverage still traces to the 2025 Target launch. Nothing new."
+  - entity: gross_labs
+    note: "Nick Gross posted on LinkedIn ~14h ago but the post is behind a login wall. Needs the LinkedIn collector or a manual look."
+  - entity: big_noise
+    note: "No releases or signings found in window."
+  - entity: okc_soccer
+    note: "Name reveal was 15 July 2026, well outside the window. See registry update."
+  - entity: lagc
+    note: "TGL is out of season. Nothing in window."

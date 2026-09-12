@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GL Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#F2F4F3; --card:#FFFFFF; --ink:#141A1C; --soft:#5C6A6E;
+    --rule:#DDE3E1; --signal:#E03E2F; --done:#2F6F63; --amber:#E8A317;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); color:var(--ink);
+         font-family:Archivo,system-ui,sans-serif; font-size:15px; line-height:1.5; }
+  a { color:inherit; }
+  header { display:flex; align-items:center; gap:1rem; flex-wrap:wrap;
+           padding:1.5rem 2rem 1.1rem; border-bottom:2px solid var(--ink); }
+  h1 { font-size:1.5rem; font-weight:800; letter-spacing:-.03em; margin:0; }
+  .tally { color:var(--soft); font-size:.85rem; }
+  .tally b { color:var(--ink); font-weight:600; }
+  .controls { margin-left:auto; display:flex; align-items:center; gap:.75rem; }
+  .checked { color:var(--soft); font-size:.78rem; font-variant-numeric:tabular-nums; }
+  .auto { display:flex; align-items:center; gap:.35rem; color:var(--soft); font-size:.78rem; }
+  .auto input { accent-color:var(--ink); }
+  .wrap { display:grid; grid-template-columns:210px 1fr; gap:2rem;
+          padding:1.5rem 2rem 4rem; max-width:1180px; }
+  nav { position:sticky; top:1.5rem; align-self:start; }
+  nav a { display:flex; justify-content:space-between; gap:.5rem; padding:.4rem .6rem;
+          border-radius:4px; text-decoration:none; color:var(--soft); font-size:.875rem; }
+  nav a:hover { background:#E6EAE9; color:var(--ink); }
+  nav a[aria-current] { background:var(--ink); color:var(--paper); font-weight:600; }
+  .tabs { display:flex; gap:1.25rem; margin-bottom:1.25rem; border-bottom:1px solid var(--rule); }
+  .tabs a { padding:.5rem 0 .6rem; text-decoration:none; color:var(--soft); font-size:.9rem; }
+  .tabs a[aria-current] { color:var(--ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--signal); }
+  article { background:var(--card); border:1px solid var(--rule); border-radius:6px;
+            padding:1rem 1.15rem; margin-bottom:.65rem; }
+  .top { display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
+  .co { font-weight:600; font-size:.8rem; }
+  .meta { color:var(--soft); font-size:.78rem; margin-left:auto; white-space:nowrap; }
+  .meter { display:flex; align-items:center; gap:.5rem; }
+  .track { width:104px; height:5px; background:#E6EAE9; border-radius:3px; overflow:hidden; }
+  .fill { height:100%; background:var(--amber); }
+  .fill.hot { background:var(--signal); }
+  .score { font-size:.72rem; color:var(--soft); font-variant-numeric:tabular-nums; min-width:1.6rem; }
+  h2 { font-size:1rem; font-weight:600; margin:0 0 .35rem; letter-spacing:-.01em; }
+  h2 a { text-decoration:none; }
+  h2 a:hover { box-shadow:inset 0 -1px 0 var(--ink); }
+  .sum { color:var(--soft); font-size:.9rem; margin:0 0 .75rem; max-width:68ch; }
+  details summary { cursor:pointer; font-size:.82rem; color:var(--soft); margin-bottom:.6rem; }
+  details summary::marker { color:var(--rule); }
+  .cap { background:var(--paper); border-left:2px solid var(--signal);
+         padding:.6rem .8rem; margin:.5rem 0; font-size:.9rem; max-width:64ch; }
+  .cap b { display:block; font-size:.74rem; color:var(--soft); font-weight:500; margin-bottom:.25rem; }
+  .acts { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+  button { font:inherit; font-size:.84rem; font-weight:500; padding:.4rem .8rem;
+           border-radius:4px; border:1px solid var(--ink); background:var(--ink);
+           color:var(--paper); cursor:pointer; }
+  button.ghost { background:transparent; color:var(--soft); border-color:var(--rule); }
+  button:hover:not(:disabled) { opacity:.85; }
+  button:disabled { opacity:.4; cursor:default; }
+  button:focus-visible, nav a:focus-visible, .tabs a:focus-visible {
+    outline:2px solid var(--signal); outline-offset:2px; }
+  .bar { display:flex; align-items:center; gap:.55rem; font-size:.8rem;
+         padding:.5rem .75rem; border-radius:4px; margin-bottom:1rem;
+         color:var(--soft); background:#EAEEEC; }
+  .bar span.dot { width:7px; height:7px; border-radius:50%; flex:none; }
+  .bar.good span.dot { background:var(--done); }
+  .bar.warn span.dot { background:var(--amber); }
+  .bar.bad { background:#FBE9E7; color:#8C2A1E; }
+  .bar.bad span.dot { background:var(--signal); }
+  .bar.demo { background:#FFF6E0; color:#7A5600; }
+  .bar.demo span.dot { background:var(--amber); }
+  .btn-link { font:inherit; font-size:.84rem; font-weight:500; padding:.4rem .8rem;
+              border-radius:4px; border:1px solid var(--ink); background:var(--ink);
+              color:var(--paper); text-decoration:none; }
+  .btn-link:hover { opacity:.85; }
+  .ghost-link { font-size:.84rem; font-weight:500; padding:.4rem .8rem; border-radius:4px;
+                border:1px solid var(--rule); color:var(--soft); text-decoration:none; }
+  .ghost-link:hover { color:var(--ink); }
+  .gap { display:inline-block; width:14px; height:14px; line-height:14px;
+         text-align:center; border-radius:50%; background:var(--amber);
+         color:#fff; font-size:.62rem; font-weight:700; margin-right:.3rem; }
+  .empty { padding:3rem 0; color:var(--soft); }
+  .empty b { display:block; color:var(--ink); font-weight:600; margin-bottom:.3rem; }
+  .ticketed { color:var(--done); font-size:.82rem; font-weight:500; text-decoration:none; }
+  .failed { color:var(--signal); font-size:.82rem; font-weight:500; }
+  .spin { display:inline-block; width:9px; height:9px; border-radius:50%;
+          border:2px solid var(--paper); border-top-color:transparent;
+          animation:sp .7s linear infinite; vertical-align:-1px; margin-right:.4rem; }
+  @keyframes sp { to { transform:rotate(360deg); } }
+  @media (max-width:720px) { .wrap { grid-template-columns:1fr; padding:1rem; }
+    nav { position:static; display:flex; flex-wrap:wrap; gap:.3rem; }
+    header { padding:1rem; } .controls { width:100%; margin-left:0; } }
+  @media (prefers-reduced-motion:reduce) { .spin { animation:none; } }
+</style></head><body>
+<header>
+  <h1>GL Radar</h1>
+  <span class="tally"><b>3</b> signals from <b>3</b> scanned &middot; <b>0</b> ticketed &middot; <b>0</b> aged out</span>
+  <div class="controls"><span class="checked">Updated just now</span><span class="auto">Rebuilds daily at 07:00</span><button disabled title="Set export.github_repo in config/settings.yaml to enable">Refresh now</button></div>
+</header>
+<div class="wrap">
+  <nav><a href="#" data-value="" onclick="return demoFilter(this,'entity')" aria-current='page'><span>Everything</span><span>3</span></a><a href="#" data-value="breakaway" onclick="return demoFilter(this,'entity')"><span>Breakaway Music Festival</span><span>1</span></a><a href="#" data-value="girlfriends" onclick="return demoFilter(this,'entity')"><span>girlfriends</span><span>1</span></a><a href="#" data-value="goldfinger" onclick="return demoFilter(this,'entity')"><span>Goldfinger</span><span>1</span></a><a href="#" data-value="nick_gross" onclick="return demoFilter(this,'entity')"><span>Nick Gross</span><span>0</span></a><a href="#" data-value="gross_labs" onclick="return demoFilter(this,'entity')"><span>Gross Labs</span><span>0</span></a><a href="#" data-value="beeup" onclick="return demoFilter(this,'entity')"><span>BEEUP</span><span>0</span></a><a href="#" data-value="big_noise" onclick="return demoFilter(this,'entity')"><span>Big Noise Music Group</span><span>0</span></a><a href="#" data-value="brekky_golf" onclick="return demoFilter(this,'entity')" title="Google News only — brand announcements will be missed"><span>Brekky Golf Company</span><span><span class="gap">!</span>0</span></a><a href="#" data-value="lagc" onclick="return demoFilter(this,'entity')"><span>Los Angeles Golf Club</span><span>0</span></a><a href="#" data-value="okc_soccer" onclick="return demoFilter(this,'entity')"><span>OKC United</span><span>0</span></a><a href="#" data-value="find_your_grind" onclick="return demoFilter(this,'entity')"><span>Find Your Grind</span><span>0</span></a><a href="#" data-value="brooklyn_pickleball" onclick="return demoFilter(this,'entity')" title="Google News only — brand announcements will be missed"><span>Brooklyn Pickleball Team</span><span><span class="gap">!</span>0</span></a><a href="#" data-value="thirty_third_team" onclick="return demoFilter(this,'entity')"><span>The 33rd Team</span><span>0</span></a><a href="#" data-value="tmrw_sports" onclick="return demoFilter(this,'entity')"><span>TMRW Sports</span><span>0</span></a></nav>
+  <main>
+    <div data-built="2026-09-12T15:07:41.100848+00:00"></div><div class="bar good"><span class="dot"></span>Built 12 Sep 2026, 15:07 UTC · watching 12 of 14 companies · last 6 days of news, next 2 days of events</div><div class="bar warn"><span class="dot"></span>Not fully covered: Brekky Golf Company</div><div class="bar demo"><span class="dot"></span>Read-only snapshot. Tickets are created automatically in ClickUp by the scheduled job; this page is for browsing.</div>
+    <div class="tabs"><a href="#" data-value="pending" onclick="return demoFilter(this,'status')" aria-current='page'>To review</a><a href="#" data-value="ticketed" onclick="return demoFilter(this,'status')">Ticketed</a><a href="#" data-value="dismissed" onclick="return demoFilter(this,'status')">Passed on</a><a href="#" data-value="expired" onclick="return demoFilter(this,'status')">Aged out</a><a href="#" data-value="all" onclick="return demoFilter(this,'status')">All</a></div>
+    <article data-status="pending" data-entity="goldfinger">
+  <div class="top">
+    <span class="co">Goldfinger</span>
+    <span class="meter"><span class="track"><span class="fill hot" style="width:96%"></span></span>
+      <span class="score">96</span></span>
+    <span class="meta">event_reminder &middot; Autódromo Hermanos Rodríguez &middot; 13m ago</span>
+  </div>
+  <h2><a href="https://www.vanswarpedtourmexico.com/" target="_blank" rel="noopener">Vans Warped Tour Mexico City 2026 is happening now — 2026-09-12 to 2026-09-13, Mexico City, Mexico</a></h2>
+  <p class="sum">Warped Tour&#x27;s first ever Mexico City edition runs today and tomorrow, with Goldfinger, girlfriends and Big Noise artist Mod Sun all on the bill.</p>
+  <details><summary>Angle and caption</summary><div class="cap"><b>Lead with</b>Three Gross Labs acts on one stage, at the first Warped Tour ever held in Mexico. Lead with the rarity, not the lineup poster.</div><div class="cap"><b>Suggested caption</b>First Warped Tour ever in Mexico. Goldfinger, girlfriends and Mod Sun all on the bill. Autódromo Hermanos Rodríguez, today and tomorrow.</div></details>
+  <div class="acts"><button onclick="copyCaption(this)" data-caption="First Warped Tour ever in Mexico. Goldfinger, girlfriends and Mod Sun all on the bill. Autódromo Hermanos Rodríguez, today and tomorrow.">Copy caption</button><a class="ghost-link" href="https://www.vanswarpedtourmexico.com/" target="_blank" rel="noopener">Open source</a></div>
+</article><article data-status="pending" data-entity="breakaway">
+  <div class="top">
+    <span class="co">Breakaway Music Festival</span>
+    <span class="meter"><span class="track"><span class="fill hot" style="width:92%"></span></span>
+      <span class="score">92</span></span>
+    <span class="meta">event_reminder &middot; Subaru Park Festival Grounds &middot; 13m ago</span>
+  </div>
+  <h2><a href="https://www.breakawayfestival.com/festival/philadelphia-2026" target="_blank" rel="noopener">Breakaway Philadelphia 2026 is happening now — 2026-09-11 to 2026-09-12, Chester, PA</a></h2>
+  <p class="sum">Breakaway Philadelphia is running now at Subaru Park with Tiësto, Marshmello and SOFI TUKKER.</p>
+  <details><summary>Angle and caption</summary><div class="cap"><b>Lead with</b>Show-day content. Repost from the festival account while it is live.</div><div class="cap"><b>Suggested caption</b>Breakaway Philadelphia, happening now. Tiësto and Marshmello on the bill.</div></details>
+  <div class="acts"><button onclick="copyCaption(this)" data-caption="Breakaway Philadelphia, happening now. Tiësto and Marshmello on the bill.">Copy caption</button><a class="ghost-link" href="https://www.breakawayfestival.com/festival/philadelphia-2026" target="_blank" rel="noopener">Open source</a></div>
+</article><article data-status="pending" data-entity="girlfriends">
+  <div class="top">
+    <span class="co">girlfriends</span>
+    <span class="meter"><span class="track"><span class="fill hot" style="width:88%"></span></span>
+      <span class="score">88</span></span>
+    <span class="meta">event_reminder &middot; Autódromo Hermanos Rodríguez &middot; 13m ago</span>
+  </div>
+  <h2><a href="https://www.vanswarpedtourmexico.com/lineup" target="_blank" rel="noopener">Vans Warped Tour Mexico City 2026 is happening now — 2026-09-12 to 2026-09-13, Mexico City, Mexico</a></h2>
+  <p class="sum">girlfriends play Warped Tour Mexico City today and tomorrow.</p>
+  <details><summary>Angle and caption</summary><div class="cap"><b>Lead with</b>Pull stories from @girlfriendsxo during the set.</div><div class="cap"><b>Suggested caption</b>girlfriends at Warped Tour Mexico City. Mexico&#x27;s first ever Warped.</div></details>
+  <div class="acts"><button onclick="copyCaption(this)" data-caption="girlfriends at Warped Tour Mexico City. Mexico&#x27;s first ever Warped.">Copy caption</button><a class="ghost-link" href="https://www.vanswarpedtourmexico.com/lineup" target="_blank" rel="noopener">Open source</a></div>
+</article>
+  </main>
+</div>
+<script>
+function demoFilter(el, kind) {
+  const value = el.dataset.value;
+  const group = kind === 'status' ? '.tabs a' : 'nav a';
+  document.querySelectorAll(group).forEach(a => a.removeAttribute('aria-current'));
+  el.setAttribute('aria-current', 'page');
+  if (kind === 'status') window.demoStatus = value; else window.demoEntity = value;
+  document.querySelectorAll('article').forEach(card => {
+    const okStatus = !window.demoStatus || window.demoStatus === 'all'
+                     || card.dataset.status === window.demoStatus;
+    const okEntity = !window.demoEntity || card.dataset.entity === window.demoEntity;
+    card.style.display = (okStatus && okEntity) ? '' : 'none';
+  });
+  return false;
+}
+window.demoStatus = 'pending';
+
+// A static page cannot refresh itself, so it has to be honest about its age.
+// Without this, a snapshot dropped on Netlify and forgotten looks identical to
+// a live dashboard, and the shows listed on it will have already happened.
+(function ageCheck() {
+  const el = document.querySelector('[data-built]');
+  if (!el) return;
+  const built = new Date(el.dataset.built);
+  const hours = (Date.now() - built) / 36e5;
+  if (hours < 36) return;
+  const days = Math.floor(hours / 24);
+  const bar = document.createElement('div');
+  bar.className = 'bar bad';
+  bar.innerHTML = '<span class="dot"></span>' +
+    'This page was built ' + (days < 1 ? Math.floor(hours) + ' hours' : days + ' days') +
+    ' ago and has not updated since. Nothing here is current. ' +
+    'Set up the daily job, or rebuild and re-upload it.';
+  const main = document.querySelector('main');
+  main.insertBefore(bar, main.firstChild);
+})();
+
+async function copyCaption(btn) {
+  const text = btn.dataset.caption || '';
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (e) {
+    // Clipboard API needs https or localhost; fall back to a selectable prompt.
+    window.prompt('Copy the caption:', text);
+    return;
+  }
+  const original = btn.textContent;
+  btn.textContent = 'Copied';
+  setTimeout(() => { btn.textContent = original; }, 1600);
+}
+</script>
+</body></html>

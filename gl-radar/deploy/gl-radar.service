@@ -1,0 +1,34 @@
+# Linux / VPS: run GL Radar as a service that survives reboots.
+#
+# Install:
+#   sudo cp deploy/gl-radar.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now gl-radar
+#
+# Check on it:  systemctl status gl-radar
+# Read the log: journalctl -u gl-radar -f
+
+[Unit]
+Description=GL Radar — portfolio monitoring for Gross Labs
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=glradar
+WorkingDirectory=/opt/gl-radar
+Environment="PYTHONUNBUFFERED=1"
+ExecStart=/opt/gl-radar/.venv/bin/python -m radar.cli serve
+Restart=always
+RestartSec=10
+
+# A server has no desktop to notify, so Slack carries the alerts instead.
+# Set SLACK_WEBHOOK_URL in .env and notify.desktop to false in settings.yaml.
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/gl-radar/data
+
+[Install]
+WantedBy=multi-user.target

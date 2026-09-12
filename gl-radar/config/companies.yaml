@@ -1,0 +1,259 @@
+# GL Radar — company registry
+#
+# This file is the brain. Everything else is plumbing.
+# Each entry tells the collectors WHERE to look and tells the classifier
+# WHAT this company is, so it can tell a real signal from a coincidence.
+#
+# Fields:
+#   name          display name used on tickets and the dashboard
+#   aliases       every string that should count as a mention
+#   exclude       disambiguation killers (see Goldfinger / girlfriends / Breakaway)
+#   context       2-5 sentences of ground truth handed to the classifier verbatim
+#   domains       sites we watch for new pages / press
+#   rss           direct feed URLs (fastest, cheapest, most reliable source)
+#   watch_pages   pages we diff for new links (news indexes, tour pages)
+#   instagram     IG handles. Business/creator accounts work via Graph API.
+#   linkedin      LinkedIn company slugs (requires a paid collector, see README)
+#   youtube       channel IDs
+#   ticketmaster  Discovery API attraction/keyword for live dates
+#   priority      1 = always notify, 2 = normal, 3 = low noise tolerance
+#   repost_bias   nudges the classifier on what GL actually wants to repost
+
+people:
+  - name: Nick Gross
+    aliases: ["Nick Gross", "Nicholas Gross", "@nickgross"]
+    exclude: ["Nick Grossman", "Union Square Ventures", "Bill Gross", "Bill H. Gross"]
+    context: >
+      Founder and Managing Partner of Gross Labs. Drummer for the band girlfriends
+      and for Goldfinger. CEO of Big Noise Music Group, founder of Find Your Grind,
+      co-founder of Brekky Golf Company. Investor in BEEUP, Breakaway Music Festival,
+      Los Angeles Golf Club and OKC for Soccer. Son of PIMCO co-founder Bill H. Gross.
+      Do not confuse him with Nick Grossman of Union Square Ventures, a different person.
+    domains: ["grosslabs.com"]
+    watch_pages: ["https://grosslabs.com/nick-gross"]
+    instagram: ["nickgross"]
+    linkedin: ["nick-gross-a5599832"]
+    twitter: ["nickgross"]
+    priority: 1
+
+companies:
+  - key: gross_labs
+    name: Gross Labs
+    aliases: ["Gross Labs", "GrossLabs", "@grosslabs"]
+    exclude: ["Nick Grossman"]
+    context: >
+      The parent company. A modern-day family office, incubation and investment firm
+      in Los Angeles investing across sports, music, entertainment, real estate,
+      hospitality and social impact. Founded 2018-2019 by Nick Gross. Portfolio has
+      included X Games, 100 Thieves, BuzzFeed, DraftKings, ReKTGlobal, TMRW Sports,
+      The 33rd Team, Brooklyn Pickleball Team and OKC United. Exits include BeatBox
+      Beverages, acquired by Anheuser-Busch in December 2025, and ReKTGlobal in 2022. This is the
+      account we post from, so anything Gross Labs announces is automatically relevant.
+    domains: ["grosslabs.com"]
+    watch_pages: ["https://grosslabs.com/news/"]
+    instagram: ["grosslabs"]
+    linkedin: ["gross-labs"]
+    priority: 1
+    repost_bias: "Portfolio news, new investments, founder features, team announcements."
+
+  - key: beeup
+    name: BEEUP
+    aliases: ["BEEUP", "BeeUp", "Bee Up", "beeupsnacks", "BEEUP Snacks"]
+    exclude: ["beekeeping", "bee up close"]
+    context: >
+      Better-for-you snack and energy brand co-founded by Shaun Neff and David Beckham,
+      founded 2025. Honey is the number-one ingredient; fruit snacks are non-GMO and
+      gluten-free, sold nationwide at Target. Official Fruit Snack Partner of AYSO and
+      the Inter Miami CF Academy, and a partner of the Bee Health Collective. Gross Labs
+      invested around September 2025 and has since backed its move into the energy category.
+    domains: ["beeupsnacks.com"]
+    watch_pages: ["https://beeupsnacks.com"]
+    instagram: ["beeup"]
+    linkedin: ["beeup"]
+    priority: 1
+    repost_bias: "Retail expansion, athlete and celebrity partnerships, new flavours or SKUs, Beckham or Neff appearances."
+
+  - key: breakaway
+    name: Breakaway Music Festival
+    aliases: ["Breakaway Music Festival", "Breakaway Festival", "Breakaway Presents", "Breakaway Group"]
+    exclude: ["breakaway cruise", "Disney Breakaway", "Norwegian Breakaway", "breakaway speed", "peloton breakaway"]
+    context: >
+      Fast-growing multi-city US music festival brand, heavily electronic and hip-hop.
+      Nick Gross and Shaun Neff joined the ownership group in October 2025. 2026 season
+      includes Philadelphia (Sept 11-12, Subaru Park Festival Grounds, Chester PA),
+      Carolina (Sept 25-26, zMAX Dragway), Utah (Oct 2-3, America First Field) and
+      Houston (Nov 13-14). Sponsors include CELSIUS and White Claw Surge. Lineup drops,
+      set times and aftermovies are the highest-value repost moments.
+    domains: ["breakawayfestival.com"]
+    watch_pages:
+      - "https://www.breakawayfestival.com/all-dates"
+      - "https://www.breakawayfestival.com/2026-season"
+    instagram: ["breakawayfestival"]
+    ticketmaster: "Breakaway Music Festival"
+    priority: 1
+    repost_bias: "Lineup announcements, show-day content, set times, headliner reveals, recap and aftermovie posts."
+
+  - key: girlfriends
+    name: girlfriends
+    aliases: ["girlfriends band", "@girlfriendsxo", "girlfriends Travis Mills"]
+    exclude: ["my girlfriend", "girlfriend collective", "Girlfriends TV series", "girlfriends guide"]
+    context: >
+      Pop-punk duo formed in 2020 by Travis Mills and Nick Gross, signed to Big Noise and
+      produced by John Feldmann. Albums include a self-titled debut, "(e)motion sickness"
+      and the "Over My Dead Body" EP. They have opened for Machine Gun Kelly, supported
+      Avril Lavigne's world tour and toured with Pierce The Veil and The Used.
+      The name is lowercase and extremely generic, so require a second signal
+      (Travis Mills, Nick Gross, Big Noise, a song title, or the @girlfriendsxo handle)
+      before treating a mention as real. Confirmed on the Vans Warped Tour Mexico City
+      bill, 12-13 September 2026, alongside Goldfinger and Big Noise artist Mod Sun.
+    # No official band site found. girlfriends release through Big Noise, so
+    # that site plus Ticketmaster and Instagram are the coverage. Flagged by
+    # `radar doctor` as thin until a better source exists.
+    domains: ["bignoise.com"]
+    instagram: ["girlfriendsxo"]
+    ticketmaster: "girlfriends"
+    priority: 2
+    repost_bias: "New singles, videos, tour dates, festival slots, chart or streaming milestones."
+
+  - key: goldfinger
+    name: Goldfinger
+    aliases: ["Goldfinger band", "Goldfinger John Feldmann"]
+    exclude: ["James Bond", "007", "Goldfinger 1964", "Shirley Bassey", "Goldfinger film",
+              "Auric Goldfinger", "Bond", "Sean Connery", "Ian Fleming", "spy film",
+              "Bond girl", "Honor Blackman"]
+    context: >
+      Veteran California ska-punk band fronted by John Feldmann. Nick Gross is the drummer
+      and has played with them since his teens. Heavy overlap with the Bond film of the same
+      name, so a mention only counts when tied to the band, Feldmann, a tour date, a venue
+      or a release. Confirmed 2026 dates: Vans Warped Tour Mexico City 12-13 September,
+      Mission Bayfest San Diego 18 October, then McKees Rocks, Baltimore and Skanksgiving
+      at Sayreville over 19-21 November with Mustard Plug and The Planet Smashers.
+    domains: ["goldfingermusic.com"]
+    watch_pages: ["https://www.goldfingermusic.com/"]
+    instagram: ["goldfinger"]
+    ticketmaster: "Goldfinger"
+    priority: 2
+    repost_bias: "Tour announcements, festival slots, new music, anniversary shows."
+
+  - key: big_noise
+    name: Big Noise Music Group
+    aliases: ["Big Noise", "Big Noise Music Group", "BNMG", "Noise Nest"]
+    exclude: ["big noise complaint", "loud noise"]
+    context: >
+      Los Angeles music company founded 2018 by Nick Gross with ex-Vagrant executive
+      Jon Cohen and producer John Feldmann. Combines a record label, a publishing division
+      and the Noise Nest recording studio complex. Roster and past signings include MOD SUN,
+      The Wrecks, The Used, The Veronicas, Ashley Tisdale, New Politics and Commission Record.
+      Artists like Post Malone and A$AP Rocky have used the studios. Roster act Mod Sun
+      plays Vans Warped Tour Mexico City on 12-13 September 2026, on the same bill as
+      Goldfinger and girlfriends.
+    domains: ["bignoise.com"]
+    watch_pages: ["https://bignoise.com"]
+    instagram: ["bignoise"]
+    linkedin: ["big-noise-music-group"]
+    priority: 1
+    repost_bias: "Artist signings, releases, chart news, studio sessions, sync placements."
+
+  - key: brekky_golf
+    name: Brekky Golf Company
+    aliases: ["Brekky Golf", "Brekky Golf Company", "Brekky"]
+    exclude: ["brekky recipe", "breakfast"]
+    context: >
+      Holding company founded by Nick Gross and Sean Maher in 2024 to invest in golf.
+      Through Brekky, Gross invested in TMRW Sports and the Los Angeles Golf Club.
+      The word "brekky" is Australian slang for breakfast, so food posts are noise.
+    instagram: ["brekkygolf"]
+    linkedin: ["brekky-golf"]
+    priority: 2
+    repost_bias: "New golf investments, TGL season news, LAGC activity, golf culture collabs."
+
+  - key: lagc
+    name: Los Angeles Golf Club
+    aliases: ["Los Angeles Golf Club", "LAGC", "LA Golf Club", "TGL"]
+    exclude: ["LA Golf shafts", "Los Angeles Country Club", "LACC"]
+    context: >
+      TGL team in the indoor tech-infused golf league co-founded by Tiger Woods and
+      Rory McIlroy under TMRW Sports. Nick Gross invested in October 2024 via Brekky Golf.
+      Careful: LACC (Los Angeles Country Club) and LA Golf (a shaft manufacturer) are
+      unrelated entities with confusingly similar names. Won the 2026 SoFi Cup in March,
+      beating Jupiter Links 9-2 in the Finals for the club's first TGL title; roster is
+      Tommy Fleetwood, Collin Morikawa, Justin Rose and Sahith Theegala. A women's league,
+      WTGL, also features on the club's site. TGL runs roughly late December to late March,
+      so expect quiet summers and a sharp ramp from November.
+    domains: ["lagc.com", "tglgolf.com"]
+    watch_pages:
+      - "https://lagc.com/news"
+      - "https://tglgolf.com/lagc/news"
+    instagram: ["lagolfclub"]
+    ticketmaster: "TGL"
+    priority: 2
+    repost_bias: "Match results, roster news, TGL season announcements, celebrity ownership moments."
+
+  - key: okc_soccer
+    name: OKC United
+    aliases: ["OKC United", "OKC for Soccer", "OKC Soccer", "Oklahoma City soccer club",
+              "MAPS 4 Multipurpose Stadium", "Oklahoma City Stadium", "OKC Energy FC"]
+    exclude: ["OKC Thunder", "Oklahoma State", "Sooners", "Oklahoma United FC",
+              "Manchester United", "Newcastle United", "New Mexico United"]
+    context: >
+      Oklahoma City's professional soccer club, revealed as OKC United on 15 July 2026
+      at Mayor David Holt's State of the City address, having previously been known by
+      the placeholder OKC for Soccer and before that OKC Energy FC. Begins play in the
+      USL Championship in 2028 at the MAPS 4 Multipurpose Stadium, a 10,000-seat Populous
+      design that broke ground on 1 June 2026 and anchors a 50-acre downtown district.
+      Majority owner is Christian Kanady of Echo Investment Capital; the group includes
+      Russell Westbrook. Nick Gross made an eight-figure strategic investment announced
+      in December 2025. Club colours are Midnight Blue, Pink Sunset and Ivory Cloud.
+      Careful: Oklahoma United FC is a different, unrelated amateur club in the same city,
+      and "United" collides with dozens of clubs worldwide.
+    domains: ["okc-united.com", "okcforsoccer.com"]
+    watch_pages: ["https://www.okcforsoccer.com/news/"]
+    instagram: ["okcunited", "okcforsoccer"]
+    priority: 1
+    repost_bias: "Stadium milestones, kit and crest reveals, ownership additions, district development, first signings and coaching hires."
+
+  - key: find_your_grind
+    name: Find Your Grind
+    aliases: ["Find Your Grind", "FYG", "FYG U", "@findyourgrind"]
+    exclude: ["daily grind", "coffee grind"]
+    context: >
+      Education platform and foundation founded by Nick Gross in 2018, offering free
+      online curriculum and alternative career pathways to students, plus the FYG U
+      Music + Tech Festival.
+    domains: ["findyourgrind.com"]
+    watch_pages: ["https://findyourgrind.com"]
+    instagram: ["findyourgrind"]
+    linkedin: ["find-your-grind"]
+    priority: 2
+    repost_bias: "School partnerships, curriculum launches, scholarship and grant news, student stories."
+
+  # --- Watchlist: lower-confidence or newer holdings. Same pipeline, lower priority. ---
+  - key: brooklyn_pickleball
+    name: Brooklyn Pickleball Team
+    aliases: ["Brooklyn Pickleball Team", "Brooklyn Pickleball", "Major League Pickleball Brooklyn"]
+    context: >
+      Major League Pickleball franchise. Listed as a Gross Labs investment with a
+      deal date around June 2026. Verify ownership details before posting.
+    instagram: ["brooklynpickleball"]
+    priority: 3
+
+  - key: thirty_third_team
+    name: The 33rd Team
+    aliases: ["The 33rd Team", "33rd Team"]
+    context: >
+      NFL media and analysis platform. Nick Gross participated in its Series B in
+      August 2025 alongside Gary Vaynerchuk, Liberty Media and others.
+    domains: ["the33rdteam.com"]
+    instagram: ["the33rdteam"]
+    priority: 3
+
+  - key: tmrw_sports
+    name: TMRW Sports
+    aliases: ["TMRW Sports", "TMRW"]
+    context: >
+      Sports and technology venture co-founded by Tiger Woods, Rory McIlroy and
+      Mike McCarley; the company behind TGL. Nick Gross invested in October 2024
+      via Brekky Golf.
+    domains: ["tmrwsports.com"]
+    instagram: ["tmrwsports"]
+    priority: 3

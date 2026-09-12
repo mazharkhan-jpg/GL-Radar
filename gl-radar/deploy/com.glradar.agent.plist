@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  macOS: keeps GL Radar running and restarts it after a reboot or crash.
+
+  Install:
+    1. Edit the two paths below to match where you put gl-radar.
+    2. cp deploy/com.glradar.agent.plist ~/Library/LaunchAgents/
+    3. launchctl load ~/Library/LaunchAgents/com.glradar.agent.plist
+    4. open http://127.0.0.1:8787
+
+  Check on it:   launchctl list | grep glradar
+  Read the log:  tail -f ~/Library/Logs/gl-radar.log
+  Stop it:       launchctl unload ~/Library/LaunchAgents/com.glradar.agent.plist
+
+  Note: this does NOT keep your Mac awake. While the machine is asleep nothing
+  polls. On wake, the supervisor notices the gap and runs a catch-up cycle.
+-->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.glradar.agent</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/YOU/gl-radar/.venv/bin/python</string>
+    <string>-m</string>
+    <string>radar.cli</string>
+    <string>serve</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/YOU/gl-radar</string>
+
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/YOU/Library/Logs/gl-radar.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/YOU/Library/Logs/gl-radar.log</string>
+</dict>
+</plist>
