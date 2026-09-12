@@ -120,9 +120,51 @@ STYLE = """
           border:2px solid var(--paper); border-top-color:transparent;
           animation:sp .7s linear infinite; vertical-align:-1px; margin-right:.4rem; }
   @keyframes sp { to { transform:rotate(360deg); } }
-  @media (max-width:720px) { .wrap { grid-template-columns:1fr; padding:1rem; }
-    nav { position:static; display:flex; flex-wrap:wrap; gap:.3rem; }
-    header { padding:1rem; } .controls { width:100%; margin-left:0; } }
+  @media (max-width:720px) {
+    body { font-size:16px; }
+    header { padding:1rem; gap:.5rem; }
+    h1 { font-size:1.25rem; }
+    .tally { font-size:.78rem; width:100%; order:3; }
+    .controls { width:100%; margin-left:0; order:2; justify-content:space-between; }
+    .wrap { grid-template-columns:1fr; gap:1rem; padding:1rem 1rem 3rem; }
+
+    /* The company rail becomes a swipeable strip. Fourteen stacked links
+       would push the actual signals two screens down. */
+    nav { position:static; display:flex; gap:.4rem; overflow-x:auto;
+          padding-bottom:.5rem; margin:0 -1rem; padding-left:1rem;
+          padding-right:1rem; -webkit-overflow-scrolling:touch;
+          scrollbar-width:none; }
+    nav::-webkit-scrollbar { display:none; }
+    nav a { flex:0 0 auto; gap:.4rem; padding:.5rem .7rem; border-radius:999px;
+            background:#E6EAE9; white-space:nowrap; min-height:38px;
+            align-items:center; }
+    nav a[aria-current] { background:var(--ink); }
+
+    .tabs { gap:1rem; overflow-x:auto; scrollbar-width:none; }
+    .tabs::-webkit-scrollbar { display:none; }
+    .tabs a { white-space:nowrap; padding:.6rem 0 .7rem; }
+
+    /* Let the header row wrap instead of crushing the title. */
+    .top { flex-wrap:wrap; gap:.5rem .6rem; }
+    .meta { margin-left:0; white-space:normal; width:100%; order:3;
+            font-size:.75rem; }
+    .meter { order:2; }
+    .track { width:72px; }
+    article { padding:.9rem 1rem; }
+    h2 { font-size:1.02rem; line-height:1.35; }
+    .sum { font-size:.92rem; }
+
+    /* Thumb-sized targets, side by side. */
+    .acts { gap:.5rem; }
+    .acts button, .acts .ghost-link, .acts .btn-link {
+      flex:1 1 auto; min-height:44px; text-align:center; padding:.6rem .8rem; }
+    .cap { max-width:none; }
+    .bar { font-size:.78rem; align-items:flex-start; }
+    .bar span.dot { margin-top:.4rem; }
+  }
+  @media (max-width:380px) {
+    .acts button, .acts .ghost-link { flex:1 1 100%; }
+  }
   @media (prefers-reduced-motion:reduce) { .spin { animation:none; } }
 """
 
