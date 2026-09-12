@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
+    defaults:
+      run:
+        working-directory: gl-radar
+
     env:
       ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       CLICKUP_TOKEN: ${{ secrets.CLICKUP_TOKEN }}
