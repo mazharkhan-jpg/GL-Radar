@@ -97,7 +97,7 @@ export:
   # After you push to GitHub, put "yourname/gl-radar" here. The Refresh button
   # on the published page then links straight to the workflow's Run button,
   # which is the only refresh a static page can honestly offer.
-  github_repo: ""
+  github_repo: "mazharkhan-jpg/GL-Radar"
 
 server:
   host: "127.0.0.1"
