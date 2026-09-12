@@ -1,0 +1,68 @@
+name: GL Radar daily
+
+on:
+  schedule:
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: gl-radar
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      CLICKUP_TOKEN: ${{ secrets.CLICKUP_TOKEN }}
+      CLICKUP_LIST_ID: ${{ secrets.CLICKUP_LIST_ID }}
+      TICKETMASTER_API_KEY: ${{ secrets.TICKETMASTER_API_KEY }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      IG_TOKEN_ISSUED: ${{ secrets.IG_TOKEN_ISSUED }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install
+        run: pip install -q -r requirements.txt
+
+      - name: Report what can and cannot be watched
+        continue-on-error: true
+        run: python -m radar.cli doctor
+
+      - name: Collect, score and ticket
+        run: python -m radar.cli poll --group all
+
+      - name: Audit the recency contract
+        continue-on-error: true
+        run: python -m radar.cli supervise
+
+      - name: Build the static dashboard
+        run: python -m radar.cli export --out public
+
+      - name: Publish to Netlify
+        if: env.NETLIFY_AUTH_TOKEN != ''
+        run: npx --yes netlify-cli@17 deploy --dir=public --prod
+
+      - name: Save the database
+        run: |
+          git config user.name  "gl-radar"
+          git config user.email "gl-radar@users.noreply.github.com"
+          git add -f data/radar.db
+          git diff --quiet --cached || git commit -m "radar: $(date -u +%Y-%m-%d)"
+          git push
