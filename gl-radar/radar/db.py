@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS signals (
     caption        TEXT,
     reasoning      TEXT,
     model          TEXT,
+    config_hash    TEXT,          -- which registry+rules produced this verdict
     created_at     TEXT NOT NULL
 );
 
@@ -159,6 +160,15 @@ def init(conn: sqlite3.Connection | None = None) -> None:
     own = conn is None
     conn = conn or connect()
     conn.executescript(SCHEMA)
+    # Migrations for databases created before a column existed. SQLite has no
+    # "ADD COLUMN IF NOT EXISTS", so ask first.
+    for table, column, ddl in [
+        ("signals", "config_hash", "ALTER TABLE signals ADD COLUMN config_hash TEXT"),
+        ("events", "end_date", "ALTER TABLE events ADD COLUMN end_date TEXT"),
+    ]:
+        existing = {r["name"] for r in conn.execute(f"PRAGMA table_info({table})")}
+        if column not in existing:
+            conn.execute(ddl)
     conn.commit()
     if own:
         conn.close()
@@ -209,12 +219,13 @@ def insert_item(conn: sqlite3.Connection, item: Item) -> int | None:
         return None
 
 
-def save_signal(conn: sqlite3.Connection, item_id: int, verdict: dict, model: str) -> None:
+def save_signal(conn: sqlite3.Connection, item_id: int, verdict: dict, model: str,
+                config_hash: str = "") -> None:
     conn.execute(
         """INSERT OR REPLACE INTO signals
            (item_id, relevant, category, importance, repostable, summary,
-            repost_angle, caption, reasoning, model, created_at)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+            repost_angle, caption, reasoning, model, config_hash, created_at)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
         (
             item_id,
             int(bool(verdict.get("relevant"))),
@@ -226,6 +237,7 @@ def save_signal(conn: sqlite3.Connection, item_id: int, verdict: dict, model: st
             verdict.get("caption", ""),
             verdict.get("reasoning", ""),
             model,
+            config_hash,
             _now(),
         ),
     )
@@ -427,6 +439,22 @@ def unclassified(conn: sqlite3.Connection, limit: int = 60, since: str = "") -> 
     sql += " ORDER BY i.first_seen DESC LIMIT ?"
     params.append(limit)
     return [dict(r) for r in conn.execute(sql, params).fetchall()]
+
+
+def stale_signals(conn: sqlite3.Connection, config_hash: str, limit: int = 400) -> list[dict]:
+    """Items whose verdict was produced by an older version of the rules.
+
+    These get re-scored on the next cycle. That is what turns "I tightened the
+    config" into "the queue is clean" without anyone deleting rows by hand.
+    """
+    rows = conn.execute(
+        """SELECT i.* FROM items i
+           JOIN signals s ON s.item_id = i.id
+           WHERE COALESCE(s.config_hash, '') != ?
+           ORDER BY i.first_seen DESC LIMIT ?""",
+        (config_hash, limit),
+    ).fetchall()
+    return [dict(r) for r in rows]
 
 
 def counts(conn: sqlite3.Connection) -> dict[str, int]:
