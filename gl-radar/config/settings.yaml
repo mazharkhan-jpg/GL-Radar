@@ -23,13 +23,15 @@ freshness:
   # notification and ticket creation, and independently audited by the
   # supervisor after every cycle.
   #
-  # Nothing published more than this many days ago is ever shown.
-  lookback_days: 6
-  # Alert on scheduled events this many days out. Hard ceiling is 5;
-  # anything higher is clamped and logged.
-  lookahead_days: 2
+  # The review queue shows this many days back...
+  lookback_days: 7
+  # ...and this many days forward for scheduled events.
+  lookahead_days: 7
+  # Once something falls out of the window above it moves to the Archive tab
+  # and stays browsable for this long. Nothing is deleted before then.
+  archive_days: 90
   # Which day marks fire a countdown. Values above lookahead_days are dropped.
-  reminder_marks: [2, 1]
+  reminder_marks: [7, 2, 1]
   # Pending items that age out of the window are marked expired rather than
   # left sitting in the queue looking actionable.
   auto_expire: true
@@ -62,8 +64,14 @@ collectors:
   google_news: true
   rss: true
   website_diff: true
-  instagram: true      # requires IG Graph API creds, see .env.example
-  linkedin: false      # requires Apify token; off by default, see README
+  # Off: reading posts needs a Meta app and a token on an Instagram Business
+  # account. Handles are still used for the profile links on each card, which
+  # need no credentials. Set IG_USER_ID and IG_ACCESS_TOKEN and flip this to
+  # true if that access ever becomes available.
+  instagram: false
+  # Off permanently unless you decide to pay. LinkedIn has no public read API
+  # for company posts; the only route is a paid Apify actor at roughly $40/mo.
+  linkedin: false
   events: true         # requires Ticketmaster API key
   youtube: false
 
