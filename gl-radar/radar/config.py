@@ -1,6 +1,7 @@
 """Load and normalise configuration."""
 from __future__ import annotations
 
+import hashlib
 import os
 import re
 from dataclasses import dataclass, field
@@ -43,7 +44,11 @@ class Entity:
     # `generic` is true. "Breakaway" and "Big Noise" are ordinary English
     # phrases; the alias alone proves nothing.
     requires: list[str] = field(default_factory=list)
-    generic: bool = False
+    # Defaults to True deliberately. A company added to the registry without
+    # anyone thinking about name collisions gets the strict treatment, rather
+    # than quietly matching every article that happens to share a word with it.
+    # Setting this to False is a claim that the name is unmistakable.
+    generic: bool = True
     context: str = ""
     domains: list[str] = field(default_factory=list)
     rss: list[str] = field(default_factory=list)
@@ -85,6 +90,21 @@ def load_entities() -> list[Entity]:
     for company in raw.get("companies", []) or []:
         entities.append(Entity(kind="company", **company))
     return entities
+
+
+def registry_fingerprint() -> str:
+    """Identifies the rules that produced a verdict.
+
+    Verdicts are cached forever, which is right for cost but wrong the moment
+    the rules change: tightening an exclusion list did nothing to items already
+    scored, so false positives sat in the queue looking permanent. Hashing the
+    registry plus the classifier version means a config edit automatically
+    invalidates every verdict it could have affected, with no manual purge.
+    """
+    from .enrich.rules import RULES_VERSION
+
+    raw = (CONFIG_DIR / "companies.yaml").read_bytes()
+    return hashlib.sha256(raw + RULES_VERSION.encode()).hexdigest()[:16]
 
 
 def load_settings() -> dict:
