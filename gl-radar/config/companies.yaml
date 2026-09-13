@@ -75,8 +75,15 @@ companies:
 
   - key: breakaway
     name: Breakaway Music Festival
-    aliases: ["Breakaway Music Festival", "Breakaway Festival", "Breakaway Presents", "Breakaway Group"]
-    exclude: ["breakaway cruise", "Disney Breakaway", "Norwegian Breakaway", "breakaway speed", "peloton breakaway"]
+    aliases: ["Breakaway Music Festival", "Breakaway Festival", "Breakaway Presents"]
+    generic: true
+    requires: ["festival", "lineup", "line-up", "EDM", "Tiesto", "Tiësto", "Marshmello",
+               "Shaun Neff", "Nick Gross", "Subaru Park", "zMAX", "tickets", "DJ",
+               "music festival", "headliner", "set times", "aftermovie"]
+    exclude: ["breakaway cruise", "Disney Breakaway", "Norwegian Breakaway", "breakaway speed",
+              "peloton breakaway", "breakaway group", "breakaway faction", "breakaway region",
+              "breakaway republic", "breakaway state", "breakaway province", "Jamaat",
+              "cycling", "peloton", "hockey", "penalty"]
     context: >
       Fast-growing multi-city US music festival brand, heavily electronic and hip-hop.
       Nick Gross and Shaun Neff joined the ownership group in October 2025. 2026 season
@@ -96,6 +103,10 @@ companies:
   - key: girlfriends
     name: girlfriends
     aliases: ["girlfriends band", "@girlfriendsxo", "girlfriends Travis Mills"]
+    generic: true
+    requires: ["Travis Mills", "Nick Gross", "Big Noise", "John Feldmann", "pop-punk",
+               "Warped Tour", "emotion sickness", "Over My Dead Body", "tour", "single",
+               "Machine Gun Kelly", "Avril Lavigne", "Pierce The Veil"]
     exclude: ["my girlfriend", "girlfriend collective", "Girlfriends TV series", "girlfriends guide"]
     context: >
       Pop-punk duo formed in 2020 by Travis Mills and Nick Gross, signed to Big Noise and
@@ -117,7 +128,10 @@ companies:
 
   - key: goldfinger
     name: Goldfinger
-    aliases: ["Goldfinger band", "Goldfinger John Feldmann"]
+    aliases: ["Goldfinger band", "Goldfinger John Feldmann", "Goldfinger ska"]
+    generic: true
+    requires: ["John Feldmann", "Nick Gross", "ska", "punk", "band", "tour", "Warped Tour",
+               "Mustard Plug", "Planet Smashers", "Skanksgiving", "album", "setlist", "venue"]
     exclude: ["James Bond", "007", "Goldfinger 1964", "Shirley Bassey", "Goldfinger film",
               "Auric Goldfinger", "Bond", "Sean Connery", "Ian Fleming", "spy film",
               "Bond girl", "Honor Blackman"]
@@ -137,8 +151,13 @@ companies:
 
   - key: big_noise
     name: Big Noise Music Group
-    aliases: ["Big Noise", "Big Noise Music Group", "BNMG", "Noise Nest"]
-    exclude: ["big noise complaint", "loud noise"]
+    aliases: ["Big Noise", "Big Noise Music Group", "Big Noise Records", "BNMG", "Noise Nest"]
+    generic: true
+    requires: ["Nick Gross", "John Feldmann", "Jon Cohen", "record label", "music group",
+               "signs", "signing", "roster", "publishing", "MOD SUN", "The Wrecks",
+               "The Used", "artist", "album", "single", "studio", "Noise Nest"]
+    exclude: ["big noise complaint", "loud noise", "The Big Noise 1944", "Laurel and Hardy",
+              "Ibrox", "Celtic", "Rangers", "making a big noise", "IMDb", "box office"]
     context: >
       Los Angeles music company founded 2018 by Nick Gross with ex-Vagrant executive
       Jon Cohen and producer John Feldmann. Combines a record label, a publishing division
@@ -156,8 +175,11 @@ companies:
 
   - key: brekky_golf
     name: Brekky Golf Company
-    aliases: ["Brekky Golf", "Brekky Golf Company", "Brekky"]
-    exclude: ["brekky recipe", "breakfast"]
+    aliases: ["Brekky Golf", "Brekky Golf Company"]
+    generic: true
+    requires: ["Nick Gross", "Sean Maher", "golf", "TMRW", "TGL", "Los Angeles Golf Club",
+               "investment", "holding company"]
+    exclude: ["brekky recipe", "breakfast", "brunch", "cafe", "brekkie"]
     context: >
       Holding company founded by Nick Gross and Sean Maher in 2024 to invest in golf.
       Through Brekky, Gross invested in TMRW Sports and the Los Angeles Golf Club.
@@ -169,7 +191,11 @@ companies:
 
   - key: lagc
     name: Los Angeles Golf Club
-    aliases: ["Los Angeles Golf Club", "LAGC", "LA Golf Club", "TGL"]
+    aliases: ["Los Angeles Golf Club", "LAGC", "LA Golf Club"]
+    generic: true
+    requires: ["Los Angeles Golf Club", "LAGC", "Tommy Fleetwood", "Collin Morikawa",
+               "Justin Rose", "Sahith Theegala", "SoFi Cup", "Nick Gross", "Brekky",
+               "TGL team", "TGL match"]
     exclude: ["LA Golf shafts", "Los Angeles Country Club", "LACC"]
     context: >
       TGL team in the indoor tech-infused golf league co-founded by Tiger Woods and
@@ -249,7 +275,10 @@ companies:
 
   - key: tmrw_sports
     name: TMRW Sports
-    aliases: ["TMRW Sports", "TMRW"]
+    aliases: ["TMRW Sports", "TMRW Golf", "TMRW", "TGL parent company"]
+    generic: true
+    requires: ["Tiger Woods", "Rory McIlroy", "Mike McCarley", "TGL", "golf league",
+               "Nick Gross", "Brekky", "funding", "valuation"]
     context: >
       Sports and technology venture co-founded by Tiger Woods, Rory McIlroy and
       Mike McCarley; the company behind TGL. Nick Gross invested in October 2024
