@@ -23,6 +23,7 @@ people:
   - name: Nick Gross
     aliases: ["Nick Gross", "Nicholas Gross", "@nickgross"]
     exclude: ["Nick Grossman", "Union Square Ventures", "Bill Gross", "Bill H. Gross"]
+    generic: false            # "Nick Gross" is a full personal name
     context: >
       Founder and Managing Partner of Gross Labs. Drummer for the band girlfriends
       and for Goldfinger. CEO of Big Noise Music Group, founder of Find Your Grind,
@@ -40,6 +41,7 @@ companies:
     name: Gross Labs
     aliases: ["Gross Labs", "GrossLabs", "@grosslabs"]
     exclude: ["Nick Grossman"]
+    generic: false            # "Gross Labs" collides with nothing
     context: >
       The parent company. A modern-day family office, incubation and investment firm
       in Los Angeles investing across sports, music, entertainment, real estate,
@@ -58,6 +60,7 @@ companies:
     name: BEEUP
     aliases: ["BEEUP", "BeeUp", "Bee Up", "beeupsnacks", "BEEUP Snacks"]
     exclude: ["beekeeping", "bee up close"]
+    generic: false            # coined word, no collisions
     context: >
       Better-for-you snack and energy brand co-founded by Shaun Neff and David Beckham,
       founded 2025. Honey is the number-one ingredient; fruit snacks are non-GMO and
@@ -66,7 +69,7 @@ companies:
       invested around September 2025 and has since backed its move into the energy category.
     domains: ["beeupsnacks.com"]
     watch_pages: ["https://beeupsnacks.com"]
-    instagram: ["beeup"]
+    instagram: ["beeupsnacks"]
     priority: 1
     repost_bias: "Retail expansion, athlete and celebrity partnerships, new flavours or SKUs, Beckham or Neff appearances."
 
@@ -92,7 +95,7 @@ companies:
     watch_pages:
       - "https://www.breakawayfestival.com/all-dates"
       - "https://www.breakawayfestival.com/2026-season"
-    instagram: ["breakawayfestival"]
+    instagram: ["breakaway"]
     ticketmaster: "Breakaway Music Festival"
     priority: 1
     repost_bias: "Lineup announcements, show-day content, set times, headliner reveals, recap and aftermovie posts."
@@ -118,7 +121,7 @@ companies:
     # that site plus Ticketmaster and Instagram are the coverage. Flagged by
     # `radar doctor` as thin until a better source exists.
     domains: ["bignoise.com"]
-    instagram: ["girlfriendsxo"]
+    instagram: ["girlfriends"]
     ticketmaster: "girlfriends"
     priority: 2
     repost_bias: "New singles, videos, tour dates, festival slots, chart or streaming milestones."
@@ -141,7 +144,7 @@ companies:
       at Sayreville over 19-21 November with Mustard Plug and The Planet Smashers.
     domains: ["goldfingermusic.com"]
     watch_pages: ["https://www.goldfingermusic.com/"]
-    instagram: ["goldfinger"]
+    instagram: ["goldfingermusic"]
     ticketmaster: "Goldfinger"
     priority: 2
     repost_bias: "Tour announcements, festival slots, new music, anniversary shows."
@@ -174,8 +177,14 @@ companies:
     aliases: ["Brekky Golf", "Brekky Golf Company"]
     generic: true
     requires: ["Nick Gross", "Sean Maher", "golf", "TMRW", "TGL", "Los Angeles Golf Club",
-               "investment", "holding company"]
+               "Stableford", "Liteyear", "Evenplay", "Puttshack", "investment",
+               "holding company", "portfolio"]
     exclude: ["brekky recipe", "breakfast", "brunch", "cafe", "brekkie"]
+    domains: ["brekkygolf.com"]
+    rss: ["https://brekkygolf-newsletter.beehiiv.com/feed"]
+    watch_pages:
+      - "https://www.brekkygolf.com/portfolio"
+      - "https://www.brekkygolf.com/grant-program"
     context: >
       Holding company founded by Nick Gross and Sean Maher in 2024 to invest in golf.
       Through Brekky, Gross invested in TMRW Sports and the Los Angeles Golf Club.
@@ -205,7 +214,7 @@ companies:
     watch_pages:
       - "https://lagc.com/news"
       - "https://tglgolf.com/lagc/news"
-    instagram: ["lagolfclub"]
+    instagram: ["wearelagc"]
     ticketmaster: "TGL"
     priority: 2
     repost_bias: "Match results, roster news, TGL season announcements, celebrity ownership moments."
@@ -218,6 +227,7 @@ companies:
               "Manchester United", "Newcastle United", "New Mexico United",
               "oklahomaunitedfc", "Abdullah Ashraf", "Chad Richison Stadium",
               "NPSL", "Jimmy Nielsen", "Edmond"]
+    generic: false            # "OKC United" is specific; excludes cover the rest
     context: >
       Oklahoma City's professional soccer club, revealed as OKC United on 15 July 2026
       at Mayor David Holt's State of the City address, having previously been known by
@@ -233,9 +243,9 @@ companies:
       @energyfc; @okcunited and @okcforsoccer do not exist.
     domains: ["okc-united.com", "okcforsoccer.com"]
     watch_pages: ["https://www.okcforsoccer.com/news/"]
-    # The club's account is still @energyfc from the Energy FC era; neither
-    # @okcunited nor @okcforsoccer exists. Verified 13 Sep 2026.
-    instagram: ["energyfc"]
+    # Two live accounts: the new club identity and the legacy Energy FC one.
+    # Verified by the GL team, 13 Sep 2026.
+    instagram: ["officialokcunited", "energyfc"]
     priority: 1
     repost_bias: "Stadium milestones, kit and crest reveals, ownership additions, district development, first signings and coaching hires."
 
@@ -243,6 +253,7 @@ companies:
     name: Find Your Grind
     aliases: ["Find Your Grind", "FYG", "FYG U", "@findyourgrind"]
     exclude: ["daily grind", "coffee grind"]
+    generic: false            # distinctive three-word phrase
     context: >
       Education platform and foundation founded by Nick Gross in 2018, offering free
       online curriculum and alternative career pathways to students, plus the FYG U
@@ -266,6 +277,7 @@ companies:
   - key: thirty_third_team
     name: The 33rd Team
     aliases: ["The 33rd Team", "33rd Team"]
+    generic: false            # distinctive name
     context: >
       NFL media and analysis platform. Nick Gross participated in its Series B in
       August 2025 alongside Gary Vaynerchuk, Liberty Media and others.
@@ -286,3 +298,90 @@ companies:
     domains: ["tmrwsports.com"]
     instagram: ["tmrwsports"]
     priority: 3
+
+  # --- Brekky Golf portfolio, added 13 Sep 2026 ---
+
+  - key: stableford
+    name: Stableford
+    aliases: ["Stableford Club", "Stableford golf club", "@stablefordclub"]
+    generic: true
+    requires: ["Drake Walker", "Sanjay Mattela", "Brekky", "Nick Gross", "members club",
+               "private club", "Los Angeles", "Sawtelle", "Brentwood", "Santa Monica",
+               "clubhouse", "Trackman", "PuttView", "Barrington", "founding member"]
+    exclude: ["Stableford scoring", "Stableford points", "Stableford format",
+              "Stableford system", "modified Stableford", "net Stableford",
+              "Brian Stableford", "Howard Stableford", "Staffordshire",
+              "Frank Stableford", "Wallasey", "handicap"]
+    context: >
+      Private golf and lifestyle members' club opening in late 2026, with a 13,000 sq ft
+      flagship clubhouse at 2055 South Barrington Avenue in the Sawtelle neighbourhood of
+      West Los Angeles, along the Brentwood-Santa Monica corridor. Co-founded by Drake
+      Walker and Sanjay Mattela; interiors by Mazzarini & Co. Eight private TrackMan
+      simulator lounges, a 1,200 sq ft PuttView putting experience, contrast therapy and
+      wellness suites, members' cafe and cocktail lounge. Membership capped at a few
+      hundred, by invitation. Brekky Golf joined pre-launch as a founding partner shaping
+      brand identity, messaging and positioning. The first new private golf club on the
+      LA Westside in over 50 years.
+      Critical: "Stableford" is also golf's standard points-based scoring system, named
+      after Dr Frank Stableford. The overwhelming majority of the phrase's use in golf
+      media is about scoring, not this club, so a mention only counts with a second
+      specific signal.
+    domains: ["stableford.com"]
+    watch_pages: ["https://www.stableford.com/"]
+    instagram: ["stablefordclub"]
+    priority: 2
+    repost_bias: "Opening milestones, founding memberships, design reveals, member events."
+
+  - key: slawth_haus
+    name: Slawth Haus
+    aliases: ["Slawth Haus", "SlawthHaus", "@slawthhaus"]
+    exclude: ["sloth", "sloth sanctuary"]
+    generic: false            # deliberate misspelling, matches nothing else
+    context: >
+      Outdoor social wellness club in West Palm Beach, Florida, at 7255 Wilson Road.
+      Traditional sauna, cold plunge, movement and community programming, run
+      deliberately phone-free. Operated by SLAWTH HAUS LLC with links to Pura Vida
+      Wellness. Available for private events. The distinctive spelling means mentions
+      are reliable, though "sloth" spellings will not match.
+      Note: flagged by the GL team as connected to the Gross Labs umbrella. That link
+      is not stated on either company's public site, so confirm before posting.
+    domains: ["slawthhaus.com"]
+    watch_pages: ["https://slawthhaus.com/"]
+    instagram: ["slawthhaus"]
+    priority: 3
+    repost_bias: "New locations, event programming, partnerships, membership launches."
+
+  - key: evenplay
+    name: Evenplay
+    aliases: ["Evenplay", "Skill Strike", "Skill Money Games"]
+    exclude: ["even play time", "fair play"]
+    context: >
+      Brekky Golf portfolio company behind Skill Strike, a skill-based money game running
+      on Full Swing golf simulators. Sits in the off-course golf entertainment category.
+    instagram: ["evenplay"]
+    priority: 3
+    repost_bias: "Product launches, venue partnerships, tournament formats."
+
+  - key: liteyear
+    name: Liteyear
+    aliases: ["Liteyear", "Liteyear Golf"]
+    exclude: ["light year", "lightyear", "Buzz Lightyear"]
+    generic: false            # coined spelling; "lightyear" is excluded
+    context: >
+      Brekky Golf portfolio company making ultra-lightweight golf clubs for children.
+      Spelled without a G, so "lightyear" matches are a different thing entirely.
+    instagram: ["liteyeargolf"]
+    priority: 3
+    repost_bias: "Product launches, retail partnerships, junior golf programmes."
+
+  - key: puttshack
+    name: Puttshack
+    aliases: ["Puttshack"]
+    generic: false            # coined word
+    context: >
+      Tech-enabled mini golf venue operator, listed among Brekky Golf's portfolio and
+      client partnerships. Distinctive name, so no disambiguation needed.
+    domains: ["puttshack.com"]
+    instagram: ["puttshack"]
+    priority: 3
+    repost_bias: "New venue openings, brand collaborations, format launches."
