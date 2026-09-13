@@ -59,6 +59,7 @@ Type: {kind}
 What this is: {context}
 What we like to repost: {bias}
 Names that are NOT this entity: {exclude}
+Must also mention at least one of these to count: {requires}
 </entity>
 
 <item>
@@ -97,6 +98,9 @@ class Classifier:
             context=entity.context.strip(),
             bias=entity.repost_bias or "Anything that makes the portfolio look active.",
             exclude=", ".join(entity.exclude) or "none",
+            requires=(", ".join(entity.requires)
+                      if getattr(entity, "generic", False) and entity.requires
+                      else "no extra requirement, the name is distinctive enough"),
             source=item.get("source", ""),
             author=item.get("author", ""),
             published=item.get("published_at", ""),
