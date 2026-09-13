@@ -32,7 +32,6 @@ people:
     domains: ["grosslabs.com"]
     watch_pages: ["https://grosslabs.com/nick-gross"]
     instagram: ["nickgross"]
-    linkedin: ["nick-gross-a5599832"]
     twitter: ["nickgross"]
     priority: 1
 
@@ -52,7 +51,6 @@ companies:
     domains: ["grosslabs.com"]
     watch_pages: ["https://grosslabs.com/news/"]
     instagram: ["grosslabs"]
-    linkedin: ["gross-labs"]
     priority: 1
     repost_bias: "Portfolio news, new investments, founder features, team announcements."
 
@@ -69,7 +67,6 @@ companies:
     domains: ["beeupsnacks.com"]
     watch_pages: ["https://beeupsnacks.com"]
     instagram: ["beeup"]
-    linkedin: ["beeup"]
     priority: 1
     repost_bias: "Retail expansion, athlete and celebrity partnerships, new flavours or SKUs, Beckham or Neff appearances."
 
@@ -169,7 +166,6 @@ companies:
     domains: ["bignoise.com"]
     watch_pages: ["https://bignoise.com"]
     instagram: ["bignoise"]
-    linkedin: ["big-noise-music-group"]
     priority: 1
     repost_bias: "Artist signings, releases, chart news, studio sessions, sync placements."
 
@@ -185,7 +181,6 @@ companies:
       Through Brekky, Gross invested in TMRW Sports and the Los Angeles Golf Club.
       The word "brekky" is Australian slang for breakfast, so food posts are noise.
     instagram: ["brekkygolf"]
-    linkedin: ["brekky-golf"]
     priority: 2
     repost_bias: "New golf investments, TGL season news, LAGC activity, golf culture collabs."
 
@@ -220,7 +215,9 @@ companies:
     aliases: ["OKC United", "OKC for Soccer", "OKC Soccer", "Oklahoma City soccer club",
               "MAPS 4 Multipurpose Stadium", "Oklahoma City Stadium", "OKC Energy FC"]
     exclude: ["OKC Thunder", "Oklahoma State", "Sooners", "Oklahoma United FC",
-              "Manchester United", "Newcastle United", "New Mexico United"]
+              "Manchester United", "Newcastle United", "New Mexico United",
+              "oklahomaunitedfc", "Abdullah Ashraf", "Chad Richison Stadium",
+              "NPSL", "Jimmy Nielsen", "Edmond"]
     context: >
       Oklahoma City's professional soccer club, revealed as OKC United on 15 July 2026
       at Mayor David Holt's State of the City address, having previously been known by
@@ -230,11 +227,15 @@ companies:
       Majority owner is Christian Kanady of Echo Investment Capital; the group includes
       Russell Westbrook. Nick Gross made an eight-figure strategic investment announced
       in December 2025. Club colours are Midnight Blue, Pink Sunset and Ivory Cloud.
-      Careful: Oklahoma United FC is a different, unrelated amateur club in the same city,
-      and "United" collides with dozens of clubs worldwide.
+      Careful: Oklahoma United FC is a different, unrelated amateur club in the same city
+      — owned by Abdullah Ashraf, playing at Chad Richison Stadium in Edmond — and
+      "United" collides with dozens of clubs worldwide. The club's Instagram is still
+      @energyfc; @okcunited and @okcforsoccer do not exist.
     domains: ["okc-united.com", "okcforsoccer.com"]
     watch_pages: ["https://www.okcforsoccer.com/news/"]
-    instagram: ["okcunited", "okcforsoccer"]
+    # The club's account is still @energyfc from the Energy FC era; neither
+    # @okcunited nor @okcforsoccer exists. Verified 13 Sep 2026.
+    instagram: ["energyfc"]
     priority: 1
     repost_bias: "Stadium milestones, kit and crest reveals, ownership additions, district development, first signings and coaching hires."
 
@@ -249,7 +250,6 @@ companies:
     domains: ["findyourgrind.com"]
     watch_pages: ["https://findyourgrind.com"]
     instagram: ["findyourgrind"]
-    linkedin: ["find-your-grind"]
     priority: 2
     repost_bias: "School partnerships, curriculum launches, scholarship and grant news, student stories."
 
