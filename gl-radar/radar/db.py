@@ -270,8 +270,16 @@ def log_run(conn: sqlite3.Connection, collector: str, ok: bool,
 
 
 def feed(conn: sqlite3.Connection, status: str = "pending", limit: int = 100,
-         entity: str = "", min_importance: int = 0, since: str = "") -> list[dict]:
+         entity: str = "", min_importance: int = 0, since: str = "",
+         view: str = "review", archive_since: str = "") -> list[dict]:
     """The dashboard's main query: items joined to their verdict and decision.
+
+    Two views, and the difference is only ever a date range:
+
+      review    inside the window — the last week of news plus the coming
+                week of shows. This is the working queue.
+      archive   everything that has fallen out of the window, back to the
+                archive floor. Nothing is deleted; it just stops being urgent.
 
     `since` is not optional in practice. Callers get it from the Window so the
     recency contract is applied in SQL rather than hoped for downstream.
@@ -286,10 +294,23 @@ def feed(conn: sqlite3.Connection, status: str = "pending", limit: int = 100,
         WHERE s.relevant = 1 AND s.importance >= ?
     """
     params: list[Any] = [min_importance]
+
+    if view == "archive":
+        # Out of the window but not yet forgotten. Status is ignored here:
+        # once something is history, whether it was ticketed or passed over
+        # matters less than being able to find it again.
+        if since:
+            sql += " AND i.published_at < ?"
+            params.append(since)
+        if archive_since:
+            sql += " AND i.published_at >= ?"
+            params.append(archive_since)
+        sql += " ORDER BY i.published_at DESC LIMIT ?"
+        params.append(limit)
+        return [dict(r) for r in conn.execute(sql, params).fetchall()]
+
     if since:
-        # Event items carry a future-facing payload, so they are exempt from
-        # the backward window; their own forward window governs them.
-        sql += " AND (i.published_at >= ? OR i.source = 'events')"
+        sql += " AND i.published_at >= ?"
         params.append(since)
     if status != "all":
         sql += " AND COALESCE(r.status, 'pending') = ?"
@@ -313,7 +334,6 @@ def expire_stale(conn: sqlite3.Connection, cutoff: str) -> int:
            JOIN signals s ON s.item_id = i.id
            LEFT JOIN reviews r ON r.item_id = i.id
            WHERE COALESCE(r.status, 'pending') = 'pending'
-             AND i.source != 'events'
              AND i.published_at < ?""",
         (cutoff,),
     ).fetchall()
@@ -330,7 +350,6 @@ def stale_in_queue(conn: sqlite3.Connection, cutoff: str) -> list[dict]:
            JOIN signals s ON s.item_id = i.id
            LEFT JOIN reviews r ON r.item_id = i.id
            WHERE COALESCE(r.status, 'pending') = 'pending'
-             AND i.source != 'events'
              AND i.published_at < ?""",
         (cutoff,),
     ).fetchall()]
