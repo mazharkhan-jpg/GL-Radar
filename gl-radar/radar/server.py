@@ -33,8 +33,11 @@ pipe = Pipeline()
 _poll_lock = threading.Lock()
 _poll_state: dict = {"running": False, "started_at": "", "result": None, "error": ""}
 
-TABS = [("pending", "To review"), ("ticketed", "Ticketed"),
-        ("dismissed", "Passed on"), ("expired", "Aged out"), ("all", "All")]
+# Two views, not five. Ticketed and Passed-on were states of a review workflow
+# that does not exist on a static page, so they were labels with nothing behind
+# them. What is left is the honest split: things to act on, and things to
+# look back at.
+TABS = [("pending", "To review"), ("archive", "Archive")]
 
 STYLE = """
   :root {
@@ -109,6 +112,10 @@ STYLE = """
   .ghost-link { font-size:.84rem; font-weight:500; padding:.4rem .8rem; border-radius:4px;
                 border:1px solid var(--rule); color:var(--soft); text-decoration:none; }
   .ghost-link:hover { color:var(--ink); }
+  .ig-link { font-size:.84rem; font-weight:500; padding:.4rem .8rem; border-radius:4px;
+             border:1px solid var(--rule); color:var(--soft); text-decoration:none;
+             margin-left:auto; }
+  .ig-link:hover { color:var(--ink); border-color:var(--soft); }
   .gap { display:inline-block; width:14px; height:14px; line-height:14px;
          text-align:center; border-radius:50%; background:var(--amber);
          color:#fff; font-size:.62rem; font-weight:700; margin-right:.3rem; }
@@ -156,14 +163,16 @@ STYLE = """
 
     /* Thumb-sized targets, side by side. */
     .acts { gap:.5rem; }
-    .acts button, .acts .ghost-link, .acts .btn-link {
-      flex:1 1 auto; min-height:44px; text-align:center; padding:.6rem .8rem; }
+    .acts button, .acts .ghost-link, .acts .ig-link {
+      flex:1 1 auto; min-height:44px; text-align:center; padding:.6rem .8rem;
+      display:flex; align-items:center; justify-content:center; }
+    .acts .ig-link { margin-left:0; }
     .cap { max-width:none; }
     .bar { font-size:.78rem; align-items:flex-start; }
     .bar span.dot { margin-top:.4rem; }
   }
   @media (max-width:380px) {
-    .acts button, .acts .ghost-link { flex:1 1 100%; }
+    .acts button, .acts .ghost-link, .acts .ig-link { flex:1 1 100%; }
   }
   @media (prefers-reduced-motion:reduce) { .spin { animation:none; } }
 """
@@ -357,10 +366,28 @@ def _row_html(r: dict, demo: bool, snapshot: bool = False) -> str:
         # No backend to click against, so give the two things that still work
         # without one: the caption on the clipboard and the source in a tab.
         caption_attr = html.escape(caption or "", quote=True)
+        label = {
+            "instagram": "Open Instagram post",
+            "events": "Event page",
+            "website": "Open page",
+        }.get(r["source"], "Open article")
+
+        # A link to the brand's profile, not to a specific post. Reading posts
+        # needs a Meta app and a token on the @grosslabs account; jumping to the
+        # profile needs neither, and lands you where the repostable content is
+        # anyway. Cheap, and it never expires.
+        ig = ""
+        if entity and entity.instagram:
+            handle = entity.instagram[0]
+            ig = (f'<a class="ig-link" href="https://www.instagram.com/{e(handle)}/" '
+                  f'target="_blank" rel="noopener" '
+                  f'title="Open @{e(handle)} to find the post to repost">'
+                  f'@{e(handle)}</a>')
+
         actions = (f'<button onclick="copyCaption(this)" data-caption="{caption_attr}"'
                    f'{" disabled" if not caption else ""}>Copy caption</button>'
                    f'<a class="ghost-link" href="{e(r.get("url") or "#")}" '
-                   f'target="_blank" rel="noopener">Open source</a>')
+                   f'target="_blank" rel="noopener">{label}</a>{ig}')
     elif demo:
         actions = ('<button disabled>Create repost ticket</button>'
                    '<button class="ghost" disabled>Not for us</button>'
@@ -376,7 +403,7 @@ def _row_html(r: dict, demo: bool, snapshot: bool = False) -> str:
                   + (f'<div class="cap"><b>Suggested caption</b>{e(caption)}</div>' if caption else "")
                   + "</details>")
 
-    return f"""<article data-status="{e(r['status'])}" data-entity="{e(r['entity_key'])}">
+    return f"""<article data-status="{e(r.get('view') or r['status'])}" data-entity="{e(r['entity_key'])}">
   <div class="top">
     <span class="co">{e(entity.name if entity else r["entity_key"])}</span>
     <span class="meter"><span class="track"><span class="fill{hot}" style="width:{r['importance']}%"></span></span>
@@ -463,9 +490,31 @@ def render(status: str = "pending", entity: str = "", demo: bool = False,
     since = window.oldest_allowed.isoformat()
     floor = pipe.settings["scoring"]["min_importance"]
 
+    archiving = status == "archive"
     if rows is None:
-        rows = db.feed(pipe.conn, status="all" if static else status, entity=entity,
-                       min_importance=floor, since=since, limit=200)
+        if static:
+            # Both views are baked in; the tabs filter client-side.
+            review_rows = db.feed(pipe.conn, status="all", entity=entity,
+                                  min_importance=floor, since=since,
+                                  view="review", limit=200)
+            archive_rows = db.feed(pipe.conn, status="all", entity=entity,
+                                   min_importance=floor, since=since,
+                                   view="archive",
+                                   archive_since=window.archive_floor.isoformat(),
+                                   limit=300)
+            for r in review_rows:
+                r["view"] = "pending"
+            for r in archive_rows:
+                r["view"] = "archive"
+            rows = review_rows + archive_rows
+        else:
+            rows = db.feed(
+                pipe.conn,
+                status="all" if archiving else status,
+                entity=entity, min_importance=floor, since=since,
+                view="archive" if archiving else "review",
+                archive_since=window.archive_floor.isoformat(),
+                limit=300 if archiving else 200)
     c = db.counts(pipe.conn)
     tally = (f"<b>{c['relevant']}</b> signals from <b>{c['items']}</b> scanned "
              f"&middot; <b>{c['ticketed']}</b> ticketed &middot; <b>{c['expired']}</b> aged out")
@@ -518,25 +567,23 @@ def render(status: str = "pending", entity: str = "", demo: bool = False,
     else:
         action = ("" if static else
                   '<button onclick="refresh(this)">Check for updates</button>')
-        body = (f'<div class="empty"><b>Nothing waiting.</b>'
-                f'Showing the {window.lookback_days} most recent days. {action}</div>')
+        if archiving:
+            body = (f'<div class="empty"><b>Archive is empty.</b>'
+                    f'Items move here once they fall out of the '
+                    f'{window.lookback_days}-day window, and stay for '
+                    f'{window.archive_days} days.</div>')
+        else:
+            body = (f'<div class="empty"><b>Nothing waiting.</b>'
+                    f'Showing the last {window.lookback_days} days and the next '
+                    f'{window.lookahead_days} days of shows. {action}</div>')
 
     if snapshot:
+        # No refresh control. The job runs every morning on its own; a button
+        # here would only ever be a link to GitHub, which is not worth the
+        # space it takes up.
         built = datetime.now(timezone.utc)
-        repo = (pipe.settings.get("export", {}) or {}).get("github_repo", "").strip()
-        if repo:
-            # Cannot trigger the job from here without embedding a token in a
-            # public page, which would be indefensible. One click to the Run
-            # button is the honest version.
-            url = f"https://github.com/{repo}/actions/workflows/daily-radar.yml"
-            refresh = (f'<a class="btn-link" href="{html.escape(url)}" target="_blank" '
-                       f'rel="noopener" title="Opens GitHub — press Run workflow">'
-                       f'Refresh now</a>')
-        else:
-            refresh = ('<button disabled title="Set export.github_repo in '
-                       'config/settings.yaml to enable">Refresh now</button>')
         controls = (f'<span class="checked">Updated {_ago(built.isoformat())}</span>'
-                    f'<span class="auto">Rebuilds daily at 07:00</span>{refresh}')
+                    f'<span class="auto">Rebuilds daily at 07:00</span>')
         script = DEMO_JS + SNAPSHOT_JS
     elif demo:
         controls = ('<span class="checked">Sample data</span>'
