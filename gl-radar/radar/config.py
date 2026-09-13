@@ -39,6 +39,11 @@ class Entity:
     kind: str = "company"
     aliases: list[str] = field(default_factory=list)
     exclude: list[str] = field(default_factory=list)
+    # Terms that must ALSO appear for a match to count. Only used when
+    # `generic` is true. "Breakaway" and "Big Noise" are ordinary English
+    # phrases; the alias alone proves nothing.
+    requires: list[str] = field(default_factory=list)
+    generic: bool = False
     context: str = ""
     domains: list[str] = field(default_factory=list)
     rss: list[str] = field(default_factory=list)
@@ -53,11 +58,20 @@ class Entity:
 
     @property
     def search_query(self) -> str:
-        """A Google News query that is specific enough to survive generic names."""
+        """A Google News query specific enough to survive generic names.
+
+        For a generic brand, the query demands a corroborating term up front so
+        the junk is filtered at the source rather than downstream. That is the
+        difference between "Breakaway" returning a festival and returning a
+        Kashmiri political splinter group.
+        """
         quoted = [f'"{a}"' for a in self.aliases[:4]]
         query = " OR ".join(quoted) if quoted else f'"{self.name}"'
+        if self.generic and self.requires:
+            corroborate = " OR ".join(f'"{r}"' for r in self.requires[:6])
+            query = f"({query}) AND ({corroborate})"
         if self.exclude:
-            query += " " + " ".join(f'-"{x}"' for x in self.exclude[:5])
+            query += " " + " ".join(f'-"{x}"' for x in self.exclude[:8])
         return query
 
 
