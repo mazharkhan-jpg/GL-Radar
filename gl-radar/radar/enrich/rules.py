@@ -31,6 +31,16 @@ import re
 # about the brand; there is nothing to disambiguate.
 OWNED_SOURCES = {"instagram", "website", "events", "linkedin"}
 
+# Domains that structurally cannot carry news about this portfolio. IMDb will
+# never report a Big Noise signing; it will only ever surface a 1944 Laurel and
+# Hardy picture called The Big Noise. Blocking the domain is cheaper and more
+# reliable than trying to out-word a film database.
+BLOCKED_DOMAINS = {
+    "imdb.com", "rottentomatoes.com", "letterboxd.com", "themoviedb.org",
+    "wikipedia.org", "fandom.com", "discogs.com", "allmovie.com",
+    "tvguide.com", "justwatch.com", "moviefone.com",
+}
+
 SOURCE_FLOOR = {
     "events": 70,      # a dated show is concrete and actionable
     "website": 58,     # the brand said it themselves
@@ -43,7 +53,9 @@ SOURCE_FLOOR = {
 # Weighted by how much a Gross Labs repost would want it.
 KEYWORDS = [
     (32, "investment", r"\b(invest(s|ed|ment|ing)?|funding|raise[sd]?|series [a-d]\b|"
-                       r"backs?|backed|stake|acquir(e|es|ed|ition)|buyout)\b"),
+                       r"backs?|backed|stake|acquir(e|es|ed|ition)|buyout|"
+                       r"valuation|valued at|worth \$|\$\d+ ?(m|b|million|billion)|"
+                       r"unicorn|round)\b"),
     (28, "partnership", r"\b(partner(s|ship|ed|ing)?|team(s|ed) up|joins? forces|"
                         r"collaborat(e|es|ed|ion)|official (partner|sponsor))\b"),
     (26, "product_launch", r"\b(launch(es|ed|ing)?|debut(s|ed)?|unveil(s|ed|ing)?|"
@@ -56,6 +68,12 @@ KEYWORDS = [
                                r"on sale|tickets?|plays?|live at|headlin(e|es|ing))\b"),
     (22, "milestone", r"\b(wins?|won|champion(s|ship)?|record|first ever|milestone|"
                       r"title|trophy|cup)\b"),
+    # Signings are core business for a label, and were slipping under the floor.
+    # Kept narrow: a bare "signs" would match "signs of trouble".
+    (26, "signing", r"\b(sign(s|ed|ing)? (a |an |the )?(new )?"
+                    r"(artist|act|band|deal|record deal|contract)|"
+                    r"roster|inks? (a |an )?deal|joins the (label|roster)|"
+                    r"adds? .{0,15} to (its|the) (roster|label))\b"),
     (18, "hiring", r"\b(appoints?|names? .{0,20}(ceo|president|head of)|hires?|"
                    r"joins? as)\b"),
     (16, "press_feature", r"\b(interview|profile|featured in|sits down|q&a|podcast)\b"),
@@ -95,9 +113,15 @@ class RuleClassifier:
     def classify(self, item: dict, entity) -> dict:
         haystack = _words(f"{item.get('title', '')} {item.get('body', '')}")
         source = item.get("source", "")
+        url = (item.get("url") or "").lower()
 
-        # 1. Relevance.
+        # 1. Relevance, in four tests, cheapest first.
         owned = source in OWNED_SOURCES
+
+        if not owned and any(d in url for d in BLOCKED_DOMAINS):
+            return {"relevant": False, "importance": 0, "category": "noise",
+                    "reasoning": "published on a domain that cannot carry this company's news"}
+
         hit = _matches_any(haystack, list(entity.aliases) + [entity.name])
         blocked = _matches_any(haystack, list(entity.exclude))
 
@@ -107,6 +131,17 @@ class RuleClassifier:
         if not (owned or hit):
             return {"relevant": False, "importance": 0, "category": "noise",
                     "reasoning": "no alias match and not from an owned source"}
+
+        # The important one. A generic brand name proves nothing on its own:
+        # "breakaway group" describes a political splinter, "big noise" is an
+        # idiom, "TGL" appears in any golf story. Demand a second, specific
+        # term tying the item to this company before believing the match.
+        if getattr(entity, "generic", False) and not owned:
+            corroborating = list(entity.requires)
+            if corroborating and not _matches_any(haystack, corroborating):
+                return {"relevant": False, "importance": 0, "category": "noise",
+                        "reasoning": ("generic name matched but nothing confirms it is "
+                                      "this company")}
 
         # 2. Score from source, keywords and penalties.
         score = SOURCE_FLOOR.get(source, 40)
