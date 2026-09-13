@@ -8,7 +8,7 @@ from . import db
 from .collectors.events import EventsCollector
 from .collectors.social import InstagramCollector, LinkedInCollector
 from .collectors.web import GoogleNewsCollector, RSSCollector, WebsiteDiffCollector
-from .config import Entity, load_entities, load_settings
+from .config import Entity, load_entities, load_settings, registry_fingerprint
 from .enrich.classifier import apply_priority, build as build_classifier
 from .freshness import Window, is_fresh, load_window, parse_ts
 from .sinks.clickup import ClickUp
@@ -106,10 +106,49 @@ class Pipeline:
 
     # ---------- classification and routing ----------
 
+    def rescore_stale(self, limit: int = 400) -> int:
+        """Re-judge anything scored under an older version of the rules.
+
+        Edit an exclusion list and the next run cleans up after itself. Without
+        this, a fix only ever applies to items discovered after it, and the
+        false positives already in the queue stay there looking authoritative.
+        """
+        fingerprint = registry_fingerprint()
+        stale = db.stale_signals(self.conn, fingerprint, limit)
+        if not stale:
+            return 0
+
+        log.info("registry changed; re-scoring %d cached verdict(s)", len(stale))
+        dropped = 0
+        for row in stale:
+            entity = self.by_key.get(row["entity_key"])
+            if not entity:
+                # The company was removed from the registry entirely.
+                db.save_signal(self.conn, row["id"],
+                               {"relevant": False, "importance": 0, "category": "noise",
+                                "reasoning": "company no longer tracked"},
+                               self.classifier.model, fingerprint)
+                dropped += 1
+                continue
+            verdict = self.classifier.classify(row, entity)
+            verdict["importance"] = apply_priority(
+                verdict.get("importance", 0), entity.priority, self.settings)
+            db.save_signal(self.conn, row["id"], verdict,
+                           self.classifier.model, fingerprint)
+            if not verdict.get("relevant"):
+                # Leave no trace in the queue; it was never really ours.
+                db.set_review(self.conn, row["id"], "dismissed",
+                              note="re-scored as irrelevant after a registry update")
+                dropped += 1
+        if dropped:
+            log.info("re-scoring removed %d item(s) from the queue", dropped)
+        return dropped
+
     def classify_pending(self, limit: int = 60) -> list[dict]:
         """Score everything unjudged. Returns the items worth telling someone about."""
         scoring = self.settings["scoring"]
         surfaced = []
+        fingerprint = registry_fingerprint()
         # Second enforcement point: never pay the classifier for something
         # that has aged out since it was collected.
         since = self.window.oldest_allowed.isoformat()
@@ -121,7 +160,7 @@ class Pipeline:
             verdict = self.classifier.classify(row, entity)
             verdict["importance"] = apply_priority(
                 verdict.get("importance", 0), entity.priority, self.settings)
-            db.save_signal(self.conn, row["id"], verdict, self.classifier.model)
+            db.save_signal(self.conn, row["id"], verdict, self.classifier.model, fingerprint)
 
             if not verdict.get("relevant") or verdict["importance"] < scoring["min_importance"]:
                 continue
@@ -169,6 +208,9 @@ class Pipeline:
 
     def run_cycle(self, group: str = "all", supervise: bool = True) -> dict:
         new_count = self.collect(group)
+        # Before judging anything new, re-judge anything the rules have
+        # outgrown. Cleanup is part of every run, not a manual chore.
+        rescored = self.rescore_stale()
         surfaced = self.classify_pending()
         notify_at = self.settings["scoring"]["notify_at"]
         # Fourth enforcement point: a notification is a claim that something
@@ -189,7 +231,7 @@ class Pipeline:
         db.set_cursor(self.conn, "last_poll_at",
                       datetime.now(timezone.utc).isoformat())
         result = {"new_items": new_count, "surfaced": len(surfaced),
-                  "notified": len(worth_pinging)}
+                  "notified": len(worth_pinging), "rescored_out": rescored}
 
         if supervise:
             report = self.supervise()
