@@ -23,16 +23,24 @@ from datetime import date, datetime, timedelta, timezone
 log = logging.getLogger("radar.freshness")
 
 # Hard ceilings. Config cannot exceed these.
-LOOKAHEAD_CEILING = 5
+LOOKAHEAD_CEILING = 14
 LOOKBACK_CEILING = 30
+# How far back the archive reaches. Nothing is deleted before this.
+ARCHIVE_CEILING = 365
 
 
 @dataclass(frozen=True)
 class Window:
     lookback_days: int
     lookahead_days: int
+    archive_days: int
     reminder_marks: tuple[int, ...]
     now: datetime
+
+    @property
+    def archive_floor(self) -> datetime:
+        """Older than this and an item stops being shown anywhere."""
+        return self.now - timedelta(days=self.archive_days)
 
     @property
     def oldest_allowed(self) -> datetime:
@@ -46,14 +54,16 @@ class Window:
 
     def describe(self) -> str:
         return (f"last {self.lookback_days} days of news, "
-                f"next {self.lookahead_days} days of events")
+                f"next {self.lookahead_days} days of events, "
+                f"{self.archive_days}-day archive")
 
 
 def load_window(settings: dict, now: datetime | None = None) -> Window:
     """Build the window from settings, clamping anything out of range."""
     cfg = settings.get("freshness", {}) or {}
-    lookback = int(cfg.get("lookback_days", 6))
-    lookahead = int(cfg.get("lookahead_days", 2))
+    lookback = int(cfg.get("lookback_days", 7))
+    lookahead = int(cfg.get("lookahead_days", 7))
+    archive = max(lookback, min(int(cfg.get("archive_days", 90)), ARCHIVE_CEILING))
 
     if not 1 <= lookback <= LOOKBACK_CEILING:
         log.warning("lookback_days %s out of range, clamping", lookback)
@@ -69,7 +79,7 @@ def load_window(settings: dict, now: datetime | None = None) -> Window:
     if not marks:
         marks = [lookahead]
 
-    return Window(lookback, lookahead, tuple(marks),
+    return Window(lookback, lookahead, archive, tuple(marks),
                   now or datetime.now(timezone.utc))
 
 
