@@ -64,6 +64,14 @@ STYLE = """
           border-radius:4px; text-decoration:none; color:var(--soft); font-size:.875rem; }
   nav a:hover { background:#E6EAE9; color:var(--ink); }
   nav a[aria-current] { background:var(--ink); color:var(--paper); font-weight:600; }
+  .sector { display:flex; justify-content:space-between; align-items:baseline;
+            margin:1.15rem 0 .3rem; padding:0 .6rem .3rem;
+            border-bottom:1px solid var(--rule);
+            font-size:.68rem; font-weight:700; letter-spacing:.09em;
+            text-transform:uppercase; color:var(--soft); }
+  .sector:first-of-type { margin-top:.9rem; }
+  .sector span:last-child { font-weight:600; letter-spacing:0; }
+  nav > a:first-child { margin-bottom:.2rem; }
   .tabs { display:flex; gap:1.25rem; margin-bottom:1.25rem; border-bottom:1px solid var(--rule); }
   .tabs a { padding:.5rem 0 .6rem; text-decoration:none; color:var(--soft); font-size:.9rem; }
   .tabs a[aria-current] { color:var(--ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--signal); }
@@ -137,6 +145,12 @@ STYLE = """
 
     /* The company rail becomes a swipeable strip. Fourteen stacked links
        would push the actual signals two screens down. */
+    /* Horizontal rail on mobile: the label becomes a divider, its count is
+       dropped because the chips beside it already carry the numbers. */
+    .sector { flex:0 0 auto; margin:0 .2rem 0 .5rem; padding:.5rem 0 .5rem .6rem;
+              border-bottom:none; border-left:1px solid var(--rule);
+              align-items:center; }
+    .sector span:last-child { display:none; }
     nav { position:static; display:flex; gap:.4rem; overflow-x:auto;
           padding-bottom:.5rem; margin:0 -1rem; padding-left:1rem;
           padding-right:1rem; -webkit-overflow-scrolling:touch;
@@ -547,9 +561,24 @@ def render(status: str = "pending", entity: str = "", demo: bool = False,
         return (f'<a href="{query}"{current}{warn}>'
                 f'<span>{html.escape(label)}</span><span>{badge}{count}</span></a>')
 
+    # Grouped by sector. Twenty-eight flat names is a wall; six labelled
+    # groups is something you can scan, and the grouping predicts what kind
+    # of news each company produces.
+    ORDER = ["Music", "Platform", "Sport", "Consumer", "Hospitality", "Other"]
+    by_sector: dict[str, list] = {}
+    for key, ent in pipe.by_key.items():
+        by_sector.setdefault(getattr(ent, "sector", "Other"), []).append((key, ent))
+
     nav = [nav_link("", "Everything", sum(per_entity.values()))]
-    for key, ent in sorted(pipe.by_key.items(), key=lambda kv: -per_entity.get(kv[0], 0)):
-        nav.append(nav_link(key, ent.name, per_entity.get(key, 0)))
+    for sector in ORDER:
+        members = by_sector.get(sector)
+        if not members:
+            continue
+        total = sum(per_entity.get(k, 0) for k, _ in members)
+        nav.append(f'<div class="sector"><span>{html.escape(sector)}</span>'
+                   f'<span>{total}</span></div>')
+        for key, ent in sorted(members, key=lambda kv: -per_entity.get(kv[0], 0)):
+            nav.append(nav_link(key, ent.name, per_entity.get(key, 0)))
 
     def tab_link(value: str, label: str) -> str:
         current = " aria-current='page'" if status == value else ""
