@@ -6,6 +6,7 @@ from datetime import datetime, timedelta, timezone
 
 from . import db
 from .collectors.events import EventsCollector
+from .collectors.jina import JinaCollector
 from .collectors.social import InstagramCollector, LinkedInCollector
 from .collectors.web import GoogleNewsCollector, RSSCollector, WebsiteDiffCollector
 from .config import Entity, load_entities, load_settings, registry_fingerprint
@@ -53,10 +54,12 @@ class Pipeline:
             "instagram": lambda: InstagramCollector(self.settings),
             "linkedin": lambda: LinkedInCollector(self.settings),
             "events": lambda: EventsCollector(self.settings, self.conn, self.window),
+            "jina": lambda: JinaCollector(self.settings),
         }
         groups = {
             "news": ["google_news", "rss"],
-            "website": ["website_diff"],
+            "jina": ["jina"],
+            "website": ["website_diff", "jina"],
             "instagram": ["instagram"],
             "linkedin": ["linkedin"],
             "events": ["events"],
