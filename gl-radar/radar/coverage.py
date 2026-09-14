@@ -34,6 +34,7 @@ REQUIREMENTS = {
     "instagram": ["IG_USER_ID", "IG_ACCESS_TOKEN"],
     "linkedin": ["APIFY_TOKEN"],
     "events": ["TICKETMASTER_API_KEY"],
+    "jina": [],
 }
 
 # Instagram has a documented fallback, so treat either credential set as enough.
@@ -126,6 +127,7 @@ def entity_sources(entity: Entity, settings: dict) -> list[SourceState]:
         "website_diff": bool(entity.watch_pages),
         "instagram": bool(entity.instagram),
         "linkedin": bool(entity.linkedin),
+        "jina": bool(entity.linkedin or getattr(entity, "rendered_pages", [])),
         "events": bool(entity.ticketmaster),
     }
     out = []
