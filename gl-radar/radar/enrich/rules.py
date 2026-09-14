@@ -29,7 +29,7 @@ import re
 
 # Bump this whenever the matching logic below changes. It is part of the
 # fingerprint that triggers automatic re-scoring of everything already stored.
-RULES_VERSION = "2026-09-13.5"
+RULES_VERSION = "2026-09-14.1"
 
 # The question every item has to answer is "what does this have to do with
 # Gross Labs?". When a company has no corroboration list of its own, these
@@ -46,6 +46,36 @@ UMBRELLA_TERMS = [
 # Sources we trust without argument. A post on the brand's own Instagram is
 # about the brand; there is nothing to disambiguate.
 OWNED_SOURCES = {"instagram", "website", "events", "linkedin"}
+
+# Routine coverage. These are genuinely about the company and still worthless
+# to repost: match previews, betting lines, historical scorelines, fixture
+# stats. A football club produces dozens of these a day and they would bury
+# the one post a month that actually matters. Rejected outright rather than
+# scored down, because volume is the whole problem.
+ROUTINE = re.compile(
+    r"("
+    r"\bvs\.?\b|\bv\.\s|\bversus\b|"                     # any fixture pairing
+    r"\b\d+\s*[-–]\s*\d+\b|"                              # a scoreline, 1-1
+    r"predictions?|picks?|odds|betting|bet365|spread|"
+    r"prediction market|promo code|parlay|tipster|accumulator|"
+    r"head[- ]to[- ]head|\bh2h\b|final score|full[- ]time|"
+    r"match (preview|report|facts|stats)|team news|injury (report|news)|"
+    r"starting (xi|11)|probable lineups?|predicted lineups?|"
+    r"how to watch|where to watch|live stream|live info|kick[- ]?off time|"
+    r"matchday|standings|league table|fixtures?|"
+    r"player ratings|transfer rumou?r"
+    r")", re.I,
+)
+
+# Outlets that publish only the above. Matched on publisher name, since Google
+# News hides the real URL behind a redirect.
+BLOCKED_PUBLISHERS = {
+    "kalshi", "squawka", "oddschecker", "covers.com", "pickswise",
+    "actionnetwork", "sportsbook", "betmgm", "fanduel", "draftkings",
+    "polymarket", "coinbase", "footystats", "sofascore", "whoscored",
+    "flashscore", "livescore", "soccerway", "fotmob", "transfermarkt",
+    "windrawwin", "forebet", "statarea", "the analyst",
+}
 
 # Domains that structurally cannot carry news about this portfolio. IMDb will
 # never report a Big Noise signing; it will only ever surface a 1944 Laurel and
@@ -155,6 +185,12 @@ class RuleClassifier:
             if hit_domain or hit_publisher:
                 return {"relevant": False, "importance": 0, "category": "noise",
                         "reasoning": "from a source that cannot carry this company's news"}
+            if any(b in publisher for b in BLOCKED_PUBLISHERS):
+                return {"relevant": False, "importance": 0, "category": "noise",
+                        "reasoning": "betting, odds or live-score outlet"}
+            if ROUTINE.search(haystack):
+                return {"relevant": False, "importance": 0, "category": "noise",
+                        "reasoning": "routine fixture, odds or scoreline coverage"}
 
         hit = _matches_any(haystack, list(entity.aliases) + [entity.name])
         blocked = _matches_any(haystack, list(entity.exclude))
@@ -197,6 +233,15 @@ class RuleClassifier:
             category = "event_reminder"
             if re.search(r"\b(today|tomorrow|happening now)\b", haystack):
                 score += 20
+
+        # Some companies generate constant coverage that mentions them without
+        # announcing anything — squad news, ticket info, opinion columns. For
+        # those, a bare mention is not enough: the item has to carry an actual
+        # news verb, which is what `category` staying "update" tells us.
+        if getattr(entity, "news_only", False) and category == "update" and not owned:
+            return {"relevant": False, "importance": 0, "category": "noise",
+                    "reasoning": ("mentions the company but announces nothing "
+                                  "repostable")}
 
         score = max(0, min(100, score))
         title = (item.get("title") or "")[:120]
