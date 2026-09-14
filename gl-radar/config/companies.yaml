@@ -32,6 +32,7 @@ people:
       Do not confuse him with Nick Grossman of Union Square Ventures, a different person.
     domains: ["grosslabs.com"]
     watch_pages: ["https://grosslabs.com/nick-gross"]
+    linkedin: ["nick-gross-a5599832"]
     instagram: ["nickgross"]
     twitter: ["nickgross"]
     priority: 1
@@ -52,6 +53,7 @@ companies:
       account we post from, so anything Gross Labs announces is automatically relevant.
     domains: ["grosslabs.com"]
     watch_pages: ["https://grosslabs.com/news/"]
+    linkedin: ["grosslabs"]
     instagram: ["grosslabs"]
     priority: 1
     repost_bias: "Portfolio news, new investments, founder features, team announcements."
@@ -69,6 +71,7 @@ companies:
       invested around September 2025 and has since backed its move into the energy category.
     domains: ["beeupsnacks.com"]
     watch_pages: ["https://beeupsnacks.com"]
+    linkedin: ["beeup"]
     instagram: ["beeupsnacks"]
     priority: 1
     repost_bias: "Retail expansion, athlete and celebrity partnerships, new flavours or SKUs, Beckham or Neff appearances."
@@ -168,6 +171,7 @@ companies:
       Goldfinger and girlfriends.
     domains: ["bignoise.com"]
     watch_pages: ["https://bignoise.com"]
+    linkedin: ["big-noise-music-group"]
     instagram: ["bignoise"]
     priority: 1
     repost_bias: "Artist signings, releases, chart news, studio sessions, sync placements."
@@ -185,10 +189,14 @@ companies:
     watch_pages:
       - "https://www.brekkygolf.com/portfolio"
       - "https://www.brekkygolf.com/grant-program"
+    # Webflow site; the portfolio list is built client-side, so a plain fetch
+    # sees only the nav. Jina renders it first.
+    rendered_pages: ["https://www.brekkygolf.com/portfolio"]
     context: >
       Holding company founded by Nick Gross and Sean Maher in 2024 to invest in golf.
       Through Brekky, Gross invested in TMRW Sports and the Los Angeles Golf Club.
       The word "brekky" is Australian slang for breakfast, so food posts are noise.
+    linkedin: ["brekky-golf"]
     instagram: ["brekkygolf"]
     priority: 2
     repost_bias: "New golf investments, TGL season news, LAGC activity, golf culture collabs."
@@ -260,6 +268,7 @@ companies:
       Music + Tech Festival.
     domains: ["findyourgrind.com"]
     watch_pages: ["https://findyourgrind.com"]
+    linkedin: ["find-your-grind"]
     instagram: ["findyourgrind"]
     priority: 2
     repost_bias: "School partnerships, curriculum launches, scholarship and grant news, student stories."
@@ -328,6 +337,8 @@ companies:
       specific signal.
     domains: ["stableford.com"]
     watch_pages: ["https://www.stableford.com/"]
+    rendered_pages: ["https://www.stableford.com/"]
+    linkedin: ["stablefordclub"]
     instagram: ["stablefordclub"]
     priority: 2
     repost_bias: "Opening milestones, founding memberships, design reveals, member events."
@@ -347,6 +358,7 @@ companies:
       is not stated on either company's public site, so confirm before posting.
     domains: ["slawthhaus.com"]
     watch_pages: ["https://slawthhaus.com/"]
+    linkedin: ["slawthhaus"]
     instagram: ["slawthhaus"]
     priority: 3
     repost_bias: "New locations, event programming, partnerships, membership launches."
@@ -423,6 +435,7 @@ companies:
       so corroboration is required.
     domains: ["xgames.com"]
     watch_pages: ["https://www.xgames.com/"]
+    linkedin: ["x-games"]
     instagram: ["xgames"]
     priority: 2
     repost_bias: "Event announcements, athlete signings, new formats and cities, medal moments."
