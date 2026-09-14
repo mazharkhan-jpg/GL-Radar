@@ -218,6 +218,7 @@ companies:
       Tommy Fleetwood, Collin Morikawa, Justin Rose and Sahith Theegala. A women's league,
       WTGL, also features on the club's site. TGL runs roughly late December to late March,
       so expect quiet summers and a sharp ramp from November.
+    news_only: true           # TGL match coverage is routine; require announcements
     domains: ["lagc.com", "tglgolf.com"]
     watch_pages:
       - "https://lagc.com/news"
@@ -236,6 +237,7 @@ companies:
               "oklahomaunitedfc", "Abdullah Ashraf", "Chad Richison Stadium",
               "NPSL", "Jimmy Nielsen", "Edmond"]
     generic: false            # "OKC United" is specific; excludes cover the rest
+    news_only: true           # a football club is in the news daily; require actual news
     context: >
       Oklahoma City's professional soccer club, revealed as OKC United on 15 July 2026
       at Mayor David Holt's State of the City address, having previously been known by
@@ -408,6 +410,7 @@ companies:
     name: Club Necaxa
     aliases: ["Club Necaxa", "Necaxa", "Rayos del Necaxa"]
     generic: false            # distinctive Nahuatl name, no collisions
+    news_only: true           # a football club is in the news daily; require actual news
     context: >
       Liga MX football club based in Aguascalientes, Mexico. Gross Labs announced a
       direct investment into the club, confirmed on its own news page. Other investors
@@ -433,6 +436,7 @@ companies:
       names X Games as part of its portfolio. Relationship: DIRECT INVESTMENT AND
       STRATEGIC INVOLVEMENT. The word "games" appears in a great many unrelated stories,
       so corroboration is required.
+    news_only: true           # competition coverage is constant; require announcements
     domains: ["xgames.com"]
     watch_pages: ["https://www.xgames.com/"]
     linkedin: ["x-games"]
