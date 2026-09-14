@@ -49,6 +49,9 @@ class Entity:
     # than quietly matching every article that happens to share a word with it.
     # Setting this to False is a claim that the name is unmistakable.
     generic: bool = True
+    # For companies that appear in constant routine coverage (sports clubs,
+    # leagues). Requires an actual announcement, not just a mention.
+    news_only: bool = False
     context: str = ""
     domains: list[str] = field(default_factory=list)
     rss: list[str] = field(default_factory=list)
