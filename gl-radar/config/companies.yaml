@@ -385,3 +385,170 @@ companies:
     instagram: ["puttshack"]
     priority: 3
     repost_bias: "New venue openings, brand collaborations, format launches."
+
+  # --- Wider Gross Labs ecosystem, added 13 Sep 2026 ---
+  # Relationships vary in strength and the context field says which. Priority
+  # encodes it: 1 = direct investment, 2 = active involvement, 3 = ecosystem or
+  # indirect. Check the context before describing any of these publicly as a
+  # Gross Labs investment.
+
+  - key: necaxa
+    name: Club Necaxa
+    aliases: ["Club Necaxa", "Necaxa", "Rayos del Necaxa"]
+    generic: false            # distinctive Nahuatl name, no collisions
+    context: >
+      Liga MX football club based in Aguascalientes, Mexico. Gross Labs announced a
+      direct investment into the club, confirmed on its own news page. Other investors
+      in the ownership group have included Eva Longoria and Mesut Ozil. Relationship:
+      DIRECT INVESTMENT, announced by Gross Labs.
+    domains: ["clubnecaxa.mx"]
+    watch_pages: ["https://clubnecaxa.mx/"]
+    instagram: ["clubnecaxa"]
+    priority: 1
+    repost_bias: "Match results, signings, ownership news, Liga MX milestones."
+
+  - key: x_games
+    name: X Games
+    aliases: ["X Games", "XGames", "Winter X Games", "X Games Aspen"]
+    requires: ["action sports", "skate", "skateboard", "BMX", "moto", "snowboard",
+               "Aspen", "ESPN", "MSP Sports Capital", "Gross Labs", "Nick Gross",
+               "gold medal", "athlete", "competition", "relaunch"]
+    exclude: ["Olympic Games", "video game", "Xbox", "Game of Thrones",
+              "Hunger Games", "board game", "Commonwealth Games"]
+    context: >
+      Action sports competition franchise, relaunched under MSP Sports Capital. Gross
+      Labs has publicly described its role in supporting that relaunch and repeatedly
+      names X Games as part of its portfolio. Relationship: DIRECT INVESTMENT AND
+      STRATEGIC INVOLVEMENT. The word "games" appears in a great many unrelated stories,
+      so corroboration is required.
+    domains: ["xgames.com"]
+    watch_pages: ["https://www.xgames.com/"]
+    instagram: ["xgames"]
+    priority: 2
+    repost_bias: "Event announcements, athlete signings, new formats and cities, medal moments."
+
+  - key: coral_mountain
+    name: Coral Mountain Desert Club
+    aliases: ["Coral Mountain", "Coral Mountain Desert Club"]
+    requires: ["Desert Club", "La Quinta", "Coachella Valley", "Meriwether",
+               "Gross Labs", "Nick Gross", "wave", "surf", "members", "resort",
+               "development", "Palm Springs"]
+    exclude: ["coral reef", "coral bleaching", "Great Barrier Reef", "coral restoration"]
+    context: >
+      Private desert club development in the Coachella Valley, from the Meriwether
+      Companies portfolio. Gross Labs is publicly involved and has described helping
+      build it. Relationship: ECOSYSTEM AND PROMOTION, not a stated direct investment —
+      confirm before calling it one.
+    domains: ["coralmountain.com"]
+    watch_pages: ["https://www.coralmountain.com/"]
+    instagram: ["coralmountaindesertclub"]
+    priority: 3
+    repost_bias: "Development milestones, membership news, design reveals, events."
+
+  - key: the_nice_guy
+    name: The Nice Guy
+    aliases: ["The Nice Guy", "Nice Guy LA", "theniceguyla"]
+    requires: ["La Cienega", "Los Angeles", "West Hollywood", "h.wood", "hwood Group",
+               "John Terzian", "Brian Toll", "restaurant", "lounge", "nightlife",
+               "supper club", "Gross Labs", "Nick Gross", "hospitality"]
+    exclude: ["The Nice Guys", "Ryan Gosling", "Russell Crowe", "nice guy syndrome",
+              "nice guys finish last", "such a nice guy", "seems like a nice guy",
+              "he's a nice guy", "nice guy energy"]
+    context: >
+      Restaurant and lounge at 401 N La Cienega Blvd in Los Angeles, part of the
+      h.wood Group hospitality world. Relationship: HOSPITALITY ECOSYSTEM associated
+      with Gross Labs, not a stated direct investment.
+      Critical: "nice guy" is one of the most common phrases in English, and The Nice
+      Guys is a 2016 Ryan Gosling film. A mention only counts with a second signal
+      tying it to the LA venue.
+    domains: ["theniceguyla.com"]
+    watch_pages: ["https://www.theniceguyla.com/"]
+    instagram: ["theniceguyla"]
+    priority: 3
+    repost_bias: "Openings, celebrity moments, menu launches, event nights."
+
+  - key: the_estate
+    name: The Estate
+    aliases: ["The Estate"]
+    requires: ["Sam Nazarian", "Tony Robbins", "longevity", "wellness", "hospitality",
+               "membership", "club", "Gross Labs", "Nick Gross", "health club",
+               "biohacking", "recovery"]
+    exclude: ["real estate", "estate agent", "estate planning", "estate tax",
+              "estate of the late", "housing estate", "industrial estate",
+              "estate sale", "estate car", "the estate of"]
+    context: >
+      Hospitality, wellness and longevity venture developed by Sam Nazarian and Tony
+      Robbins. Gross Labs has publicly highlighted it as part of its ecosystem.
+      Relationship: ECOSYSTEM, not a stated direct investment.
+      Critical: "the estate" is ordinary English and collides with property, probate
+      and housing coverage constantly. Corroboration is mandatory.
+    domains: ["theestate.com"]
+    watch_pages: ["https://www.theestate.com/"]
+    instagram: ["theestate"]
+    priority: 3
+    repost_bias: "Location openings, membership launches, founder appearances, programming."
+
+  - key: rejoy
+    name: REJOY
+    aliases: ["REJOY", "Rejoy", "drinkrejoy", "REJOY Instant Hydration"]
+    generic: false            # coined brand name
+    exclude: ["rejoice", "rejoicing"]
+    context: >
+      Plant-based, zero-sugar electrolyte and hydration brand, Informed-Sport certified,
+      sold through Amazon and specialist retail. Relationship: CONSUMER ECOSYSTEM brand
+      that Gross Labs has worked with and promoted.
+      Naming note: the brand is REJOY and its handle is @drinkrejoy. "Instant Hydration"
+      is REJOY's product descriptor, not its name, and there is a separate unrelated
+      brand actually called Instant Hydration — do not use @instanthydration for this.
+    domains: ["drinkrejoy.com"]
+    watch_pages: ["https://www.drinkrejoy.com/"]
+    instagram: ["drinkrejoy"]
+    priority: 3
+    repost_bias: "New flavours, athlete partnerships, retail expansion, certifications."
+
+  - key: droptics
+    name: Droptics
+    aliases: ["Droptics"]
+    generic: false            # coined word
+    context: >
+      Eye-care brand focused on daily eye health and modern dry-eye care.
+      Relationship: PORTFOLIO OR ECOSYSTEM company — the public record is thin, so
+      confirm the nature of the link before describing it.
+    domains: ["droptics.com"]
+    watch_pages: ["https://droptics.com/"]
+    instagram: ["droptics"]
+    priority: 3
+    repost_bias: "Product launches, retail listings, clinical partnerships."
+
+  - key: banagua
+    name: Banagua
+    aliases: ["Banagua"]
+    generic: false            # coined word
+    context: >
+      Beverage brand, an early investment of Kewl Ventures. Kewl was built around the
+      founder and investor ecosystem of Shaun Neff and Nick Gross. Relationship:
+      INDIRECT, through Kewl Ventures rather than Gross Labs directly.
+    domains: ["banagua.com"]
+    watch_pages: ["https://banagua.com/"]
+    instagram: ["banagua"]
+    priority: 3
+    repost_bias: "Launches, retail expansion, collaborations."
+
+  - key: rx3
+    name: RX3 Growth Partners
+    aliases: ["RX3 Growth Partners", "RX3 Growth", "RX3"]
+    requires: ["growth equity", "consumer brand", "Aaron Rodgers", "Therabody",
+               "Full Swing", "Super Coffee", "SuperCoffee", "fund", "investment",
+               "portfolio", "Nick Gross", "Gross Labs", "venture"]
+    exclude: ["Mazda RX-3", "RX-3 rotary", "Lexus RX", "RX 350", "RX-7", "prescription"]
+    context: >
+      Consumer-focused growth equity fund co-founded with Aaron Rodgers, investing in
+      brands including Therabody, Full Swing and Super Coffee. Nick Gross has stated
+      publicly that Gross Labs supports the fund and is part of the RX3 community.
+      Relationship: FUND RELATIONSHIP, not a Gross Labs holding.
+      Careful: "RX3" also names a Mazda rotary car and appears in pharmacy contexts.
+    domains: ["rx3growthpartners.com"]
+    watch_pages: ["https://www.rx3growthpartners.com/"]
+    instagram: ["rx3growthpartners"]
+    priority: 3
+    repost_bias: "New fund investments, portfolio exits, founder features."
