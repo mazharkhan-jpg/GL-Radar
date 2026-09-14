@@ -52,6 +52,10 @@ class Entity:
     # For companies that appear in constant routine coverage (sports clubs,
     # leagues). Requires an actual announcement, not just a mention.
     news_only: bool = False
+    # Used to group the dashboard rail, and a decent predictor of what kind of
+    # noise a company generates: Sport produces daily fixture coverage,
+    # Consumer produces retail news, Hospitality produces openings.
+    sector: str = "Other"
     context: str = ""
     domains: list[str] = field(default_factory=list)
     rss: list[str] = field(default_factory=list)
