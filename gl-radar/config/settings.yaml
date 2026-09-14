@@ -44,10 +44,14 @@ scoring:
   notify_at: 60
   auto_ticket_at: 85
   # Priority-1 companies get a bump so nothing from Gross Labs itself is missed.
+  # 1 = direct investment or wholly owned, 2 = active involvement,
+  # 3 = ecosystem or indirect. Tier 3 used to mean "unverified", which is why
+  # it was penalised heavily; it now means a real but looser relationship, so
+  # the penalty is lighter.
   priority_boost:
     1: 15
     2: 0
-    3: -10
+    3: -5
 
 classifier:
   # auto   use Claude when ANTHROPIC_API_KEY is set, free keyword rules when not
