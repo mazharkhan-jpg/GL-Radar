@@ -53,6 +53,9 @@ class Entity:
     domains: list[str] = field(default_factory=list)
     rss: list[str] = field(default_factory=list)
     watch_pages: list[str] = field(default_factory=list)
+    # Pages that need JavaScript executed before there is anything to read.
+    # Handled by the Jina collector rather than the plain fetcher.
+    rendered_pages: list[str] = field(default_factory=list)
     instagram: list[str] = field(default_factory=list)
     linkedin: list[str] = field(default_factory=list)
     twitter: list[str] = field(default_factory=list)
