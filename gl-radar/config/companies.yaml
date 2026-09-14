@@ -40,6 +40,7 @@ people:
 companies:
   - key: gross_labs
     name: Gross Labs
+    sector: Platform
     aliases: ["Gross Labs", "GrossLabs", "@grosslabs"]
     exclude: ["Nick Grossman"]
     generic: false            # "Gross Labs" collides with nothing
@@ -60,6 +61,7 @@ companies:
 
   - key: beeup
     name: BEEUP
+    sector: Consumer
     aliases: ["BEEUP", "BeeUp", "Bee Up", "beeupsnacks", "BEEUP Snacks"]
     exclude: ["beekeeping", "bee up close"]
     generic: false            # coined word, no collisions
@@ -78,6 +80,7 @@ companies:
 
   - key: breakaway
     name: Breakaway Music Festival
+    sector: Music
     aliases: ["Breakaway Music Festival", "Breakaway Festival", "Breakaway Presents"]
     generic: true
     requires: ["festival", "lineup", "line-up", "EDM", "Tiesto", "Tiësto", "Marshmello",
@@ -105,6 +108,7 @@ companies:
 
   - key: girlfriends
     name: girlfriends
+    sector: Music
     aliases: ["girlfriends band", "@girlfriendsxo", "girlfriends Travis Mills"]
     generic: true
     requires: ["Travis Mills", "Nick Gross", "Big Noise", "John Feldmann", "pop-punk",
@@ -131,6 +135,7 @@ companies:
 
   - key: goldfinger
     name: Goldfinger
+    sector: Music
     aliases: ["Goldfinger band", "Goldfinger John Feldmann", "Goldfinger ska"]
     generic: true
     requires: ["John Feldmann", "Nick Gross", "ska", "punk", "band", "tour", "Warped Tour",
@@ -154,6 +159,7 @@ companies:
 
   - key: big_noise
     name: Big Noise Music Group
+    sector: Music
     aliases: ["Big Noise", "Big Noise Music Group", "Big Noise Records", "BNMG", "Noise Nest"]
     generic: true
     requires: ["Nick Gross", "John Feldmann", "Jon Cohen", "record label", "music group",
@@ -177,7 +183,9 @@ companies:
     repost_bias: "Artist signings, releases, chart news, studio sessions, sync placements."
 
   - key: brekky_golf
+    news_only: true      # sport: daily fixture coverage, require real news
     name: Brekky Golf Company
+    sector: Sport
     aliases: ["Brekky Golf", "Brekky Golf Company"]
     generic: true
     requires: ["Nick Gross", "Sean Maher", "golf", "TMRW", "TGL", "Los Angeles Golf Club",
@@ -203,6 +211,7 @@ companies:
 
   - key: lagc
     name: Los Angeles Golf Club
+    sector: Sport
     aliases: ["Los Angeles Golf Club", "LAGC", "LA Golf Club"]
     generic: true
     requires: ["Los Angeles Golf Club", "LAGC", "Tommy Fleetwood", "Collin Morikawa",
@@ -230,6 +239,7 @@ companies:
 
   - key: okc_soccer
     name: OKC United
+    sector: Sport
     aliases: ["OKC United", "OKC for Soccer", "OKC Soccer", "Oklahoma City soccer club",
               "MAPS 4 Multipurpose Stadium", "Oklahoma City Stadium", "OKC Energy FC"]
     exclude: ["OKC Thunder", "Oklahoma State", "Sooners", "Oklahoma United FC",
@@ -261,6 +271,7 @@ companies:
 
   - key: find_your_grind
     name: Find Your Grind
+    sector: Platform
     aliases: ["Find Your Grind", "FYG", "FYG U", "@findyourgrind"]
     exclude: ["daily grind", "coffee grind"]
     generic: false            # distinctive three-word phrase
@@ -277,7 +288,9 @@ companies:
 
   # --- Watchlist: lower-confidence or newer holdings. Same pipeline, lower priority. ---
   - key: brooklyn_pickleball
+    news_only: true      # sport: daily fixture coverage, require real news
     name: Brooklyn Pickleball Team
+    sector: Sport
     aliases: ["Brooklyn Pickleball Team", "Brooklyn Pickleball", "Major League Pickleball Brooklyn"]
     context: >
       Major League Pickleball franchise. Listed as a Gross Labs investment with a
@@ -286,7 +299,9 @@ companies:
     priority: 3
 
   - key: thirty_third_team
+    news_only: true      # sport: daily fixture coverage, require real news
     name: The 33rd Team
+    sector: Sport
     aliases: ["The 33rd Team", "33rd Team"]
     generic: false            # distinctive name
     context: >
@@ -297,7 +312,9 @@ companies:
     priority: 3
 
   - key: tmrw_sports
+    news_only: true      # sport: daily fixture coverage, require real news
     name: TMRW Sports
+    sector: Sport
     aliases: ["TMRW Sports", "TMRW Golf", "TMRW", "TGL parent company"]
     generic: true
     requires: ["Tiger Woods", "Rory McIlroy", "Mike McCarley", "TGL", "golf league",
@@ -313,7 +330,9 @@ companies:
   # --- Brekky Golf portfolio, added 13 Sep 2026 ---
 
   - key: stableford
+    news_only: true      # sport: daily fixture coverage, require real news
     name: Stableford
+    sector: Sport
     aliases: ["Stableford Club", "Stableford golf club", "@stablefordclub"]
     generic: true
     requires: ["Drake Walker", "Sanjay Mattela", "Brekky", "Nick Gross", "members club",
@@ -347,6 +366,7 @@ companies:
 
   - key: slawth_haus
     name: Slawth Haus
+    sector: Hospitality
     aliases: ["Slawth Haus", "SlawthHaus", "@slawthhaus"]
     exclude: ["sloth", "sloth sanctuary"]
     generic: false            # deliberate misspelling, matches nothing else
@@ -366,7 +386,9 @@ companies:
     repost_bias: "New locations, event programming, partnerships, membership launches."
 
   - key: evenplay
+    news_only: true      # sport: daily fixture coverage, require real news
     name: Evenplay
+    sector: Sport
     aliases: ["Evenplay", "Skill Strike", "Skill Money Games"]
     exclude: ["even play time", "fair play"]
     context: >
@@ -377,7 +399,9 @@ companies:
     repost_bias: "Product launches, venue partnerships, tournament formats."
 
   - key: liteyear
+    news_only: true      # sport: daily fixture coverage, require real news
     name: Liteyear
+    sector: Sport
     aliases: ["Liteyear", "Liteyear Golf"]
     exclude: ["light year", "lightyear", "Buzz Lightyear"]
     generic: false            # coined spelling; "lightyear" is excluded
@@ -389,7 +413,9 @@ companies:
     repost_bias: "Product launches, retail partnerships, junior golf programmes."
 
   - key: puttshack
+    news_only: true      # sport: daily fixture coverage, require real news
     name: Puttshack
+    sector: Sport
     aliases: ["Puttshack"]
     generic: false            # coined word
     context: >
@@ -408,6 +434,7 @@ companies:
 
   - key: necaxa
     name: Club Necaxa
+    sector: Sport
     aliases: ["Club Necaxa", "Necaxa", "Rayos del Necaxa"]
     generic: false            # distinctive Nahuatl name, no collisions
     news_only: true           # a football club is in the news daily; require actual news
@@ -424,6 +451,7 @@ companies:
 
   - key: x_games
     name: X Games
+    sector: Sport
     aliases: ["X Games", "XGames", "Winter X Games", "X Games Aspen"]
     requires: ["action sports", "skate", "skateboard", "BMX", "moto", "snowboard",
                "Aspen", "ESPN", "MSP Sports Capital", "Gross Labs", "Nick Gross",
@@ -446,6 +474,7 @@ companies:
 
   - key: coral_mountain
     name: Coral Mountain Desert Club
+    sector: Hospitality
     aliases: ["Coral Mountain", "Coral Mountain Desert Club"]
     requires: ["Desert Club", "La Quinta", "Coachella Valley", "Meriwether",
                "Gross Labs", "Nick Gross", "wave", "surf", "members", "resort",
@@ -464,6 +493,7 @@ companies:
 
   - key: the_nice_guy
     name: The Nice Guy
+    sector: Hospitality
     aliases: ["The Nice Guy", "Nice Guy LA", "theniceguyla"]
     requires: ["La Cienega", "Los Angeles", "West Hollywood", "h.wood", "hwood Group",
                "John Terzian", "Brian Toll", "restaurant", "lounge", "nightlife",
@@ -486,6 +516,7 @@ companies:
 
   - key: the_estate
     name: The Estate
+    sector: Hospitality
     aliases: ["The Estate"]
     requires: ["Sam Nazarian", "Tony Robbins", "longevity", "wellness", "hospitality",
                "membership", "club", "Gross Labs", "Nick Gross", "health club",
@@ -507,6 +538,7 @@ companies:
 
   - key: rejoy
     name: REJOY
+    sector: Consumer
     aliases: ["REJOY", "Rejoy", "drinkrejoy", "REJOY Instant Hydration"]
     generic: false            # coined brand name
     exclude: ["rejoice", "rejoicing"]
@@ -525,6 +557,7 @@ companies:
 
   - key: droptics
     name: Droptics
+    sector: Consumer
     aliases: ["Droptics"]
     generic: false            # coined word
     context: >
@@ -539,6 +572,7 @@ companies:
 
   - key: banagua
     name: Banagua
+    sector: Consumer
     aliases: ["Banagua"]
     generic: false            # coined word
     context: >
@@ -553,6 +587,7 @@ companies:
 
   - key: rx3
     name: RX3 Growth Partners
+    sector: Platform
     aliases: ["RX3 Growth Partners", "RX3 Growth", "RX3"]
     requires: ["growth equity", "consumer brand", "Aaron Rodgers", "Therabody",
                "Full Swing", "Super Coffee", "SuperCoffee", "fund", "investment",
