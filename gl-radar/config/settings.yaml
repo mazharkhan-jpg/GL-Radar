@@ -73,9 +73,12 @@ collectors:
   # need no credentials. Set IG_USER_ID and IG_ACCESS_TOKEN and flip this to
   # true if that access ever becomes available.
   instagram: false
-  # Off permanently unless you decide to pay. LinkedIn has no public read API
-  # for company posts; the only route is a paid Apify actor at roughly $40/mo.
+  # The paid Apify route. Still off. Superseded for most purposes by `jina`
+  # below, which reads public LinkedIn company pages for free.
   linkedin: false
+  # Jina Reader: renders JavaScript-heavy pages and reads public LinkedIn
+  # company pages. No key, no login, no account to get banned. Runs anywhere.
+  jina: true
   events: true         # requires Ticketmaster API key
   youtube: false
 
