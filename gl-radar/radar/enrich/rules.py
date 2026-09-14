@@ -29,7 +29,7 @@ import re
 
 # Bump this whenever the matching logic below changes. It is part of the
 # fingerprint that triggers automatic re-scoring of everything already stored.
-RULES_VERSION = "2026-09-13.3"
+RULES_VERSION = "2026-09-13.5"
 
 # The question every item has to answer is "what does this have to do with
 # Gross Labs?". When a company has no corroboration list of its own, these
@@ -39,6 +39,7 @@ UMBRELLA_TERMS = [
     "girlfriends", "Goldfinger", "Breakaway", "BEEUP", "Stableford",
     "Los Angeles Golf Club", "LAGC", "TMRW Sports", "TGL", "OKC United",
     "John Feldmann", "Shaun Neff", "Travis Mills", "Sean Maher",
+    "Necaxa", "X Games", "Kewl Ventures", "Meriwether", "h.wood",
     "portfolio company", "family office", "investment firm",
 ]
 
@@ -61,8 +62,8 @@ SOURCE_FLOOR = {
     "website": 58,     # the brand said it themselves
     "instagram": 55,
     "linkedin": 52,
-    "rss": 48,
-    "google_news": 42,
+    "rss": 50,
+    "google_news": 46,
 }
 
 # Weighted by how much a Gross Labs repost would want it.
@@ -74,16 +75,21 @@ KEYWORDS = [
     (28, "partnership", r"\b(partner(s|ship|ed|ing)?|team(s|ed) up|joins? forces|"
                         r"collaborat(e|es|ed|ion)|official (partner|sponsor))\b"),
     (26, "product_launch", r"\b(launch(es|ed|ing)?|debut(s|ed)?|unveil(s|ed|ing)?|"
-                           r"introduc(e|es|ed|ing)|new (flavou?r|product|line|drop))\b"),
+                           r"introduc(e|es|ed|ing)|"
+                           r"new ([\w-]+ )?"
+                           r"(flavou?r|product|line|drop|menu|collection|range))\b"),
     (24, "retail_expansion", r"\b(nationwide|rolls? out|now (at|in)|hits? shelves|"
                              r"expand(s|ed|ing)?|stores? across|"
-                             r"opens?( a| its| the| new| second| third)|opening|"
-                             r"new (location|venue|site|clubhouse|flagship)|"
+                             r"opens?|opening|reopens?|"                             r"new (location|venue|site|clubhouse|flagship)|"
                              r"second location)\b"),
+    # Property and venue projects move in milestones, not launches.
+    (24, "milestone", r"\b(breaks? ground|groundbreaking|topping out|"
+                      r"under construction|completes?|phase (one|two|1|2))\b"),
     (24, "music_release", r"\b(new (single|album|ep|song|video)|releases?|drops?|"
                           r"out now|premiere)\b"),
     (22, "event_announcement", r"\b(lineup|line-up|festival|tour|announce(s|d|ment)?|"
-                               r"on sale|tickets?|plays?|live at|headlin(e|es|ing))\b"),
+                               r"on sale|tickets?|plays?|live at|headlin(e|es|ing)|"
+                               r"returns?|comeback|new (format|season|edition))\b"),
     (22, "milestone", r"\b(wins?|won|champion(s|ship)?|record|first ever|milestone|"
                       r"title|trophy|cup)\b"),
     # Signings are core business for a label, and were slipping under the floor.
@@ -91,6 +97,8 @@ KEYWORDS = [
     (26, "signing", r"\b(sign(s|ed|ing)? (a |an |the )?(new )?"
                     r"(artist|act|band|deal|record deal|contract)|"
                     r"roster|inks? (a |an )?deal|joins the (label|roster)|"
+                    r"sign(s|ed|ing)? (a |an |the )?(new )?"
+                    r"(striker|player|midfielder|forward|goalkeeper|coach|manager)|"
                     r"adds? .{0,15} to (its|the) (roster|label))\b"),
     (18, "hiring", r"\b(appoints?|names? .{0,20}(ceo|president|head of)|hires?|"
                    r"joins? as)\b"),
