@@ -21,9 +21,23 @@
 
 people:
   - name: Nick Gross
+    sector: Platform
     aliases: ["Nick Gross", "Nicholas Gross", "@nickgross"]
-    exclude: ["Nick Grossman", "Union Square Ventures", "Bill Gross", "Bill H. Gross"]
-    generic: false            # "Nick Gross" is a full personal name
+    # There is more than one Nick Gross in the world, so a name match alone does
+    # not count. The article has to say something that places it in his world.
+    # Any mention of him that does is wanted, not just announcements: features,
+    # interviews and profiles are exactly what the GL page reposts.
+    generic: true
+    requires: ["Gross Labs", "Big Noise", "Goldfinger", "girlfriends", "Find Your Grind",
+               "Brekky", "BEEUP", "Breakaway", "drummer", "Bill Gross", "Bill H. Gross",
+               "PIMCO", "Shaun Neff", "John Feldmann", "family office", "Necaxa",
+               "X Games", "OKC United", "Los Angeles Golf Club", "LAGC", "TMRW",
+               "Stableford", "RX3", "Kewl Ventures", "entrepreneur", "investor",
+               "founder", "managing partner"]
+    # Bill Gross used to be excluded here, which threw away every article that
+    # identified Nick as "son of PIMCO founder Bill Gross" — the commonest way
+    # he is introduced. Now it confirms him instead.
+    exclude: ["Nick Grossman", "Union Square Ventures"]
     context: >
       Founder and Managing Partner of Gross Labs. Drummer for the band girlfriends
       and for Goldfinger. CEO of Big Noise Music Group, founder of Find Your Grind,
