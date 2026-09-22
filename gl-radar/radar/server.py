@@ -75,6 +75,19 @@ STYLE = """
   .tabs { display:flex; gap:1.25rem; margin-bottom:1.25rem; border-bottom:1px solid var(--rule); }
   .tabs a { padding:.5rem 0 .6rem; text-decoration:none; color:var(--soft); font-size:.9rem; }
   .tabs a[aria-current] { color:var(--ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--signal); }
+  .tabs { align-items:center; }
+  .sort { margin-left:auto; display:flex; align-items:center; gap:.45rem;
+          font-size:.8rem; color:var(--soft); white-space:nowrap; }
+  .sort select { font:inherit; font-size:.82rem; color:var(--ink);
+                 background:var(--card); border:1px solid var(--rule);
+                 border-radius:4px; padding:.3rem 1.6rem .3rem .55rem;
+                 appearance:none; cursor:pointer;
+                 background-image:linear-gradient(45deg,transparent 50%,var(--soft) 50%),
+                                  linear-gradient(135deg,var(--soft) 50%,transparent 50%);
+                 background-position:calc(100% - 12px) 55%, calc(100% - 7px) 55%;
+                 background-size:5px 5px; background-repeat:no-repeat; }
+  .sort select:focus-visible { outline:2px solid var(--signal); outline-offset:2px; }
+  article[hidden] { display:none; }
   article { background:var(--card); border:1px solid var(--rule); border-radius:6px;
             padding:1rem 1.15rem; margin-bottom:.65rem; }
   .top { display:flex; align-items:center; gap:.75rem; margin-bottom:.5rem; }
@@ -89,6 +102,12 @@ STYLE = """
   h2 a { text-decoration:none; }
   h2 a:hover { box-shadow:inset 0 -1px 0 var(--ink); }
   .sum { color:var(--soft); font-size:.9rem; margin:0 0 .75rem; max-width:68ch; }
+  .orig { margin:-.15rem 0 .5rem; font-size:.78rem; color:var(--soft); font-style:italic;
+          max-width:68ch; }
+  .orig span { font-style:normal; font-weight:600; font-size:.66rem; letter-spacing:.06em;
+               text-transform:uppercase; color:var(--ink); background:#E6EAE9;
+               padding:.1rem .35rem; border-radius:3px; margin-right:.35rem; }
+  .capnote { font-size:.78rem; color:var(--soft); margin:-.4rem 0 1rem; }
   details summary { cursor:pointer; font-size:.82rem; color:var(--soft); margin-bottom:.6rem; }
   details summary::marker { color:var(--rule); }
   .cap { background:var(--paper); border-left:2px solid var(--signal);
@@ -305,21 +324,61 @@ async function copyCaption(btn) {
 """
 
 DEMO_JS = """
+// Tab, company and sort state. The previous version set the tab to "To review"
+// but never ran the filter, so archived cards showed up there on first load.
+// Cards are now also hidden server-side, so the page is right before any
+// script runs and stays right if it never does.
+window.demoStatus = 'pending';
+window.demoEntity = '';
+
+function applyFilters() {
+  let shown = 0;
+  document.querySelectorAll('main article').forEach(card => {
+    const okStatus = card.dataset.status === window.demoStatus;
+    const okEntity = !window.demoEntity || card.dataset.entity === window.demoEntity;
+    const capped = card.dataset.overflow === '1' && !window.demoEntity;
+    card.hidden = !(okStatus && okEntity) || capped;
+    if (!card.hidden) shown++;
+  });
+  const note = document.getElementById('capnote');
+  if (note) note.hidden = !!window.demoEntity || window.demoStatus !== 'pending';
+  const empty = document.getElementById('empty-view');
+  if (empty) {
+    empty.hidden = shown > 0;
+    empty.querySelector('b').textContent = window.demoStatus === 'archive'
+      ? 'Archive is empty.' : 'Nothing to review.';
+  }
+}
+
 function demoFilter(el, kind) {
-  const value = el.dataset.value;
   const group = kind === 'status' ? '.tabs a' : 'nav a';
   document.querySelectorAll(group).forEach(a => a.removeAttribute('aria-current'));
   el.setAttribute('aria-current', 'page');
-  if (kind === 'status') window.demoStatus = value; else window.demoEntity = value;
-  document.querySelectorAll('article').forEach(card => {
-    const okStatus = !window.demoStatus || window.demoStatus === 'all'
-                     || card.dataset.status === window.demoStatus;
-    const okEntity = !window.demoEntity || card.dataset.entity === window.demoEntity;
-    card.style.display = (okStatus && okEntity) ? '' : 'none';
-  });
+  if (kind === 'status') window.demoStatus = el.dataset.value;
+  else window.demoEntity = el.dataset.value;
+  applyFilters();
   return false;
 }
-window.demoStatus = 'pending';
+
+document.addEventListener('DOMContentLoaded', applyFilters);
+"""
+
+SORT_JS = """
+// Date is the default and matches the order the page is rendered in, so this
+// only has work to do when someone switches to company.
+function sortCards(mode) {
+  const main = document.querySelector('main');
+  const anchor = document.getElementById('cards');
+  const cards = [...main.querySelectorAll('article')];
+  cards.sort((a, b) => {
+    if (mode === 'company') {
+      const byName = a.dataset.company.localeCompare(b.dataset.company);
+      if (byName) return byName;
+    }
+    return b.dataset.date.localeCompare(a.dataset.date);
+  });
+  cards.forEach(c => anchor.appendChild(c));
+}
 """
 
 PAGE = """<!doctype html>
@@ -339,8 +398,15 @@ PAGE = """<!doctype html>
   <nav>__NAV__</nav>
   <main>
     __STATUSBAR__
-    <div class="tabs">__TABS__</div>
-    __ROWS__
+    <div class="tabs">__TABS__
+      <label class="sort">Sort by
+        <select onchange="sortCards(this.value)" aria-label="Sort items">
+          <option value="date" selected>Date</option>
+          <option value="company">Company</option>
+        </select>
+      </label>
+    </div>
+    <div id="cards">__ROWS__</div>
   </main>
 </div>
 <script>__SCRIPT__</script>
@@ -417,14 +483,28 @@ def _row_html(r: dict, demo: bool, snapshot: bool = False) -> str:
                   + (f'<div class="cap"><b>Suggested caption</b>{e(caption)}</div>' if caption else "")
                   + "</details>")
 
-    return f"""<article data-status="{e(r.get('view') or r['status'])}" data-entity="{e(r['entity_key'])}">
+    view = r.get("view") or r["status"]
+    # Archive cards start hidden; so do cards past the per-company cap, which
+    # reappear when that company is picked in the rail.
+    hidden = " hidden" if ((r.get("view") and view != "pending") or r.get("overflow")) else ""
+    overflow = ' data-overflow="1"' if r.get("overflow") else ""
+
+    translated = ""
+    display_title = r["title"]
+    if r.get("lang") == "es" and r.get("title_en"):
+        display_title = r["title_en"]
+        translated = (f'<p class="orig"><span>Translated from Spanish</span> '
+                      f'{e(r["title"])}</p>')
+    return f"""<article data-status="{e(view)}" data-entity="{e(r['entity_key'])}"
+  data-company="{e((entity.name if entity else r['entity_key']).lower())}"
+  data-date="{e(r.get('published_at') or '')}"{overflow}{hidden}>
   <div class="top">
     <span class="co">{e(entity.name if entity else r["entity_key"])}</span>
     <span class="meter"><span class="track"><span class="fill{hot}" style="width:{r['importance']}%"></span></span>
       <span class="score">{r['importance']}</span></span>
     <span class="meta">{e(r.get('category') or '')} &middot; {e(r.get('author') or r['source'])} &middot; {_ago(r.get('published_at',''))}</span>
   </div>
-  <h2><a href="{e(r.get('url') or '#')}" target="_blank" rel="noopener">{e(r['title'])}</a></h2>
+  <h2><a href="{e(r.get('url') or '#')}" target="_blank" rel="noopener">{e(display_title)}</a></h2>{translated}
   <p class="sum">{e(r.get('summary') or '')}</p>
   {detail}
   <div class="acts">{actions}</div>
@@ -590,9 +670,47 @@ def render(status: str = "pending", entity: str = "", demo: bool = False,
 
     tabs = "".join(tab_link(v, l) for v, l in TABS)
 
-    visible = rows
+    # Newest first by default. The feed query orders by importance, which made
+    # the list jump around between runs; date order is what people expect.
+    visible = sorted(rows, key=lambda r: r.get("published_at") or "", reverse=True)
+
+    # Balance. Left alone, the feed fills with whichever companies generate the
+    # most coverage — a festival season or a football club can bury twenty
+    # quieter brands that are just as useful for a week of posts. Each company
+    # gets its freshest few; events get a share, not the lot. Everything past
+    # the cap is still one click away in the company rail.
+    feed_cfg = pipe.settings.get("feed", {}) or {}
+    per_company = int(feed_cfg.get("max_per_company", 3))
+    max_events = int(feed_cfg.get("max_events", 4))
+    capped = 0
+    if not entity and not archiving:
+        seen: dict[str, int] = {}
+        events = 0
+        for r in visible:
+            if (r.get("view") or "pending") != "pending":
+                continue
+            key = r["entity_key"]
+            is_event = (r.get("category") or "").startswith("event")
+            seen[key] = seen.get(key, 0) + 1
+            if seen[key] > per_company or (is_event and events >= max_events):
+                r["overflow"] = True
+                capped += 1
+            elif is_event:
+                events += 1
+    if not static:
+        # Live mode filters server-side, so simply drop what the cap hides.
+        visible = [r for r in visible if not r.get("overflow")]
     if visible:
         body = "".join(_row_html(r, static, snapshot) for r in visible)
+        if capped:
+            body = (f'<p class="capnote" id="capnote">Showing the freshest {per_company} '
+                    f'per company so no single brand fills the week. {capped} more are one '
+                    f'click away in the list on the left.</p>') + body
+        if static:
+            body += ('<div id="empty-view" class="empty" hidden><b></b>'
+                     f'News from the last {window.lookback_days} days and shows in the next '
+                     f'{window.lookahead_days} are listed here; older items move to Archive '
+                     f'for {window.archive_days} days.</div>')
     else:
         action = ("" if static else
                   '<button onclick="refresh(this)">Check for updates</button>')
@@ -613,13 +731,13 @@ def render(status: str = "pending", entity: str = "", demo: bool = False,
         built = datetime.now(timezone.utc)
         controls = (f'<span class="checked">Updated {_ago(built.isoformat())}</span>'
                     f'<span class="auto">Rebuilds daily at 07:00</span>')
-        script = DEMO_JS + SNAPSHOT_JS
+        script = DEMO_JS + SNAPSHOT_JS + SORT_JS
     elif demo:
         controls = ('<span class="checked">Sample data</span>'
                     '<label class="auto"><input type="checkbox" checked disabled>'
                     'Auto every 60m</label>'
                     '<button disabled title="Works in the running app">Refresh</button>')
-        script = DEMO_JS
+        script = DEMO_JS + SORT_JS
     else:
         auto_on = pipe.auto_refresh_enabled()
         every = pipe.settings["poll"].get("auto_refresh_minutes", 60)
@@ -630,7 +748,7 @@ def render(status: str = "pending", entity: str = "", demo: bool = False,
             f'{"checked" if auto_on else ""} onchange="setAuto(this.checked)">'
             f'Auto every {every}m</label>'
             f'<button onclick="refresh(this)">Refresh</button>')
-        script = LIVE_JS + f"\nstartAutoLoop({every});\n"
+        script = LIVE_JS + SORT_JS + f"\nstartAutoLoop({every});\n"
 
     return (PAGE.replace("__STYLE__", STYLE).replace("__TALLY__", tally)
             .replace("__CONTROLS__", controls).replace("__NAV__", "".join(nav))
