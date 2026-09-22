@@ -165,6 +165,11 @@ def init(conn: sqlite3.Connection | None = None) -> None:
     for table, column, ddl in [
         ("signals", "config_hash", "ALTER TABLE signals ADD COLUMN config_hash TEXT"),
         ("events", "end_date", "ALTER TABLE events ADD COLUMN end_date TEXT"),
+        # Translation lives on the item, not the verdict, so re-scoring after a
+        # rules change reuses it instead of spending the daily quota again.
+        ("items", "lang", "ALTER TABLE items ADD COLUMN lang TEXT"),
+        ("items", "title_en", "ALTER TABLE items ADD COLUMN title_en TEXT"),
+        ("items", "body_en", "ALTER TABLE items ADD COLUMN body_en TEXT"),
     ]:
         existing = {r["name"] for r in conn.execute(f"PRAGMA table_info({table})")}
         if column not in existing:
@@ -439,6 +444,13 @@ def unclassified(conn: sqlite3.Connection, limit: int = 60, since: str = "") -> 
     sql += " ORDER BY i.first_seen DESC LIMIT ?"
     params.append(limit)
     return [dict(r) for r in conn.execute(sql, params).fetchall()]
+
+
+def save_translation(conn: sqlite3.Connection, item_id: int, lang: str,
+                     title_en: str = "", body_en: str = "") -> None:
+    conn.execute("UPDATE items SET lang = ?, title_en = ?, body_en = ? WHERE id = ?",
+                 (lang, title_en, body_en, item_id))
+    conn.commit()
 
 
 def stale_signals(conn: sqlite3.Connection, config_hash: str, limit: int = 400) -> list[dict]:
