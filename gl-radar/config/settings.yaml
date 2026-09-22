@@ -108,6 +108,13 @@ notify:
   quiet_start: 23
   quiet_end: 8
 
+feed:
+  # How the To Review list is balanced when showing every company at once.
+  # Picking a company in the rail shows all of its items regardless.
+  max_per_company: 3
+  # Events get a share of the week, not the whole of it.
+  max_events: 4
+
 export:
   # After you push to GitHub, put "yourname/gl-radar" here. The Refresh button
   # on the published page then links straight to the workflow's Run button,
