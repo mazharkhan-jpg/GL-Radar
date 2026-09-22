@@ -109,6 +109,39 @@ class Pipeline:
 
     # ---------- classification and routing ----------
 
+    def _in_english(self, row: dict, entity: Entity) -> dict:
+        """Return the row as the classifier should see it: in English.
+
+        Translates once, stores the result, and reuses it forever after. Only
+        items that already name a tracked company are sent out, which keeps the
+        free daily allowance for the items that could actually matter.
+        """
+        from .enrich.rules import _matches_any, _words
+        from .translate import detect, translate
+
+        if row.get("lang") == "es" and row.get("title_en"):
+            return {**row, "title": row["title_en"], "body": row.get("body_en") or row["body"],
+                    "original_title": row["title"]}
+        if row.get("lang"):
+            return row
+
+        lang = detect(f"{row.get('title', '')} {row.get('body', '')[:200]}")
+        if lang != "es":
+            db.save_translation(self.conn, row["id"], "en")
+            return row
+
+        names = list(entity.aliases) + [entity.name]
+        if not _matches_any(_words(f"{row.get('title','')} {row.get('body','')}"), names):
+            db.save_translation(self.conn, row["id"], "es")
+            return row
+
+        title_en = translate(row.get("title", ""))
+        body_en = translate((row.get("body") or "")[:300])
+        db.save_translation(self.conn, row["id"], "es", title_en, body_en)
+        log.info("translated: %s -> %s", row.get("title", "")[:50], title_en[:50])
+        return {**row, "title": title_en, "body": body_en or row["body"],
+                "original_title": row["title"]}
+
     def rescore_stale(self, limit: int = 400) -> int:
         """Re-judge anything scored under an older version of the rules.
 
@@ -133,7 +166,7 @@ class Pipeline:
                                self.classifier.model, fingerprint)
                 dropped += 1
                 continue
-            verdict = self.classifier.classify(row, entity)
+            verdict = self.classifier.classify(self._in_english(row, entity), entity)
             verdict["importance"] = apply_priority(
                 verdict.get("importance", 0), entity.priority, self.settings)
             db.save_signal(self.conn, row["id"], verdict,
@@ -160,7 +193,10 @@ class Pipeline:
             entity = self.by_key.get(row["entity_key"])
             if not entity:
                 continue
-            verdict = self.classifier.classify(row, entity)
+            # Judge the English text. Spanish announcements were being scored as
+            # noise because none of the keywords are Spanish.
+            english = self._in_english(row, entity)
+            verdict = self.classifier.classify(english, entity)
             verdict["importance"] = apply_priority(
                 verdict.get("importance", 0), entity.priority, self.settings)
             db.save_signal(self.conn, row["id"], verdict, self.classifier.model, fingerprint)
