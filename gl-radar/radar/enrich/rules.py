@@ -29,7 +29,7 @@ import re
 
 # Bump this whenever the matching logic below changes. It is part of the
 # fingerprint that triggers automatic re-scoring of everything already stored.
-RULES_VERSION = "2026-09-14.1"
+RULES_VERSION = "2026-09-14.4"
 
 # The question every item has to answer is "what does this have to do with
 # Gross Labs?". When a company has no corroboration list of its own, these
@@ -63,8 +63,26 @@ ROUTINE = re.compile(
     r"starting (xi|11)|probable lineups?|predicted lineups?|"
     r"how to watch|where to watch|live stream|live info|kick[- ]?off time|"
     r"matchday|standings|league table|fixtures?|"
-    r"player ratings|transfer rumou?r"
+    r"player ratings|transfer rumou?r|"
+    # Recurring templates: the same article with a new date each week.
+    r"weekly (roundup|recap|digest|update)|week in review|this week in|"
+    r"daily (digest|roundup|briefing)|things to do this|what'?s on this|"
+    r"events this weekend|round-?up of the week|newsletter issue"
     r")", re.I,
+)
+
+# Competition outcomes. Who won, who lost, the leaderboard. Worthless to the GL
+# page: nobody reposts a TGL scoreline. Applied only to news_only companies —
+# i.e. the Sport sector — because elsewhere "wins" usually means an award,
+# which IS worth showcasing. Deliberately avoids "title" and "cup" on their
+# own, which would also catch "new title sponsor", a partnership.
+RESULTS = re.compile(
+    r"\b(wins?|won|winners?|beats?|beaten|defeats?|defeated|victory|victories|"
+    r"clinch(es|ed)?|champions?|championship|trophy|scorecard|leaderboard|"
+    r"results?|recap|highlights|semi-?finals?|quarter-?finals?|playoffs?|"
+    r"\bmvp\b|loses|lost to|draws? with|comeback win|upset|"
+    r"tops? the (table|leaderboard)|finish(es|ed)? (first|second|third))\b",
+    re.I,
 )
 
 # Outlets that publish only the above. Matched on publisher name, since Google
@@ -103,6 +121,7 @@ KEYWORDS = [
                        r"valuation|valued at|worth \$|\$\d+ ?(m|b|million|billion)|"
                        r"unicorn|round)\b"),
     (28, "partnership", r"\b(partner(s|ship|ed|ing)?|team(s|ed) up|joins? forces|"
+                        r"sponsor(s|ed|ship)?|title sponsor|kit (deal|partner)|"
                         r"collaborat(e|es|ed|ion)|official (partner|sponsor))\b"),
     (26, "product_launch", r"\b(launch(es|ed|ing)?|debut(s|ed)?|unveil(s|ed|ing)?|"
                            r"introduc(e|es|ed|ing)|"
@@ -124,15 +143,25 @@ KEYWORDS = [
                       r"title|trophy|cup)\b"),
     # Signings are core business for a label, and were slipping under the floor.
     # Kept narrow: a bare "signs" would match "signs of trouble".
-    (26, "signing", r"\b(sign(s|ed|ing)? (a |an |the )?(new )?"
+    (26, "signing", r"\b(sign(s|ed|ing)? (a |an |the |their |its |his |her |our )?(new )?"
                     r"(artist|act|band|deal|record deal|contract)|"
                     r"roster|inks? (a |an )?deal|joins the (label|roster)|"
-                    r"sign(s|ed|ing)? (a |an |the )?(new )?"
-                    r"(striker|player|midfielder|forward|goalkeeper|coach|manager)|"
+                    r"sign(s|ed|ing)? (a |an |the |their |its |his |her |our )?(new )?"
+                    r"(striker|player|midfielder|forward|defender|goalkeeper|"
+                    r"coach|manager|head coach)|"
                     r"adds? .{0,15} to (its|the) (roster|label))\b"),
     (18, "hiring", r"\b(appoints?|names? .{0,20}(ceo|president|head of)|hires?|"
                    r"joins? as)\b"),
-    (16, "press_feature", r"\b(interview|profile|featured in|sits down|q&a|podcast)\b"),
+    (16, "press_feature", r"\b(interview|profile|featured in|sits down|q&a|podcast|"
+                          r"conversation with|in conversation|talks? (to|with|about)|"
+                          r"opens up|reveals how|explains why)\b"),
+    # The kind of thing you post on a quiet Tuesday: not news, still content.
+    (18, "content", r"\b(behind the scenes|first look|sneak peek|spotlight|"
+                    r"inside (look|the)|meet the|day in the life|how (we|they) made|"
+                    r"campaign|ambassador|face of|collab|capsule|limited drop|"
+                    r"hosts?|hosting|pop-?up|takeover|activation|residency|"
+                    r"series|episode|documentary|short film|mini-?doc|"
+                    r"giveaway|community|charity|donat(e|es|ed|ion)|scholarship)\b"),
 ]
 
 # Signals that this is filler even when the name matches.
@@ -156,6 +185,29 @@ def _matches_any(text: str, phrases: list[str]) -> bool:
         if re.search(rf"(?<!\w){re.escape(cleaned)}(?!\w)", text):
             return True
     return False
+
+
+FORMAT = {
+    "investment": "Announcement post. Lead with the deal and who is involved; tag the brand.",
+    "acquisition": "Announcement post. Lead with the deal; tag both companies.",
+    "partnership": "Collab post or carousel. Tag both brands; lead with what the partnership unlocks.",
+    "product_launch": "Product feature. Repost the brand's launch asset; lead with what is new.",
+    "retail_expansion": "Milestone post. Lead with where it is available now.",
+    "signing": "Welcome post. Lead with the name; repost the announcement graphic.",
+    "event_announcement": "Save-the-date post now; countdown stories in the week of.",
+    "event_reminder": "Day-of stories. Repost from the brand's account while it is live.",
+    "music_release": "Release post. Repost the artwork; add a listening link to stories.",
+    "milestone": "Milestone post. Lead with the number or the first.",
+    "press_feature": "Feature share. Pull one strong line; link the piece in stories.",
+    "content": "Evergreen. Good for a quiet day in the week; reshare to stories or feed.",
+    "hiring": "Stories only, unless the hire is a name people know.",
+    "update": "Low priority. Reshare to stories if the week needs filling.",
+}
+
+# Fresh material gets a nudge. The window already drops anything past a week;
+# this makes the last two days rise above the rest of it.
+FRESH_HOURS = 48
+FRESH_BOOST = 6
 
 
 class RuleClassifier:
@@ -191,6 +243,9 @@ class RuleClassifier:
             if ROUTINE.search(haystack):
                 return {"relevant": False, "importance": 0, "category": "noise",
                         "reasoning": "routine fixture, odds or scoreline coverage"}
+            if getattr(entity, "news_only", False) and RESULTS.search(haystack):
+                return {"relevant": False, "importance": 0, "category": "noise",
+                        "reasoning": "competition result, not an announcement"}
 
         hit = _matches_any(haystack, list(entity.aliases) + [entity.name])
         blocked = _matches_any(haystack, list(entity.exclude))
@@ -243,6 +298,12 @@ class RuleClassifier:
                     "reasoning": ("mentions the company but announces nothing "
                                   "repostable")}
 
+        from ..freshness import parse_ts
+        from datetime import datetime, timezone
+        published = parse_ts(item.get("published_at"))
+        if published and (datetime.now(timezone.utc) - published).total_seconds() < FRESH_HOURS * 3600:
+            score += FRESH_BOOST
+
         score = max(0, min(100, score))
         title = (item.get("title") or "")[:120]
 
@@ -254,7 +315,7 @@ class RuleClassifier:
             "importance": score,
             "repostable": score >= 50,
             "summary": title,
-            "repost_angle": "",
+            "repost_angle": FORMAT.get(category, FORMAT["update"]),
             # Deliberately blank. A templated caption would read like a bot and
             # get posted by accident; an empty field asks for thirty seconds of
             # human writing instead.
