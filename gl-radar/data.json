@@ -1,5 +1,5 @@
 {
- "built_at": "2026-09-30T14:37:12.169382+00:00",
+ "built_at": "2026-10-01T01:55:14.022436+00:00",
  "window": {
   "lookback_days": 7,
   "lookahead_days": 7,
@@ -176,6 +176,21 @@
   }
  ],
  "items": [
+  {
+   "id": 142,
+   "company": "breakaway",
+   "title": "Breakaway Utah 2026 is in two days — 2026-10-02 to 2026-10-03, Sandy, UT",
+   "url": "https://www.breakawayfestival.com/all-dates",
+   "source": "events",
+   "author": "America First Field",
+   "published_at": "2026-09-30T14:37:11.430522+00:00",
+   "category": "event_reminder",
+   "importance": 100,
+   "summary": "Breakaway Utah 2026 is in two days — 2026-10-02 to 2026-10-03, Sandy, UT",
+   "angle": "Day-of stories. Repost from the brand's account while it is live.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 141,
    "company": "x_games",
