@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-01T01:55:14.022436+00:00",
+ "built_at": "2026-10-02T01:54:36.033745+00:00",
  "window": {
   "lookback_days": 7,
   "lookahead_days": 7,
@@ -176,6 +176,36 @@
   }
  ],
  "items": [
+  {
+   "id": 151,
+   "company": "necaxa",
+   "title": "Cantera RAYOS JUVENILES VIENEN DE ATRÁS Y VENCEN A PROMOTORA SAN LUIS",
+   "url": "https://clubnecaxa.mx/noticias/3815/RAYOS-JUVENILES-VIENEN-DE-ATRS-Y-VENCEN-A-PROMOTORA-SAN-LUIS",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-10-02T01:53:00.553409+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "Cantera RAYOS JUVENILES VIENEN DE ATRÁS Y VENCEN A PROMOTORA SAN LUIS",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 145,
+   "company": "breakaway",
+   "title": "Breakaway Utah 2026 is tomorrow — 2026-10-02 to 2026-10-03, Sandy, UT",
+   "url": "https://www.breakawayfestival.com/all-dates",
+   "source": "events",
+   "author": "America First Field",
+   "published_at": "2026-10-01T01:55:13.292527+00:00",
+   "category": "event_reminder",
+   "importance": 100,
+   "summary": "Breakaway Utah 2026 is tomorrow — 2026-10-02 to 2026-10-03, Sandy, UT",
+   "angle": "Day-of stories. Repost from the brand's account while it is live.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 142,
    "company": "breakaway",
