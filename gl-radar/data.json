@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-02T01:54:36.033745+00:00",
+ "built_at": "2026-10-03T01:54:55.648272+00:00",
  "window": {
   "lookback_days": 7,
   "lookahead_days": 7,
@@ -177,6 +177,51 @@
  ],
  "items": [
   {
+   "id": 155,
+   "company": "the_nice_guy",
+   "title": "Manage Consent Preferences",
+   "url": "https://www.theniceguyla.com",
+   "source": "website",
+   "author": "www.theniceguyla.com",
+   "published_at": "2026-10-03T01:53:20.712941+00:00",
+   "category": "update",
+   "importance": 59,
+   "summary": "Manage Consent Preferences",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 154,
+   "company": "necaxa",
+   "title": "Fuerzas básicas LA CANTERA NECAXISTA RECIBIÓ EN CASA CLUB A CEFOR SAN LUIS",
+   "url": "https://clubnecaxa.mx/noticias/3816/LA-CANTERA-NECAXISTA-RECIBI-EN-CASA-CLUB-A-CEFOR-SAN-LUIS",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-10-03T01:53:20.244080+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "Fuerzas básicas LA CANTERA NECAXISTA RECIBIÓ EN CASA CLUB A CEFOR SAN LUIS",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 152,
+   "company": "breakaway",
+   "title": "Breakaway Music Festival brings big names and lackluster visuals",
+   "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBNcmYyWUhJVTg3ZkpOX0lpZlZmck94VUY5V3NKNUZGQlNJODVLeXM0VnBLMDJkdnBCNVNMcGcwcm1SMzFGUjhfeEtaenNiNVZOZjYyNll1dTN2Ylh6QlJCR1F4Zng?oc=5",
+   "source": "google_news",
+   "author": "Drexel Triangle",
+   "published_at": "2026-10-02T13:05:22+00:00",
+   "category": "event_announcement",
+   "importance": 78,
+   "summary": "Breakaway Music Festival brings big names and lackluster visuals",
+   "angle": "Save-the-date post now; countdown stories in the week of.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
    "id": 151,
    "company": "necaxa",
    "title": "Cantera RAYOS JUVENILES VIENEN DE ATRÁS Y VENCEN A PROMOTORA SAN LUIS",
@@ -324,7 +369,7 @@
    "summary": "Meet the DJ who won a spot at Breakaway Festival through TikTok",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 113,
