@@ -87,7 +87,7 @@ apify:
   # Billing is per post returned, so the two numbers that control cost are
   # `posts_per_handle` and how many handles exist in companies.yaml.
   #
-  #   29 handles x 3 posts over a 2-day window = well under 90/day
+  #   29 handles x 2 posts = 58/day = ~1,740/month = ~$4.70 at $2.70/1,000
   #
   # Apify's free plan grants $5 of credit a month, so that sits at under
   # half. The budget below is the hard stop: once the month's tally crosses
@@ -98,11 +98,11 @@ apify:
   # it bills for posts we already have and then discards them as duplicates.
   # Two days covers a missed run without paying for the same posts twice.
   lookback_days: 2
-  monthly_budget_usd: 4.0
-  usd_per_1000_results: 0.50
-  posts_per_handle: 3
+  monthly_budget_usd: 4.60
+  usd_per_1000_results: 2.70
+  posts_per_handle: 2
   posts_per_company: 5
-  instagram_actor: "apidojo~instagram-scraper"
+  instagram_actor: "apify~instagram-scraper"
   linkedin_actor: "apimaestro~linkedin-company-posts"
 
 clickup:

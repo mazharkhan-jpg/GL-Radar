@@ -100,19 +100,17 @@ def main() -> int:
     # board rather than discovered on a bill.
     month = datetime.now(timezone.utc).strftime("%Y-%m")
     try:
-        billed = int(db.get_cursor(conn, f"apify:results:{month}") or 0)
+        spent = float(db.get_cursor(conn, f"apify:spend_usd:{month}") or 0.0)
     except (TypeError, ValueError):
-        billed = 0
+        spent = 0.0
     apify_cfg = settings.get("apify") or {}
-    rate = float(apify_cfg.get("usd_per_1000_results", 0.50))
 
     payload = {
         "built_at": datetime.now(timezone.utc).isoformat(),
         "apify": {
             "month": month,
-            "results": billed,
-            "spent_usd": round(billed * rate / 1000.0, 2),
-            "budget_usd": float(apify_cfg.get("monthly_budget_usd", 4.0)),
+            "spent_usd": round(spent, 2),
+            "budget_usd": float(apify_cfg.get("monthly_budget_usd", 4.6)),
         },
         "window": {
             "lookback_days": window.lookback_days,

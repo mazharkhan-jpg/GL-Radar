@@ -74,11 +74,17 @@ def _iso(value) -> str:
 
 
 class ApifyBudget:
-    """A running tally of billed results, kept per calendar month.
+    """A running tally of what the social scraping has cost this month.
+
+    Stored in dollars rather than as a result count. An earlier version
+    counted results and multiplied by the current rate, which meant changing
+    actor — and therefore price — silently rewrote the month's history: rows
+    bought at $0.50 per thousand were suddenly valued at $2.70 and the guard
+    tripped on spending that never happened.
 
     Lives in the cursors table so it survives the runner being wiped between
-    GitHub Actions runs. Without this the spend would be invisible until a
-    bill arrived.
+    GitHub Actions runs. Without it the spend would be invisible until a bill
+    arrived.
     """
 
     def __init__(self, conn, budget_usd: float, usd_per_1000: float):
@@ -86,26 +92,23 @@ class ApifyBudget:
         self.budget = budget_usd
         self.rate = usd_per_1000
         self.month = datetime.now(timezone.utc).strftime("%Y-%m")
-        self.key = f"apify:results:{self.month}"
+        self.key = f"apify:spend_usd:{self.month}"
         self._warned = False
 
     @property
-    def results(self) -> int:
-        if self.conn is None:
-            return 0
-        try:
-            return int(get_cursor(self.conn, self.key) or 0)
-        except (TypeError, ValueError):
-            return 0
-
-    @property
     def spent(self) -> float:
-        return self.results * self.rate / 1000.0
+        if self.conn is None:
+            return 0.0
+        try:
+            return float(get_cursor(self.conn, self.key) or 0.0)
+        except (TypeError, ValueError):
+            return 0.0
 
-    def add(self, n: int) -> None:
-        if self.conn is None or n <= 0:
+    def add(self, results: int) -> None:
+        if self.conn is None or results <= 0:
             return
-        set_cursor(self.conn, self.key, str(self.results + n))
+        set_cursor(self.conn, self.key,
+                   f"{self.spent + results * self.rate / 1000.0:.4f}")
 
     def exhausted(self) -> bool:
         if self.conn is None:          # no ledger, no guard; fail closed
@@ -114,9 +117,9 @@ class ApifyBudget:
             return False
         if not self._warned:
             log.warning(
-                "Apify budget reached for %s: %d results = $%.2f of $%.2f. "
-                "Social collection pauses until the month rolls over.",
-                self.month, self.results, self.spent, self.budget,
+                "Apify budget reached for %s: $%.2f of $%.2f. Social "
+                "collection pauses until the month rolls over.",
+                self.month, self.spent, self.budget,
             )
             self._warned = True
         return True
@@ -205,7 +208,7 @@ class InstagramCollector(_ApifyCollector):
         super().__init__(settings, conn)
         cfg = settings.get("apify") or {}
         self.actor = env("APIFY_IG_ACTOR",
-                         cfg.get("instagram_actor", "apidojo~instagram-scraper"))
+                         cfg.get("instagram_actor", "apify~instagram-scraper"))
         self.per_handle = int(cfg.get("posts_per_handle", 5))
         self.ig_user_id = env("IG_USER_ID")
         self.graph_token = env("IG_ACCESS_TOKEN")
@@ -225,17 +228,16 @@ class InstagramCollector(_ApifyCollector):
                     yield item
 
     def _via_apify(self, handle: str) -> list[dict]:
-        # No `until`. The documentation calls it "posts published after your
-        # specified date", but the behaviour says otherwise: with the filter
-        # set to a week ago the actor billed ~10 posts per handle and every
-        # one of them failed the 7-day freshness check; tightening it to three
-        # days returned older posts still. It reads as an upper bound, so it
-        # was fetching the oldest posts rather than the newest. Asking for the
-        # newest N with no date filter is what we wanted all along, and the
-        # pipeline enforces the window at ingest.
+        # apify~instagram-scraper, chosen by probing four actors against two
+        # known-good handles (scripts/probe_ig.py, results in data/probe.json).
+        # apidojo~instagram-scraper returned {"noResults": true} for every
+        # profile while still billing ten rows each, which is what produced
+        # three runs that cost money and stored nothing.
         rows = self._run(self.actor, {
-            "startUrls": [f"https://www.instagram.com/{handle}/"],
-            "maxItems": self.per_handle,
+            "directUrls": [f"https://www.instagram.com/{handle}/"],
+            "resultsType": "posts",
+            "resultsLimit": self.per_handle,
+            "addParentData": False,
         })
         # Say out loud what the payload actually looks like. Guessing field
         # names cost two runs already; one log line makes the next rename
