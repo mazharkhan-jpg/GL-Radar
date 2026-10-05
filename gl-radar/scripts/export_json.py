@@ -41,7 +41,7 @@ def main() -> int:
 
     rows = conn.execute(
         """SELECT i.id, i.entity_key, i.source, i.url, i.title, i.author,
-                  i.published_at, i.lang, i.title_en,
+                  i.published_at, i.lang, i.title_en, i.raw,
                   s.category, s.importance, s.summary, s.repost_angle, s.caption
            FROM items i
            JOIN signals s ON s.item_id = i.id
@@ -79,10 +79,36 @@ def main() -> int:
         if r["lang"] == "es" and r["title_en"]:
             item["lang"] = "es"
             item["title_original"] = r["title"]
+        # Social cards show engagement instead of a category and byline.
+        if r["source"] in ("instagram", "linkedin"):
+            try:
+                raw = json.loads(r["raw"] or "{}")
+            except (TypeError, ValueError):
+                raw = {}
+            if raw.get("likes") is not None:
+                item["likes"] = int(raw["likes"] or 0)
+            if raw.get("comments") is not None:
+                item["comments"] = int(raw["comments"] or 0)
         items.append(item)
+
+    # What the social scraping has cost this month, so it is visible on the
+    # board rather than discovered on a bill.
+    month = datetime.now(timezone.utc).strftime("%Y-%m")
+    try:
+        billed = int(db.get_cursor(conn, f"apify:results:{month}") or 0)
+    except (TypeError, ValueError):
+        billed = 0
+    apify_cfg = settings.get("apify") or {}
+    rate = float(apify_cfg.get("usd_per_1000_results", 0.50))
 
     payload = {
         "built_at": datetime.now(timezone.utc).isoformat(),
+        "apify": {
+            "month": month,
+            "results": billed,
+            "spent_usd": round(billed * rate / 1000.0, 2),
+            "budget_usd": float(apify_cfg.get("monthly_budget_usd", 4.0)),
+        },
         "window": {
             "lookback_days": window.lookback_days,
             "lookahead_days": window.lookahead_days,

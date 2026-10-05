@@ -68,19 +68,37 @@ collectors:
   google_news: true
   rss: true
   website_diff: true
-  # Off: reading posts needs a Meta app and a token on an Instagram Business
-  # account. Handles are still used for the profile links on each card, which
-  # need no credentials. Set IG_USER_ID and IG_ACCESS_TOKEN and flip this to
-  # true if that access ever becomes available.
-  instagram: false
-  # The paid Apify route. Still off. Superseded for most purposes by `jina`
-  # below, which reads public LinkedIn company pages for free.
+  # On: posts are read through Apify (see the `apify` block below). Needs
+  # APIFY_TOKEN set as a repository secret and nothing else — no Meta app,
+  # no Facebook Page, no expiring token.
+  instagram: true
+  # Off until the Instagram spend has been measured for a few days and we
+  # know how much of the free monthly credit is left. The collector and the
+  # budget ledger are ready; this is the only switch.
   linkedin: false
   # Jina Reader: renders JavaScript-heavy pages and reads public LinkedIn
   # company pages. No key, no login, no account to get banned. Runs anywhere.
   jina: true
   events: true         # requires Ticketmaster API key
   youtube: false
+
+apify:
+  # Instagram and LinkedIn are read through Apify's pay-per-result scrapers.
+  # Billing is per post returned, so the two numbers that control cost are
+  # `posts_per_handle` and how many handles exist in companies.yaml.
+  #
+  #   29 handles x 5 posts = 145 posts/day = ~4,400/month = ~$2.20
+  #
+  # Apify's free plan grants $5 of credit a month, so that sits at under
+  # half. The budget below is the hard stop: once the month's tally crosses
+  # it the collector stops calling Apify and logs why, rather than spending
+  # quietly. The tally lives in the `cursors` table and resets each month.
+  monthly_budget_usd: 4.0
+  usd_per_1000_results: 0.50
+  posts_per_handle: 5
+  posts_per_company: 5
+  instagram_actor: "apidojo~instagram-scraper"
+  linkedin_actor: "apimaestro~linkedin-company-posts"
 
 clickup:
   # Where repost tickets land. Run `python -m radar.cli lists` to print every

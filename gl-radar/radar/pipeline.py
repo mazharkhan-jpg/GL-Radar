@@ -51,8 +51,8 @@ class Pipeline:
             "google_news": lambda: GoogleNewsCollector(self.settings),
             "rss": lambda: RSSCollector(self.settings),
             "website_diff": lambda: WebsiteDiffCollector(self.settings, self.conn),
-            "instagram": lambda: InstagramCollector(self.settings),
-            "linkedin": lambda: LinkedInCollector(self.settings),
+            "instagram": lambda: InstagramCollector(self.settings, self.conn),
+            "linkedin": lambda: LinkedInCollector(self.settings, self.conn),
             "events": lambda: EventsCollector(self.settings, self.conn, self.window),
             "jina": lambda: JinaCollector(self.settings),
         }
