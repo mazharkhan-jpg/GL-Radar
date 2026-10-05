@@ -207,20 +207,24 @@ class InstagramCollector(_ApifyCollector):
             "maxItems": self.per_handle,
             "until": self._since_date(),
         })
-        # The actor treats both `maxItems` and `until` as hints and has
-        # overshot both. Billing already happened for whatever came back; this
-        # keeps the surplus off the board. Sort newest first, because the
-        # order the actor returns is not guaranteed.
-        floor = self._floor().isoformat()
-        fresh = [r for r in rows
-                 if (_iso(_first(r, "createdAt", "timestamp", "takenAt",
-                                 "taken_at", "takenAtTimestamp",
-                                 "taken_at_timestamp", "postedAt")) or "") >= floor]
-        fresh.sort(key=lambda r: _iso(_first(r, "createdAt", "timestamp", "takenAt",
-                                             "taken_at", "takenAtTimestamp",
-                                             "taken_at_timestamp", "postedAt")) or "",
-                   reverse=True)
-        return fresh[:self.per_handle]
+        # Say out loud what the payload actually looks like. Guessing field
+        # names cost two runs already; one log line makes the next rename
+        # obvious from the job output instead of from wrong data on the board.
+        if rows:
+            log.warning("@%s: %d rows, fields=%s, first_date=%r",
+                        handle, len(rows), sorted(rows[0].keys())[:25],
+                        _first(rows[0], "createdAt", "timestamp", "takenAt",
+                               "taken_at", "takenAtTimestamp", "postedAt"))
+
+        # `until` already filters server-side and the pipeline enforces the
+        # recency window at ingest, so no date filter here. Filtering before
+        # storing is what hid the field names last time. Newest first, then
+        # capped, with undated rows last rather than dropped silently.
+        rows.sort(key=lambda r: _iso(_first(r, "createdAt", "timestamp", "takenAt",
+                                            "taken_at", "takenAtTimestamp",
+                                            "taken_at_timestamp", "postedAt")) or "",
+                  reverse=True)
+        return rows[:self.per_handle]
 
     def _via_graph(self, handle: str) -> list[dict] | None:
         fields = (
