@@ -172,7 +172,14 @@ class _ApifyCollector(Collector):
         if not isinstance(rows, list):
             return []
         billed = len(rows)
-        kept = [r for r in rows if isinstance(r, dict) and not r.get("error")]
+        # The actor emits rows of {"noResults": true} when it cannot read a
+        # profile — ten of them per handle — and Apify bills for every one.
+        # They are not posts and must never reach the board.
+        kept = [r for r in rows if isinstance(r, dict)
+                and not r.get("error") and not r.get("noResults")]
+        if billed and not kept:
+            log.warning("%s: %d rows billed, all empty (the scraper could not "
+                        "read this profile).", self.name, billed)
         # Keep a sample where it can actually be read. The job log is not
         # reachable from here, so three runs in a row billed for results and
         # stored nothing with no way to see why. The cursors table is
