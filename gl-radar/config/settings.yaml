@@ -95,7 +95,7 @@ apify:
   # quietly. The tally lives in the `cursors` table and resets each month.
   monthly_budget_usd: 4.0
   usd_per_1000_results: 0.50
-  posts_per_handle: 5
+  posts_per_handle: 3
   posts_per_company: 5
   instagram_actor: "apidojo~instagram-scraper"
   linkedin_actor: "apimaestro~linkedin-company-posts"
