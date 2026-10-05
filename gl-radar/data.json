@@ -1,5 +1,5 @@
 {
- "built_at": "2026-10-04T04:17:56.416680+00:00",
+ "built_at": "2026-10-05T01:56:15.883058+00:00",
  "window": {
   "lookback_days": 7,
   "lookahead_days": 7,
@@ -176,6 +176,36 @@
   }
  ],
  "items": [
+  {
+   "id": 167,
+   "company": "necaxa",
+   "title": "Femenil CENTELLAS CAE ANTE CRUZ AZUL EN CASA",
+   "url": "https://clubnecaxa.mx/noticias/3817/CENTELLAS-CAE-ANTE-CRUZ-AZUL-EN-CASA",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-10-05T01:54:39.415200+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "Femenil CENTELLAS CAE ANTE CRUZ AZUL EN CASA",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 161,
+   "company": "breakaway",
+   "title": "Reported assault injures man at Breakaway Festival as residents cite noise",
+   "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNOVc3ZEJseGJFUGF4dVQ1UXh1YVZCeGxnYnptV1ZnVVoyYlRQSlI3MnA3LVpLYUhhRkNnSlpnNG1pS2tFZ0x4bVJ1QVd3OXZsbEkxRHBJYTNiejhMaW9LQUVkQklzVVRHM2xJZkdSRVRRMTZHeHpCMFFad1BVNFZJR0NnbzBMSzY0YkVYLUdZZVdacG5iS1JuX0M4eFA2LTR6ZERXQg?oc=5",
+   "source": "google_news",
+   "author": "kjzz.com",
+   "published_at": "2026-10-05T01:29:34+00:00",
+   "category": "event_announcement",
+   "importance": 78,
+   "summary": "Reported assault injures man at Breakaway Festival as residents cite noise",
+   "angle": "Save-the-date post now; countdown stories in the week of.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 155,
    "company": "the_nice_guy",
