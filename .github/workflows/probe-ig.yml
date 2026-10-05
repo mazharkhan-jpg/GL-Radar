@@ -1,0 +1,35 @@
+# One-off diagnostic. Tries several Instagram actors and commits what each
+# returns, because the job log is not reachable from the session debugging
+# this. Delete once the right actor is settled.
+name: Probe Instagram actors
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: gl-radar
+    env:
+      APIFY_TOKEN: ${{ secrets.APIFY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -q httpx
+      - run: python scripts/probe_ig.py
+        continue-on-error: true
+      - name: Save the findings
+        run: |
+          git config user.name  "gl-radar"
+          git config user.email "gl-radar@users.noreply.github.com"
+          git add -f data/probe.json
+          git diff --quiet --cached || git commit -m "probe: instagram actors"
+          git push
