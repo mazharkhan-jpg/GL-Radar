@@ -196,11 +196,15 @@ class InstagramCollector(_ApifyCollector):
                     yield item
 
     def _via_apify(self, handle: str) -> list[dict]:
-        return self._run(self.actor, {
+        rows = self._run(self.actor, {
             "startUrls": [f"https://www.instagram.com/{handle}/"],
             "maxItems": self.per_handle,
             "until": self._since_date(),
         })
+        # The actor treats maxItems as a hint and has overshot it, so the cap
+        # is applied here too. Billing already happened for what came back;
+        # this stops the surplus reaching the board.
+        return rows[:self.per_handle]
 
     def _via_graph(self, handle: str) -> list[dict] | None:
         fields = (
@@ -226,7 +230,8 @@ class InstagramCollector(_ApifyCollector):
         shortcode = _first(post, "shortCode", "shortcode", "code", default="")
         if not url and shortcode:
             url = f"https://www.instagram.com/p/{shortcode}/"
-        published = _iso(_first(post, "timestamp", "takenAt", "taken_at",
+        published = _iso(_first(post, "createdAt", "timestamp", "takenAt", "taken_at",
+                                "takenAtTimestamp", "taken_at_timestamp",
                                 "timestamp_utc", "postedAt", "createTime"))
         source_id = str(_first(post, "id", "pk", default="") or shortcode or url)
         if not source_id:
@@ -244,10 +249,12 @@ class InstagramCollector(_ApifyCollector):
             published_at=published or datetime.now(timezone.utc).isoformat(),
             raw={
                 "handle": handle,
-                "likes": int(_first(post, "like_count", "likesCount", "likes", default=0) or 0),
-                "comments": int(_first(post, "comments_count", "commentsCount",
-                                       "comments", default=0) or 0),
+                "likes": int(_first(post, "likeCount", "like_count", "likesCount",
+                                    "likes", default=0) or 0),
+                "comments": int(_first(post, "commentCount", "comments_count",
+                                       "commentsCount", "comments", default=0) or 0),
                 "media_type": _first(post, "media_type", "type", "productType", default="") or "",
+                "fields": sorted(post.keys())[:40],
             },
         )
 
