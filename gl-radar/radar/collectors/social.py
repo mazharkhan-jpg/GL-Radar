@@ -202,10 +202,17 @@ class InstagramCollector(_ApifyCollector):
                     yield item
 
     def _via_apify(self, handle: str) -> list[dict]:
+        # No `until`. The documentation calls it "posts published after your
+        # specified date", but the behaviour says otherwise: with the filter
+        # set to a week ago the actor billed ~10 posts per handle and every
+        # one of them failed the 7-day freshness check; tightening it to three
+        # days returned older posts still. It reads as an upper bound, so it
+        # was fetching the oldest posts rather than the newest. Asking for the
+        # newest N with no date filter is what we wanted all along, and the
+        # pipeline enforces the window at ingest.
         rows = self._run(self.actor, {
             "startUrls": [f"https://www.instagram.com/{handle}/"],
             "maxItems": self.per_handle,
-            "until": self._since_date(),
         })
         # Say out loud what the payload actually looks like. Guessing field
         # names cost two runs already; one log line makes the next rename
