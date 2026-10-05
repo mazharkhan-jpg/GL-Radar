@@ -60,6 +60,11 @@ def main() -> int:
             continue
         # Anything inside the window is work; everything older is reference.
         view = "pending" if (r["published_at"] or "") >= since else "archive"
+        # Social posts are not reference material. A brand post nobody reposted
+        # inside its week is spent, and keeping 90 days of them would bury the
+        # news archive under routine content. They drop out instead.
+        if r["source"] in ("instagram", "linkedin") and view != "pending":
+            continue
         item = {
             "id": r["id"],
             "company": r["entity_key"],

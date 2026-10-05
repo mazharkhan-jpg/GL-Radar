@@ -134,13 +134,19 @@ class _ApifyCollector(Collector):
             float(cfg.get("monthly_budget_usd", 4.0)),
             float(cfg.get("usd_per_1000_results", 0.50)),
         )
-        self.lookback_days = int((settings.get("freshness") or {}).get("lookback_days", 7))
+        # Social has a window of its own, much shorter than the board's. The
+        # board shows 7 days; the collector only needs what appeared since the
+        # last run, because everything older is already in the database.
+        self.lookback_days = int(cfg.get("lookback_days", 2))
+
+    def _floor(self) -> datetime:
+        """One extra day of slack covers timezone edges rather than losing a
+        post to rounding."""
+        return datetime.now(timezone.utc) - timedelta(days=self.lookback_days + 1)
 
     def _since_date(self) -> str:
-        """Apify's `until` filter wants a plain date. One extra day of slack
-        covers timezone edges rather than losing a post to rounding."""
-        floor = datetime.now(timezone.utc) - timedelta(days=self.lookback_days + 1)
-        return floor.strftime("%Y-%m-%d")
+        """Apify's `until` filter wants a plain date."""
+        return self._floor().strftime("%Y-%m-%d")
 
     def _run(self, actor: str, payload: dict, timeout: float = 180.0) -> list[dict]:
         """Run an actor and return its dataset rows. Never raises."""
@@ -201,10 +207,20 @@ class InstagramCollector(_ApifyCollector):
             "maxItems": self.per_handle,
             "until": self._since_date(),
         })
-        # The actor treats maxItems as a hint and has overshot it, so the cap
-        # is applied here too. Billing already happened for what came back;
-        # this stops the surplus reaching the board.
-        return rows[:self.per_handle]
+        # The actor treats both `maxItems` and `until` as hints and has
+        # overshot both. Billing already happened for whatever came back; this
+        # keeps the surplus off the board. Sort newest first, because the
+        # order the actor returns is not guaranteed.
+        floor = self._floor().isoformat()
+        fresh = [r for r in rows
+                 if (_iso(_first(r, "createdAt", "timestamp", "takenAt",
+                                 "taken_at", "takenAtTimestamp",
+                                 "taken_at_timestamp", "postedAt")) or "") >= floor]
+        fresh.sort(key=lambda r: _iso(_first(r, "createdAt", "timestamp", "takenAt",
+                                             "taken_at", "takenAtTimestamp",
+                                             "taken_at_timestamp", "postedAt")) or "",
+                   reverse=True)
+        return fresh[:self.per_handle]
 
     def _via_graph(self, handle: str) -> list[dict] | None:
         fields = (

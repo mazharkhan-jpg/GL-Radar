@@ -87,12 +87,17 @@ apify:
   # Billing is per post returned, so the two numbers that control cost are
   # `posts_per_handle` and how many handles exist in companies.yaml.
   #
-  #   29 handles x 5 posts = 145 posts/day = ~4,400/month = ~$2.20
+  #   29 handles x 3 posts over a 2-day window = well under 90/day
   #
   # Apify's free plan grants $5 of credit a month, so that sits at under
   # half. The budget below is the hard stop: once the month's tally crosses
   # it the collector stops calling Apify and logs why, rather than spending
   # quietly. The tally lives in the `cursors` table and resets each month.
+  # The job runs daily and the database remembers every post it has already
+  # seen, so there is no reason to ask for a week of history every morning —
+  # it bills for posts we already have and then discards them as duplicates.
+  # Two days covers a missed run without paying for the same posts twice.
+  lookback_days: 2
   monthly_budget_usd: 4.0
   usd_per_1000_results: 0.50
   posts_per_handle: 3
