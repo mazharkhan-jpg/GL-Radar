@@ -1,0 +1,144 @@
+{
+ "apidojo~instagram-scraper": {
+  "breakaway": {
+   "ok": false,
+   "rows": 10,
+   "usable": 0,
+   "first_raw": "{'noResults': True}"
+  },
+  "beeupsnacks": {
+   "ok": false,
+   "rows": 10,
+   "usable": 0,
+   "first_raw": "{'noResults': True}"
+  }
+ },
+ "apify~instagram-scraper": {
+  "breakaway": {
+   "ok": true,
+   "rows": 3,
+   "usable": 3,
+   "fields": [
+    "alt",
+    "caption",
+    "childPosts",
+    "coauthorProducers",
+    "commentsCount",
+    "dimensionsHeight",
+    "dimensionsWidth",
+    "displayUrl",
+    "firstComment",
+    "hashtags",
+    "id",
+    "images",
+    "inputUrl",
+    "isCommentsDisabled",
+    "isPinned",
+    "latestComments",
+    "likesCount",
+    "locationId",
+    "locationName",
+    "mentions",
+    "originalHeight",
+    "originalWidth",
+    "ownerFullName",
+    "ownerId",
+    "ownerUsername",
+    "paidPartnership",
+    "productType",
+    "shortCode",
+    "taggedUsers",
+    "timestamp"
+   ],
+   "sample": {
+    "id": "3972334649597659536",
+    "caption": "Houston Single Day lineups are here \ud83e\udea9 Tickets on sale now starting at $79!",
+    "url": "https://www.instagram.com/p/DcgkVFGPomQ/",
+    "commentsCount": "59",
+    "firstComment": "I can\u2019t wait to see Tape B again omg \ud83d\ude4c!!!",
+    "latestComments": "[{'id': '18130851868780609', 'text': 'I can\u2019t wait to see Tape B again omg \ud83d\ude4c!!!', 'ownerUs",
+    "dimensionsWidth": "1350",
+    "displayUrl": "https://scontent-man2-1.cdninstagram.com/v/t51.82787-15/784517755_17894677824602937_691097",
+    "likesCount": "998",
+    "timestamp": "2026-08-26T16:06:52.000Z",
+    "locationId": "1246881",
+    "ownerId": "78019946936",
+    "paidPartnership": "False",
+    "isCommentsDisabled": "False",
+    "inputUrl": "https://www.instagram.com/breakaway/",
+    "originalWidth": "1350",
+    "videoViewCount": "None"
+   }
+  }
+ },
+ "apify~instagram-post-scraper": {
+  "breakaway": {
+   "ok": true,
+   "rows": 3,
+   "usable": 3,
+   "fields": [
+    "alt",
+    "caption",
+    "childPosts",
+    "coauthorProducers",
+    "commentsCount",
+    "dimensionsHeight",
+    "dimensionsWidth",
+    "displayUrl",
+    "firstComment",
+    "hashtags",
+    "id",
+    "images",
+    "inputUrl",
+    "isCommentsDisabled",
+    "isPinned",
+    "latestComments",
+    "likesCount",
+    "locationId",
+    "locationName",
+    "mentions",
+    "originalHeight",
+    "originalWidth",
+    "ownerFullName",
+    "ownerId",
+    "ownerUsername",
+    "paidPartnership",
+    "productType",
+    "shortCode",
+    "taggedUsers",
+    "timestamp"
+   ],
+   "sample": {
+    "id": "3972334649597659536",
+    "caption": "Houston Single Day lineups are here \ud83e\udea9 Tickets on sale now starting at $79!",
+    "url": "https://www.instagram.com/p/DcgkVFGPomQ/",
+    "commentsCount": "59",
+    "firstComment": "I can\u2019t wait to see Tape B again omg \ud83d\ude4c!!!",
+    "latestComments": "[{'id': '18130851868780609', 'text': 'I can\u2019t wait to see Tape B again omg \ud83d\ude4c!!!', 'ownerUs",
+    "dimensionsWidth": "1350",
+    "displayUrl": "https://instagram.ftij3-2.fna.fbcdn.net/v/t51.82787-15/784517755_17894677824602937_6910978",
+    "likesCount": "998",
+    "timestamp": "2026-08-26T16:06:52.000Z",
+    "locationId": "1246881",
+    "ownerId": "78019946936",
+    "paidPartnership": "False",
+    "isCommentsDisabled": "False",
+    "inputUrl": "https://www.instagram.com/breakaway",
+    "originalWidth": "1350",
+    "videoViewCount": "None"
+   }
+  }
+ },
+ "shu8hvra~instagram-post-scraper-pro": {
+  "breakaway": {
+   "ok": false,
+   "status": 404,
+   "body": "{\n  \"error\": {\n    \"type\": \"record-not-found\",\n    \"message\": \"Actor with this name was not found\"\n  }\n}"
+  },
+  "beeupsnacks": {
+   "ok": false,
+   "status": 404,
+   "body": "{\n  \"error\": {\n    \"type\": \"record-not-found\",\n    \"message\": \"Actor with this name was not found\"\n  }\n}"
+  }
+ }
+}
