@@ -1,9 +1,9 @@
 {
- "built_at": "2026-10-05T11:05:55.617391+00:00",
+ "built_at": "2026-10-05T11:39:14.979828+00:00",
  "apify": {
   "month": "2026-10",
-  "results": 256,
-  "spent_usd": 0.13,
+  "results": 546,
+  "spent_usd": 0.27,
   "budget_usd": 4.0
  },
  "window": {
