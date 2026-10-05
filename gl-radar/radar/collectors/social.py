@@ -26,6 +26,7 @@ budget ledger, and stays off until it has proved it fits.
 """
 from __future__ import annotations
 
+import json
 import logging
 from datetime import datetime, timedelta, timezone
 
@@ -170,9 +171,24 @@ class _ApifyCollector(Collector):
             return []
         if not isinstance(rows, list):
             return []
-        rows = [r for r in rows if isinstance(r, dict) and not r.get("error")]
-        self.budget.add(len(rows))
-        return rows
+        billed = len(rows)
+        kept = [r for r in rows if isinstance(r, dict) and not r.get("error")]
+        # Keep a sample where it can actually be read. The job log is not
+        # reachable from here, so three runs in a row billed for results and
+        # stored nothing with no way to see why. The cursors table is
+        # committed with the database, so this survives the runner.
+        if self.conn is not None and rows:
+            try:
+                sample = json.dumps({
+                    "billed": billed,
+                    "kept": len(kept),
+                    "first": rows[0] if isinstance(rows[0], dict) else str(rows[0]),
+                }, default=str)[:4000]
+                set_cursor(self.conn, f"debug:{self.name}:last", sample)
+            except Exception:  # noqa: BLE001 - diagnostics must never break a run
+                pass
+        self.budget.add(billed)
+        return kept
 
 
 class InstagramCollector(_ApifyCollector):
