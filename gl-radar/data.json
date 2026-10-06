@@ -1,8 +1,8 @@
 {
- "built_at": "2026-10-05T15:12:10.201135+00:00",
+ "built_at": "2026-10-06T02:03:54.604519+00:00",
  "apify": {
   "month": "2026-10",
-  "spent_usd": 1.14,
+  "spent_usd": 1.28,
   "budget_usd": 4.6
  },
  "window": {
@@ -181,6 +181,74 @@
   }
  ],
  "items": [
+  {
+   "id": 203,
+   "company": "necaxa",
+   "title": "🏋️ ¡Inflando esos bíceps con el poder del Rayooo! 🤍❤️",
+   "url": "https://www.instagram.com/p/DeIgaIzIuzF/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-06T00:34:37+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "🏋️ ¡Inflando esos bíceps con el poder del Rayooo! 🤍❤️",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 152,
+   "comments": 0
+  },
+  {
+   "id": 204,
+   "company": "necaxa",
+   "title": "👊 ¡Venga Señores! ¡El domingo jugamos! 👏",
+   "url": "https://www.instagram.com/p/DeIH6zyFoKJ/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-05T20:59:38+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "👊 ¡Venga Señores! ¡El domingo jugamos! 👏",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 460,
+   "comments": 10
+  },
+  {
+   "id": 202,
+   "company": "okc_soccer",
+   "title": "#nationalyouthsportsweek",
+   "url": "https://www.instagram.com/p/DeH-SnAD6t_/",
+   "source": "instagram",
+   "author": "@officialokcunited",
+   "published_at": "2026-10-05T19:35:30+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "#nationalyouthsportsweek",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 52,
+   "comments": 4
+  },
+  {
+   "id": 205,
+   "company": "coral_mountain",
+   "title": "Where every hole will come with an unbeatable view. ⛳️⁠",
+   "url": "https://www.instagram.com/p/DeH4h_2nYVz/",
+   "source": "instagram",
+   "author": "@coralmountaindesertclub",
+   "published_at": "2026-10-05T18:45:23+00:00",
+   "category": "update",
+   "importance": 56,
+   "summary": "Where every hole will come with an unbeatable view. ⛳️⁠",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 17,
+   "comments": 2
+  },
   {
    "id": 167,
    "company": "necaxa",
@@ -643,23 +711,6 @@
    "angle": "Collab post or carousel. Tag both brands; lead with what the partnership unlocks.",
    "caption": "",
    "view": "pending"
-  },
-  {
-   "id": 201,
-   "company": "the_nice_guy",
-   "title": "What does happiness taste like to Leon Bridges? With his new album “Happiness Anytime” out now, the Grammy-winning singer shares the restaur...",
-   "url": "https://www.instagram.com/p/Dd1nBJ9kWLr/",
-   "source": "instagram",
-   "author": "@theniceguyla",
-   "published_at": "2026-09-28T16:25:49+00:00",
-   "category": "investment",
-   "importance": 78,
-   "summary": "What does happiness taste like to Leon Bridges? With his new album “Happiness Anytime” out now, the Grammy-winning singe",
-   "angle": "Announcement post. Lead with the deal and who is involved; tag the brand.",
-   "caption": "",
-   "view": "pending",
-   "likes": 14929,
-   "comments": 78
   },
   {
    "id": 117,
