@@ -1,8 +1,8 @@
 {
- "built_at": "2026-10-07T02:05:55.993036+00:00",
+ "built_at": "2026-10-08T02:07:44.528592+00:00",
  "apify": {
   "month": "2026-10",
-  "spent_usd": 1.43,
+  "spent_usd": 1.57,
   "budget_usd": 4.6
  },
  "window": {
@@ -181,6 +181,55 @@
   }
  ],
  "items": [
+  {
+   "id": 224,
+   "company": "x_games",
+   "title": "October 8, 2026 hacked by trenggalek6etar",
+   "url": "https://www.xgames.com/news/81a90205d42d-3",
+   "source": "website",
+   "author": "www.xgames.com",
+   "published_at": "2026-10-08T01:55:27.683801+00:00",
+   "category": "update",
+   "importance": 64,
+   "summary": "October 8, 2026 hacked by trenggalek6etar",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 226,
+   "company": "necaxa",
+   "title": "🇯🇲⚡️ Recibimos a Jamaica",
+   "url": "https://www.instagram.com/p/DeNpjF6lgAX/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-08T00:29:42+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "🇯🇲⚡️ Recibimos a Jamaica",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 602,
+   "comments": 5
+  },
+  {
+   "id": 225,
+   "company": "big_noise",
+   "title": "Boston’s Boy back in his home state 🏡",
+   "url": "https://www.instagram.com/p/DeNMVjaSMoN/",
+   "source": "instagram",
+   "author": "@bignoise",
+   "published_at": "2026-10-07T20:15:34+00:00",
+   "category": "investment",
+   "importance": 100,
+   "summary": "Boston’s Boy back in his home state 🏡",
+   "angle": "Announcement post. Lead with the deal and who is involved; tag the brand.",
+   "caption": "",
+   "view": "pending",
+   "likes": 18,
+   "comments": 4
+  },
   {
    "id": 211,
    "company": "x_games",
@@ -386,6 +435,21 @@
    "category": "event_announcement",
    "importance": 78,
    "summary": "Reported assault injures man at Breakaway Festival as residents complain about music noise",
+   "angle": "Save-the-date post now; countdown stories in the week of.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 215,
+   "company": "breakaway",
+   "title": "Reported assault injures man at Breakaway Festival as residents cite noise",
+   "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZTV4NVFTMDhhSlNhWnJEdmVOdEdQTFZwUlVkV3JpbUVlTnFzdDZhN080R0RXSXY2QWFTVUVjN2QxdUh1bDV6cktMRDlOUEF1NTNvamVYOHEtUG9GNWRIRS05TUJpNE5lWWZZaEQyTUZiZkRCRjRyb01oa3BBallJTWpkQ2xVRFZvSTE5dU5iZDJ5Rnd2Y2FPMjZJVTk0RUk0Tnp1WnVDd2JCeGtUck9N?oc=5",
+   "source": "google_news",
+   "author": "kjzz.com",
+   "published_at": "2026-10-05T01:29:36+00:00",
+   "category": "event_announcement",
+   "importance": 72,
+   "summary": "Reported assault injures man at Breakaway Festival as residents cite noise",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
    "view": "pending"
@@ -648,24 +712,7 @@
    "summary": "Breakaway Utah 2026 is tomorrow — 2026-10-02 to 2026-10-03, Sandy, UT",
    "angle": "Day-of stories. Repost from the brand's account while it is live.",
    "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 196,
-   "company": "puttshack",
-   "title": "A round before the round. 🍹⛳️",
-   "url": "https://www.instagram.com/p/Dd7Z_eKF0SR/",
-   "source": "instagram",
-   "author": "@puttshack",
-   "published_at": "2026-09-30T22:27:31+00:00",
-   "category": "investment",
-   "importance": 66,
-   "summary": "A round before the round. 🍹⛳️",
-   "angle": "Announcement post. Lead with the deal and who is involved; tag the brand.",
-   "caption": "",
-   "view": "pending",
-   "likes": 13,
-   "comments": 0
+   "view": "archive"
   },
   {
    "id": 142,
@@ -680,7 +727,7 @@
    "summary": "Breakaway Utah 2026 is in two days — 2026-10-02 to 2026-10-03, Sandy, UT",
    "angle": "Day-of stories. Repost from the brand's account while it is live.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 141,
@@ -695,7 +742,7 @@
    "summary": "September 29, 2026 MoonPay X Games League Names TOGETHXR as an Official Media Partner to Amplify the Next Generation of ",
    "angle": "Collab post or carousel. Tag both brands; lead with what the partnership unlocks.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 140,
@@ -710,7 +757,7 @@
    "summary": "LA CANTERA NECAXISTA REALIZA VISITA ESPECIAL AL ACOGIMIENTO RESIDENCIAL “CASA DIF” Ver más",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 139,
@@ -725,7 +772,7 @@
    "summary": "Fuerzas básicas CARÁCTER Y SALDO POSITIVO PARA LA CANTERA NECAXISTA ANTE AMÉRICA",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 138,
@@ -740,7 +787,7 @@
    "summary": "Primer equipo RAYOS LUCHAN HASTA EL FINAL, PERO AMÉRICA SE IMPONE EN EL VICTORIA",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 137,
@@ -755,7 +802,7 @@
    "summary": "Femenil CENTELLAS NO LOGRAN SUMAR ANTE TOLUCA",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 136,
