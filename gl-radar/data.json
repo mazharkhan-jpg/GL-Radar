@@ -1,8 +1,8 @@
 {
- "built_at": "2026-10-10T02:05:31.081484+00:00",
+ "built_at": "2026-10-11T02:06:54.323515+00:00",
  "apify": {
   "month": "2026-10",
-  "spent_usd": 1.86,
+  "spent_usd": 2.0,
   "budget_usd": 4.6
  },
  "window": {
@@ -181,6 +181,57 @@
   }
  ],
  "items": [
+  {
+   "id": 250,
+   "company": "necaxa",
+   "title": "🤍 ¡Gracias por siempre estar con el Rayo! ❤️",
+   "url": "https://www.instagram.com/p/DeVhJVRFq3s/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-11T01:50:12+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "🤍 ¡Gracias por siempre estar con el Rayo! ❤️",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 168,
+   "comments": 3
+  },
+  {
+   "id": 251,
+   "company": "necaxa",
+   "title": "¡Aguas con los Rayos! 🌩️ 🌩️ 🌩️",
+   "url": "https://www.instagram.com/p/DeVSbdVoOax/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-10T23:44:01+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "¡Aguas con los Rayos! 🌩️ 🌩️ 🌩️",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 282,
+   "comments": 14
+  },
+  {
+   "id": 249,
+   "company": "thirty_third_team",
+   "title": "You are what your record says you are, but not all wins and losses are created equally 🤔",
+   "url": "https://www.instagram.com/p/DeUUVw1Fgp2/",
+   "source": "instagram",
+   "author": "@the33rdteam",
+   "published_at": "2026-10-10T14:40:22+00:00",
+   "category": "milestone",
+   "importance": 67,
+   "summary": "You are what your record says you are, but not all wins and losses are created equally 🤔",
+   "angle": "Milestone post. Lead with the number or the first.",
+   "caption": "",
+   "view": "pending",
+   "likes": 5,
+   "comments": 1
+  },
   {
    "id": 243,
    "company": "necaxa",
@@ -719,40 +770,6 @@
    "view": "pending",
    "likes": 101,
    "comments": 0
-  },
-  {
-   "id": 194,
-   "company": "liteyear",
-   "title": "This kid is a problem 😂 @cvagolf",
-   "url": "https://www.instagram.com/p/DeDBfqRhsRa/",
-   "source": "instagram",
-   "author": "@liteyeargolf",
-   "published_at": "2026-10-03T21:32:06+00:00",
-   "category": "update",
-   "importance": 56,
-   "summary": "This kid is a problem 😂 @cvagolf",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 29,
-   "comments": 2
-  },
-  {
-   "id": 198,
-   "company": "necaxa",
-   "title": "¡Con Fuerza y Determinación! 🔥🔥🔥",
-   "url": "https://www.instagram.com/p/DeCzARCFprb/",
-   "source": "instagram",
-   "author": "@clubnecaxa",
-   "published_at": "2026-10-03T19:20:41+00:00",
-   "category": "update",
-   "importance": 76,
-   "summary": "¡Con Fuerza y Determinación! 🔥🔥🔥",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 813,
-   "comments": 11
   },
   {
    "id": 155,
