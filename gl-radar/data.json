@@ -1,8 +1,8 @@
 {
- "built_at": "2026-10-11T02:06:54.323515+00:00",
+ "built_at": "2026-10-12T02:04:30.892867+00:00",
  "apify": {
   "month": "2026-10",
-  "spent_usd": 2.0,
+  "spent_usd": 2.14,
   "budget_usd": 4.6
  },
  "window": {
@@ -181,6 +181,104 @@
   }
  ],
  "items": [
+  {
+   "id": 263,
+   "company": "necaxa",
+   "title": "Basic forces SPLIT BALANCE FOR NECAXA 'S BASIC FORCES ON his VISIT TO PACHUCA",
+   "url": "https://clubnecaxa.mx/noticias/3818/SALDO-DIVIDIDO-PARA-LAS-FUERZAS-BSICAS-DE-NECAXA-EN-SU-VISITA-A-PACHUCA",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-10-12T01:54:54.516331+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "Basic forces SPLIT BALANCE FOR NECAXA 'S BASIC FORCES ON his VISIT TO PACHUCA",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "lang": "es",
+   "title_original": "Fuerzas básicas SALDO DIVIDIDO PARA LAS FUERZAS BÁSICAS DE NECAXA EN SU VISITA A PACHUCA"
+  },
+  {
+   "id": 262,
+   "company": "necaxa",
+   "title": "First team NECAXA and PACHUCA DISTRIBUTE UNITS IN the HIDALGO STADIUM",
+   "url": "https://clubnecaxa.mx/noticias/3819/NECAXA-Y-PACHUCA-REPARTEN-UNIDADES-EN-EL-ESTADIO-HIDALGO",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-10-12T01:54:54.493703+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "First team NECAXA and PACHUCA DISTRIBUTE UNITS IN the HIDALGO STADIUM",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "lang": "es",
+   "title_original": "Primer equipo NECAXA Y PACHUCA REPARTEN UNIDADES EN EL ESTADIO HIDALGO"
+  },
+  {
+   "id": 264,
+   "company": "necaxa",
+   "title": "#PACvsNEC | Final del partido en Pachuca.",
+   "url": "https://www.instagram.com/p/DeYCbxyocqd/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-12T01:19:57+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "#PACvsNEC | Final del partido en Pachuca.",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 488,
+   "comments": 84
+  },
+  {
+   "id": 265,
+   "company": "necaxa",
+   "title": "#PACvsNEC | @carranzajuli21 con su séptimo gol del torneo… 💪",
+   "url": "https://www.instagram.com/p/DeX9gGGFkEU/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-12T00:36:28+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "#PACvsNEC | @carranzajuli21 con su séptimo gol del torneo… 💪",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 984,
+   "comments": 50
+  },
+  {
+   "id": 254,
+   "company": "puttshack",
+   "title": "Puttshack in Dania Beach Announces New Lineup of Food and Gaming Promotions",
+   "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOb2lvc3o2SF9yNDZvZms0UVFNcjZReHJlV2VwUUlzYUtlR01kbElSUnlMV0ZSbk94dUJYX0pzSWlKUl9ZY3NwYTJMS01YVmZCMWVJakNtampiR2w1ZVp5T3NVMHFxYU1kbGs4M181ay01eERWcG11MjUwR05OZ0Y0ZVg4Y1B1aTNpbVloWjJObHNTcW5hcVhTbUxn?oc=5",
+   "source": "google_news",
+   "author": "Yahoo",
+   "published_at": "2026-10-11T12:39:58+00:00",
+   "category": "event_announcement",
+   "importance": 58,
+   "summary": "Puttshack in Dania Beach Announces New Lineup of Food and Gaming Promotions",
+   "angle": "Save-the-date post now; countdown stories in the week of.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 252,
+   "company": "goldfinger",
+   "title": "Mission Bayfest 2026 is in 7 days — 2026-10-18, San Diego, CA",
+   "url": "https://www.goldfingermusic.com/",
+   "source": "events",
+   "author": "Mission Bay",
+   "published_at": "2026-10-11T02:06:53.860207+00:00",
+   "category": "event_reminder",
+   "importance": 87,
+   "summary": "Mission Bayfest 2026 is in 7 days — 2026-10-18, San Diego, CA",
+   "angle": "Day-of stories. Repost from the brand's account while it is live.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 250,
    "company": "necaxa",
@@ -595,6 +693,21 @@
    "view": "pending"
   },
   {
+   "id": 253,
+   "company": "breakaway",
+   "title": "Reported assault injures man at Breakaway Festival as residents complain about music noise",
+   "url": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNSlNPYTRjVGZDTXpoN0UyWmFjcUlSSE9zRTk2aVZtR3NBenIxRFdUNE0wM3JhTV93X1BYRTFiNnpLQmlHUkU1LW5lbmk2d3ZocldvWFFmbjNLRTRrMUdrSFdNc0RrUHFqRHlsOHdlSG1KRDBXMVBYRDg3LUNGLTN4UzF5amJ0TnM1T2RPMTd3WlJadHR5SDBiM2ZnNUxvWVJWelFXcFI4ek1pNHlkSXI1MzZaS3czdGllS2h4Uy1MNFhtUQ?oc=5",
+   "source": "google_news",
+   "author": "KUTV",
+   "published_at": "2026-10-06T15:09:38+00:00",
+   "category": "event_announcement",
+   "importance": 72,
+   "summary": "Reported assault injures man at Breakaway Festival as residents complain about music noise",
+   "angle": "Save-the-date post now; countdown stories in the week of.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
    "id": 203,
    "company": "necaxa",
    "title": "🏋️ ¡Inflando esos bíceps con el poder del Rayooo! 🤍❤️",
@@ -692,7 +805,7 @@
    "summary": "Femenil CENTELLAS CAE ANTE CRUZ AZUL EN CASA",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 168,
@@ -707,7 +820,7 @@
    "summary": "Reported assault injures man at Breakaway Festival as residents complain about music noise",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 215,
@@ -722,7 +835,7 @@
    "summary": "Reported assault injures man at Breakaway Festival as residents cite noise",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 161,
@@ -737,7 +850,7 @@
    "summary": "Reported assault injures man at Breakaway Festival as residents cite noise",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 227,
@@ -752,24 +865,7 @@
    "summary": "Reported assault injures man at Breakaway Festival as residents complain about music noise",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 192,
-   "company": "thirty_third_team",
-   "title": "The Travis Hunter trade is paying off for the Cleveland Browns",
-   "url": "https://www.instagram.com/p/DeFAVJZj4jn/",
-   "source": "instagram",
-   "author": "@the33rdteam",
-   "published_at": "2026-10-04T16:02:42+00:00",
-   "category": "update",
-   "importance": 56,
-   "summary": "The Travis Hunter trade is paying off for the Cleveland Browns",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 101,
-   "comments": 0
+   "view": "archive"
   },
   {
    "id": 155,
