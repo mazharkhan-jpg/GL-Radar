@@ -1,8 +1,8 @@
 {
- "built_at": "2026-10-13T02:09:07.235030+00:00",
+ "built_at": "2026-10-14T06:48:58.116663+00:00",
  "apify": {
   "month": "2026-10",
-  "spent_usd": 2.29,
+  "spent_usd": 2.43,
   "budget_usd": 4.6
  },
  "window": {
@@ -181,6 +181,123 @@
   }
  ],
  "items": [
+  {
+   "id": 318,
+   "company": "slawth_haus",
+   "title": "Join the First 100",
+   "url": "https://slawthhaus.com/smartyplants",
+   "source": "website",
+   "author": "slawthhaus.com",
+   "published_at": "2026-10-14T06:36:34.012462+00:00",
+   "category": "update",
+   "importance": 59,
+   "summary": "Join the First 100",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 325,
+   "company": "x_games",
+   "title": "find your crew, go all in 🏂",
+   "url": "https://www.instagram.com/p/Dec1NpvE1vC/",
+   "source": "instagram",
+   "author": "@xgames",
+   "published_at": "2026-10-13T22:00:40+00:00",
+   "category": "content",
+   "importance": 70,
+   "summary": "find your crew, go all in 🏂",
+   "angle": "Evergreen. Good for a quiet day in the week; reshare to stories or feed.",
+   "caption": "",
+   "view": "pending",
+   "likes": 233,
+   "comments": 15
+  },
+  {
+   "id": 323,
+   "company": "necaxa",
+   "title": "¡Siendo incansables! ¡Sabiendo que la recompensa está cerca! 👏👏👏",
+   "url": "https://www.instagram.com/p/Decxri2Fnj_/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-13T21:29:22+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "¡Siendo incansables! ¡Sabiendo que la recompensa está cerca! 👏👏👏",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 710,
+   "comments": 14
+  },
+  {
+   "id": 324,
+   "company": "necaxa",
+   "title": "¡El Victoria nos espera! 🏟️🇦🇹",
+   "url": "https://www.instagram.com/p/DeckbUVliDZ/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-13T19:33:33+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "¡El Victoria nos espera! 🏟️🇦🇹",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 468,
+   "comments": 7
+  },
+  {
+   "id": 320,
+   "company": "okc_soccer",
+   "title": "working on bringing joy, access, and wellness thru @officialokcunited 🫨",
+   "url": "https://www.instagram.com/p/DecRNyZFdM4/",
+   "source": "instagram",
+   "author": "@officialokcunited",
+   "published_at": "2026-10-13T16:45:41+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "working on bringing joy, access, and wellness thru @officialokcunited 🫨",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 302,
+   "comments": 10
+  },
+  {
+   "id": 321,
+   "company": "thirty_third_team",
+   "title": "\"He was an outstanding player, he brought a championship to Chicago — but all those things are ancillary to the guy I knew as a human being....",
+   "url": "https://www.instagram.com/p/DecOzTJEc8C/",
+   "source": "instagram",
+   "author": "@the33rdteam",
+   "published_at": "2026-10-13T16:25:28+00:00",
+   "category": "milestone",
+   "importance": 67,
+   "summary": "\"He was an outstanding player, he brought a championship to Chicago — but all those things are ancillary to the guy I kn",
+   "angle": "Milestone post. Lead with the number or the first.",
+   "caption": "",
+   "view": "pending",
+   "likes": 43,
+   "comments": 0
+  },
+  {
+   "id": 322,
+   "company": "liteyear",
+   "title": "Grey has been enjoying spending time at the golf range with grandpa after school. It’s been so cool to see grandpa share his passion and kno...",
+   "url": "https://www.instagram.com/p/DecAuTkgYDI/",
+   "source": "instagram",
+   "author": "@liteyeargolf",
+   "published_at": "2026-10-13T14:54:37+00:00",
+   "category": "update",
+   "importance": 56,
+   "summary": "Grey has been enjoying spending time at the golf range with grandpa after school. It’s been so cool to see grandpa share",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 50,
+   "comments": 6
+  },
   {
    "id": 307,
    "company": "slawth_haus",
@@ -770,6 +887,23 @@
    "comments": 50
   },
   {
+   "id": 319,
+   "company": "big_noise",
+   "title": "We have been playing so many NEW songs on this tour!",
+   "url": "https://www.instagram.com/p/DeWwNDXIFdP/",
+   "source": "instagram",
+   "author": "@bignoise",
+   "published_at": "2026-10-11T13:21:01+00:00",
+   "category": "event_announcement",
+   "importance": 81,
+   "summary": "We have been playing so many NEW songs on this tour!",
+   "angle": "Save-the-date post now; countdown stories in the week of.",
+   "caption": "",
+   "view": "pending",
+   "likes": 1277,
+   "comments": 10
+  },
+  {
    "id": 254,
    "company": "puttshack",
    "title": "Puttshack in Dania Beach Announces New Lineup of Food and Gaming Promotions",
@@ -1114,7 +1248,7 @@
    "summary": "October 7, 2026 X Games Appoints Sports and Entertainment Executive Steve Rogers as Chief Operating Officer",
    "angle": "Stories only, unless the hire is a name people know.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 210,
@@ -1129,7 +1263,7 @@
    "summary": "Do Not Sell or Share My Personal Information",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 206,
@@ -1144,58 +1278,7 @@
    "summary": "Breakaway Music Festival and Garage Beer Bring Sports and Festival Culture Together With Limited-Edition Capsule",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 213,
-   "company": "okc_soccer",
-   "title": "sky. is. the. limit.",
-   "url": "https://www.instagram.com/p/DeKbkbzFTub/",
-   "source": "instagram",
-   "author": "@officialokcunited",
-   "published_at": "2026-10-06T18:29:50+00:00",
-   "category": "update",
-   "importance": 76,
-   "summary": "sky. is. the. limit.",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 119,
-   "comments": 3
-  },
-  {
-   "id": 212,
-   "company": "big_noise",
-   "title": "@escapethefate in their element at @vanswarpedtourmx! 🤘🎸",
-   "url": "https://www.instagram.com/p/DeKUrn-PyFw/",
-   "source": "instagram",
-   "author": "@bignoise",
-   "published_at": "2026-10-06T17:30:14+00:00",
-   "category": "update",
-   "importance": 76,
-   "summary": "@escapethefate in their element at @vanswarpedtourmx! 🤘🎸",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 242,
-   "comments": 1
-  },
-  {
-   "id": 214,
-   "company": "tmrw_sports",
-   "title": "The future of professional flag football was on display in London ➡️ TMRW Sports brought our pro flag football talent qualifier to London, g...",
-   "url": "https://www.instagram.com/p/DeKTQ0qG0Se/",
-   "source": "instagram",
-   "author": "@tmrwsports",
-   "published_at": "2026-10-06T17:17:15+00:00",
-   "category": "partnership",
-   "importance": 70,
-   "summary": "The future of professional flag football was on display in London ➡️ TMRW Sports brought our pro flag football talent qu",
-   "angle": "Collab post or carousel. Tag both brands; lead with what the partnership unlocks.",
-   "caption": "",
-   "view": "pending",
-   "likes": 3162,
-   "comments": 56
+   "view": "archive"
   },
   {
    "id": 209,
@@ -1210,7 +1293,7 @@
    "summary": "X Games Appoints Sports and Entertainment Executive Steve Rogers as Chief Operating Officer",
    "angle": "Stories only, unless the hire is a name people know.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 253,
@@ -1225,7 +1308,7 @@
    "summary": "Reported assault injures man at Breakaway Festival as residents complain about music noise",
    "angle": "Save-the-date post now; countdown stories in the week of.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 167,
