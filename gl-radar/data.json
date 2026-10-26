@@ -1,8 +1,8 @@
 {
- "built_at": "2026-10-25T06:48:42.341532+00:00",
+ "built_at": "2026-10-26T06:58:34.321464+00:00",
  "apify": {
   "month": "2026-10",
-  "spent_usd": 3.43,
+  "spent_usd": 3.57,
   "budget_usd": 4.6
  },
  "window": {
@@ -182,6 +182,40 @@
  ],
  "items": [
   {
+   "id": 486,
+   "company": "necaxa",
+   "title": "El tiempo pasa, pero hay huellas que nunca se borran.",
+   "url": "https://www.instagram.com/p/De7JxUelk4Y/",
+   "source": "instagram",
+   "author": "@clubnecaxa",
+   "published_at": "2026-10-25T16:37:05+00:00",
+   "category": "update",
+   "importance": 76,
+   "summary": "El tiempo pasa, pero hay huellas que nunca se borran.",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 3352,
+   "comments": 55
+  },
+  {
+   "id": 484,
+   "company": "thirty_third_team",
+   "title": "\"They are a very precious commodity.\"",
+   "url": "https://www.instagram.com/p/De63SqvDn1H/",
+   "source": "instagram",
+   "author": "@the33rdteam",
+   "published_at": "2026-10-25T14:01:20+00:00",
+   "category": "update",
+   "importance": 56,
+   "summary": "\"They are a very precious commodity.\"",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 35,
+   "comments": 2
+  },
+  {
    "id": 476,
    "company": "necaxa",
    "title": "Femenil LAS CENTELLAS CAYERON EN SU VISITA A PACHUCA",
@@ -246,6 +280,23 @@
    "view": "pending",
    "likes": 120,
    "comments": 6
+  },
+  {
+   "id": 485,
+   "company": "tmrw_sports",
+   "title": "never a doubt 👏",
+   "url": "https://www.instagram.com/p/De4cgRHmlon/",
+   "source": "instagram",
+   "author": "@tmrwsports",
+   "published_at": "2026-10-24T15:23:30+00:00",
+   "category": "update",
+   "importance": 56,
+   "summary": "never a doubt 👏",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "likes": 13097,
+   "comments": 348
   },
   {
    "id": 457,
