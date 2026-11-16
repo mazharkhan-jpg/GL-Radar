@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-15T08:15:25.892214+00:00",
+ "built_at": "2026-11-16T08:24:11.734895+00:00",
  "apify": {
   "month": "2026-11",
   "spent_usd": 1.57,
@@ -181,6 +181,21 @@
   }
  ],
  "items": [
+  {
+   "id": 875,
+   "company": "lagc",
+   "title": "WTGL debuts with a tight match-up with LAGC coming out on top",
+   "url": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxNb0lWZjl2QzkxZlY3S1p3d3o3aHJlX0Nsc3BBcWlCM0hDUmNOTHdCMmR1VU14Nk0xZGVlbWZ4dWcySFJvcmgwaWZDX243RE5MOEpzVzFIRGxKaW40aXVpbTFxR1FTOFJlaWNxVW9QUE1CLTFSX0xEQVpEV3hpZ0Z2OHktYzFyd1VhdjVLY1ctU2J0YTV1anhQLThnYkxTeXEwNjduMVNTTFBJTmdGazhTZzQ1NjlwZTBoUVQtcEU2Szg1cDZocG8wOW12eUdsVzFpUGVfcmZzOHF4c3RLWWNMcTR4Yw?oc=5",
+   "source": "google_news",
+   "author": "Hometown News Treasure Coast",
+   "published_at": "2026-11-16T01:31:38+00:00",
+   "category": "product_launch",
+   "importance": 65,
+   "summary": "WTGL debuts with a tight match-up with LAGC coming out on top",
+   "angle": "Product feature. Repost the brand's launch asset; lead with what is new.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 874,
    "company": "goldfinger",
@@ -913,57 +928,6 @@
    "view": "pending"
   },
   {
-   "id": 805,
-   "company": "lagc",
-   "title": "No better feeling. 😴",
-   "url": "https://www.instagram.com/p/DfgiTqSjM6I/",
-   "source": "instagram",
-   "author": "@wearelagc",
-   "published_at": "2026-11-09T05:03:28+00:00",
-   "category": "update",
-   "importance": 61,
-   "summary": "No better feeling. 😴",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 50,
-   "comments": 1
-  },
-  {
-   "id": 806,
-   "company": "lagc",
-   "title": "Match 1 and @michellewiewest nearly holes out. 😮‍💨",
-   "url": "https://www.instagram.com/p/Dfghvn2m3aX/",
-   "source": "instagram",
-   "author": "@wearelagc",
-   "published_at": "2026-11-09T04:58:28+00:00",
-   "category": "update",
-   "importance": 61,
-   "summary": "Match 1 and @michellewiewest nearly holes out. 😮‍💨",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 35,
-   "comments": 1
-  },
-  {
-   "id": 808,
-   "company": "necaxa",
-   "title": "Que sea solo el primero de muchos, @leroydavis._ 💪",
-   "url": "https://www.instagram.com/p/DfgSSEclrKL/",
-   "source": "instagram",
-   "author": "@clubnecaxa",
-   "published_at": "2026-11-09T02:43:22+00:00",
-   "category": "update",
-   "importance": 76,
-   "summary": "Que sea solo el primero de muchos, @leroydavis._ 💪",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 951,
-   "comments": 8
-  },
-  {
    "id": 797,
    "company": "lagc",
    "title": "Off and Running: WTGL debuts with Los Angeles Golf Club topping New York Golf Club",
@@ -976,41 +940,7 @@
    "summary": "Off and Running: WTGL debuts with Los Angeles Golf Club topping New York Golf Club",
    "angle": "Product feature. Repost the brand's launch asset; lead with what is new.",
    "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 855,
-   "company": "lagc",
-   "title": "@srtheegala in the house tonight supporting @wearelagcw 🤝",
-   "url": "https://www.instagram.com/p/Dff7464NWR4/",
-   "source": "instagram",
-   "author": "@wearelagc",
-   "published_at": "2026-11-08T23:30:26+00:00",
-   "category": "update",
-   "importance": 55,
-   "summary": "@srtheegala in the house tonight supporting @wearelagcw 🤝",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 1328,
-   "comments": 7
-  },
-  {
-   "id": 809,
-   "company": "necaxa",
-   "title": "Juntos, en casa 🏟️, con el Rayo en el corazón…",
-   "url": "https://www.instagram.com/p/DffzLh8o5rJ/",
-   "source": "instagram",
-   "author": "@clubnecaxa",
-   "published_at": "2026-11-08T22:12:46+00:00",
-   "category": "update",
-   "importance": 76,
-   "summary": "Juntos, en casa 🏟️, con el Rayo en el corazón…",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending",
-   "likes": 530,
-   "comments": 9
+   "view": "archive"
   },
   {
    "id": 772,
