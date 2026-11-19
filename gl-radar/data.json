@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-18T08:57:06.306255+00:00",
+ "built_at": "2026-11-19T09:11:28.797794+00:00",
  "apify": {
   "month": "2026-11",
   "spent_usd": 1.57,
@@ -181,6 +181,81 @@
   }
  ],
  "items": [
+  {
+   "id": 904,
+   "company": "x_games",
+   "title": "November 19, 2026 X Games Launches X Games Foundation, Taps U.S. Ski & Snowboard Executive Trisha Worthington as CEO",
+   "url": "https://www.xgames.com/news/x-games-launches-x-games-foundation-taps-u-s-ski-snowboard-executive-trisha-worthington-as-ceo",
+   "source": "website",
+   "author": "www.xgames.com",
+   "published_at": "2026-11-19T09:10:59.164724+00:00",
+   "category": "product_launch",
+   "importance": 77,
+   "summary": "November 19, 2026 X Games Launches X Games Foundation, Taps U.S. Ski & Snowboard Executive Trisha Worthington as CEO",
+   "angle": "Product feature. Repost the brand's launch asset; lead with what is new.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 903,
+   "company": "x_games",
+   "title": "X Games Launches X Games Foundation, \nTaps U.S. Ski & Snowboard Executive Trisha Worthington as CEO",
+   "url": "https://www.xgames.com/news/x-games-launches-x-games-foundation-taps-u-s-ski-snowboard-executive-trisha-worthington-as-ceo/",
+   "source": "rss",
+   "author": "Jordan Miller",
+   "published_at": "2026-11-18T17:27:01+00:00",
+   "category": "product_launch",
+   "importance": 69,
+   "summary": "X Games Launches X Games Foundation, \nTaps U.S. Ski & Snowboard Executive Trisha Worthington as CEO",
+   "angle": "Product feature. Repost the brand's launch asset; lead with what is new.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 900,
+   "company": "breakaway",
+   "title": "Breakaway Music Festival Releases Phase Two Of 2027 Dates",
+   "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBBUHBaVWJWbzZoeWpDZGlmVFEtbjF3bEtIb0VXTGZ0V2JZUWFyWThXa0YyWnlOVXdENG1DMHRvTXJ5R3doazBYTm43a2h0U3htVXBlU3U5M1A0dTgxZy1XVUxKR1p3UEdiQTRSZzl1UU1CUUpNdUZMSV9IdzdKUQ?oc=5",
+   "source": "google_news",
+   "author": "EDM Identity",
+   "published_at": "2026-11-18T16:33:53+00:00",
+   "category": "milestone",
+   "importance": 100,
+   "summary": "Breakaway Music Festival Releases Phase Two Of 2027 Dates",
+   "angle": "Milestone post. Lead with the number or the first.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 899,
+   "company": "goldfinger",
+   "title": "Goldfinger at Nevermore Hall is in two days — 2026-11-20, Baltimore, MD",
+   "url": "https://www.goldfingermusic.com/",
+   "source": "events",
+   "author": "Nevermore Hall",
+   "published_at": "2026-11-18T08:57:05.500443+00:00",
+   "category": "event_reminder",
+   "importance": 87,
+   "summary": "Goldfinger at Nevermore Hall is in two days — 2026-11-20, Baltimore, MD",
+   "angle": "Day-of stories. Repost from the brand's account while it is live.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 898,
+   "company": "goldfinger",
+   "title": "Goldfinger at The Roxian Theatre is tomorrow — 2026-11-19, McKees Rocks, PA",
+   "url": "https://www.goldfingermusic.com/",
+   "source": "events",
+   "author": "Roxian Theatre",
+   "published_at": "2026-11-18T08:57:05.498794+00:00",
+   "category": "event_reminder",
+   "importance": 100,
+   "summary": "Goldfinger at The Roxian Theatre is tomorrow — 2026-11-19, McKees Rocks, PA",
+   "angle": "Day-of stories. Repost from the brand's account while it is live.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 897,
    "company": "big_noise",
@@ -526,7 +601,7 @@
    "summary": "Goldfinger at The Roxian Theatre is in 7 days — 2026-11-19, McKees Rocks, PA",
    "angle": "Day-of stories. Repost from the brand's account while it is live.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 865,
@@ -541,7 +616,7 @@
    "summary": "YOUTH TEAMS: NECXA BIDS FAREWELL TO THE COPA PROMESAS AFTER DRAWING WITH TAPATÍO SOCCER",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending",
+   "view": "archive",
    "lang": "es",
    "title_original": "Fuerzas básicas NECAXA SE DESPIDE DE LA COPA PROMESAS TRAS EMPATAR ANTE TAPATÍO SOCCER"
   },
