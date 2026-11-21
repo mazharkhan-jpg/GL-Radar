@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-20T08:59:12.005964+00:00",
+ "built_at": "2026-11-21T08:40:55.825373+00:00",
  "apify": {
   "month": "2026-11",
   "spent_usd": 1.57,
@@ -182,6 +182,66 @@
  ],
  "items": [
   {
+   "id": 919,
+   "company": "big_noise",
+   "title": "! Image 4 https://www.linkedin.com/company/big-noise-music-group ! Image 5 https://www.linkedin.com/company/big-noise-music-group ! Image 6 ...",
+   "url": "https://www.linkedin.com/company/big-noise-music-group/posts/",
+   "source": "linkedin",
+   "author": "linkedin.com/company/big-noise-music-group",
+   "published_at": "2026-11-21T08:40:34.055121+00:00",
+   "category": "update",
+   "importance": 73,
+   "summary": "! Image 4 https://www.linkedin.com/company/big-noise-music-group ! Image 5 https://www.linkedin.com/company/big-noise-mu",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 918,
+   "company": "beeup",
+   "title": "! Image 4 https://media.licdn.com/dms/image/v2/C5603AQGUSOsK0D3YTA/profile-displayphoto-shrink 100 100/profile-displayphoto-shrink 100 100/0...",
+   "url": "https://www.linkedin.com/company/beeup/posts/",
+   "source": "linkedin",
+   "author": "linkedin.com/company/beeup",
+   "published_at": "2026-11-21T08:40:33.086135+00:00",
+   "category": "press_feature",
+   "importance": 81,
+   "summary": "! Image 4 https://media.licdn.com/dms/image/v2/C5603AQGUSOsK0D3YTA/profile-displayphoto-shrink 100 100/profile-displayph",
+   "angle": "Feature share. Pull one strong line; link the piece in stories.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 914,
+   "company": "breakaway",
+   "title": "Breakaway Festival Announces Phase Two Of 2027 Tour Schedule",
+   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPRWFYa0pRUjU0QXM1WHpURjZMb0Q3Xy0wT3BBYU11X3ZrZFh6bGtZUGU2TUVQal9hZU9RN1RRT1hZN05UQTBuRVVaVkxiNkhoRURJRmpBV1FHSlA5b1QzaFNRUThRWmxnLWRVMWZMdWVsZGJTcmM0RUxsQjBTckFjWXg4NE1qS1hva1JxdlJQRnBkaHc?oc=5",
+   "source": "google_news",
+   "author": "EDMTunes",
+   "published_at": "2026-11-20T13:33:11+00:00",
+   "category": "milestone",
+   "importance": 90,
+   "summary": "Breakaway Festival Announces Phase Two Of 2027 Tour Schedule",
+   "angle": "Milestone post. Lead with the number or the first.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 913,
+   "company": "goldfinger",
+   "title": "Skanksgiving 2026 is tomorrow — 2026-11-21, Sayreville, NJ",
+   "url": "https://www.goldfingermusic.com/",
+   "source": "events",
+   "author": "Starland Ballroom",
+   "published_at": "2026-11-20T08:59:11.238068+00:00",
+   "category": "event_reminder",
+   "importance": 100,
+   "summary": "Skanksgiving 2026 is tomorrow — 2026-11-21, Sayreville, NJ",
+   "angle": "Day-of stories. Repost from the brand's account while it is live.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
    "id": 912,
    "company": "slawth_haus",
    "title": "! Image 4 https://www.linkedin.com/company/slawthhaus View all employees https://www.linkedin.com/signup/cold-join?session redirect=https%3A...",
@@ -238,6 +298,21 @@
    "importance": 81,
    "summary": "! Image 4: Click here to view Nick Gross’ profile https://media.licdn.com/dms/image/v2/D5603AQGhYgmMDv3YtQ/profile-displ",
    "angle": "Feature share. Pull one strong line; link the piece in stories.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 916,
+   "company": "the_estate",
+   "title": "Sam Nazarian’s The Estate tees-up $1bn+ of ‘longevity’ residences in the Americas",
+   "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPb0dFMkV5c3d2X1prOHZOUEVwTWpmTlJ1SEllc0FieHNTNXhEOVpPX1R6RVpVeUxDQUJqQ3Y5RW5WNDVLcUZjbmJ5clR2UHhvWWZjVXMxSS15RnMtc0dOd3Yxc21ubXg4ZEx0WjlwN3hib0gyT3RVRG1RWDhJdjA4Y1ZOeU56U2dDZDhNdDhDSnlEVlU3ckl3SmxGS1FoWWEt?oc=5",
+   "source": "google_news",
+   "author": "PrimeResi",
+   "published_at": "2026-11-20T06:13:19+00:00",
+   "category": "update",
+   "importance": 47,
+   "summary": "Sam Nazarian’s The Estate tees-up $1bn+ of ‘longevity’ residences in the Americas",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
    "view": "pending"
   },
@@ -614,7 +689,7 @@
    "summary": "Skanksgiving 2026 is in 7 days — 2026-11-21, Sayreville, NJ",
    "angle": "Day-of stories. Repost from the brand's account while it is live.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 873,
@@ -629,7 +704,7 @@
    "summary": "NECXA YOUTH ACADEMY FAILS TO SCORE IN MATCHDAY 11 OF THE TDP LEAGUE",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending",
+   "view": "archive",
    "lang": "es",
    "title_original": "Cantera NECAXA NO LOGRA SUMAR EN LA J11 DE LA LIGA TDP"
   },
