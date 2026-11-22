@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-21T08:40:55.825373+00:00",
+ "built_at": "2026-11-22T08:34:48.671665+00:00",
  "apify": {
   "month": "2026-11",
   "spent_usd": 1.57,
@@ -181,6 +181,21 @@
   }
  ],
  "items": [
+  {
+   "id": 928,
+   "company": "big_noise",
+   "title": "! Image 4: Click here to view Heather Castillo’s profile https://media.licdn.com/dms/image/v2/C5603AQEIMAPwtTzT7Q/profile-displayphoto-shrin...",
+   "url": "https://www.linkedin.com/company/big-noise-music-group/posts/",
+   "source": "linkedin",
+   "author": "linkedin.com/company/big-noise-music-group",
+   "published_at": "2026-11-22T08:34:41.572210+00:00",
+   "category": "press_feature",
+   "importance": 81,
+   "summary": "! Image 4: Click here to view Heather Castillo’s profile https://media.licdn.com/dms/image/v2/C5603AQEIMAPwtTzT7Q/profil",
+   "angle": "Feature share. Pull one strong line; link the piece in stories.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 919,
    "company": "big_noise",
