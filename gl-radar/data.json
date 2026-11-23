@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-22T08:34:48.671665+00:00",
+ "built_at": "2026-11-23T09:34:18.158003+00:00",
  "apify": {
   "month": "2026-11",
   "spent_usd": 1.57,
@@ -181,6 +181,53 @@
   }
  ],
  "items": [
+  {
+   "id": 935,
+   "company": "necaxa",
+   "title": "Fuerzas básicas LA CANTERA NECAXISTA CONCLUYÓ SU PARTICIPACIÓN EN EL APERTURA 2026 ANTE QUERÉTARO",
+   "url": "https://clubnecaxa.mx/noticias/3843/LA-CANTERA-NECAXISTA-CONCLUY-SU-PARTICIPACIN-EN-EL-APERTURA-2026-ANTE-QUERTARO",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-11-23T09:33:31.711308+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "Fuerzas básicas LA CANTERA NECAXISTA CONCLUYÓ SU PARTICIPACIÓN EN EL APERTURA 2026 ANTE QUERÉTARO",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 934,
+   "company": "necaxa",
+   "title": "FIRST TEAM: NECXA WRAPS UP THE 2026 APERTURA WITH A DRAW AGAINST QUERÉTARO",
+   "url": "https://clubnecaxa.mx/noticias/3844/NECAXA-CIERRA-EL-APERTURA-2026-CON-UN-EMPATE-ANTE-QUERTARO",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-11-23T09:33:31.704947+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "FIRST TEAM: NECXA WRAPS UP THE 2026 APERTURA WITH A DRAW AGAINST QUERÉTARO",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending",
+   "lang": "es",
+   "title_original": "Primer equipo NECAXA CIERRA EL APERTURA 2026 CON UN EMPATE ANTE QUERÉTARO"
+  },
+  {
+   "id": 932,
+   "company": "necaxa",
+   "title": "Queretaro Hosts Necaxa in Liga MX Apertura Finale",
+   "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1yT1Z6enBqYkxzajdoOXNOQW5NN2N0NkdybVR4a0xkQ3VTNDBYTUMxUnRmQTVnYkp2eUdGc05rM0FxSlhmSmFzMG4zaWZIaHNHbHo5Qmh2Z01Uak5BY29PRFVPeHdQZw?oc=5",
+   "source": "google_news",
+   "author": "cwibc.co.id",
+   "published_at": "2026-11-23T00:56:31+00:00",
+   "category": "content",
+   "importance": 76,
+   "summary": "Queretaro Hosts Necaxa in Liga MX Apertura Finale",
+   "angle": "Evergreen. Good for a quiet day in the week; reshare to stories or feed.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 928,
    "company": "big_noise",
@@ -689,7 +736,7 @@
    "summary": "WTGL debuts with a tight match-up with LAGC coming out on top",
    "angle": "Product feature. Repost the brand's launch asset; lead with what is new.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 874,
