@@ -1,5 +1,5 @@
 {
- "built_at": "2026-11-23T09:34:18.158003+00:00",
+ "built_at": "2026-11-24T11:29:29.915283+00:00",
  "apify": {
   "month": "2026-11",
   "spent_usd": 1.57,
@@ -181,6 +181,36 @@
   }
  ],
  "items": [
+  {
+   "id": 939,
+   "company": "big_noise",
+   "title": "! Image 4 https://media.licdn.com/dms/image/v2/C5603AQEIMAPwtTzT7Q/profile-displayphoto-shrink 100 100/profile-displayphoto-shrink 100 100/0...",
+   "url": "https://www.linkedin.com/company/big-noise-music-group/posts/",
+   "source": "linkedin",
+   "author": "linkedin.com/company/big-noise-music-group",
+   "published_at": "2026-11-24T11:29:21.180558+00:00",
+   "category": "press_feature",
+   "importance": 81,
+   "summary": "! Image 4 https://media.licdn.com/dms/image/v2/C5603AQEIMAPwtTzT7Q/profile-displayphoto-shrink 100 100/profile-displayph",
+   "angle": "Feature share. Pull one strong line; link the piece in stories.",
+   "caption": "",
+   "view": "pending"
+  },
+  {
+   "id": 938,
+   "company": "necaxa",
+   "title": "Primer equipo TRAS EL CIERRE DEL TORNEO, LOS RAYOS ROMPEN FILAS",
+   "url": "https://clubnecaxa.mx/noticias/3845/TRAS-EL-CIERRE-DEL-TORNEO-LOS-RAYOS-ROMPEN-FILAS",
+   "source": "website",
+   "author": "clubnecaxa.mx",
+   "published_at": "2026-11-24T11:28:51.683225+00:00",
+   "category": "update",
+   "importance": 79,
+   "summary": "Primer equipo TRAS EL CIERRE DEL TORNEO, LOS RAYOS ROMPEN FILAS",
+   "angle": "Low priority. Reshare to stories if the week needs filling.",
+   "caption": "",
+   "view": "pending"
+  },
   {
    "id": 935,
    "company": "necaxa",
@@ -661,52 +691,7 @@
    "summary": "Goldfinger at The Roxian Theatre is in two days — 2026-11-19, McKees Rocks, PA",
    "angle": "Day-of stories. Repost from the brand's account while it is live.",
    "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 883,
-   "company": "find_your_grind",
-   "title": "! Image 1: Profile photo https://www.linkedin.com/authwall?trk=bf&trkInfo=AQEbVZFyZzTcIAAAAaHo3 HoYbssTTPg4jU6MHG-hL4YqYWu5X1OdNhTL74OZWuaxv...",
-   "url": "https://www.linkedin.com/company/find-your-grind/posts/",
-   "source": "linkedin",
-   "author": "linkedin.com/company/find-your-grind",
-   "published_at": "2026-11-17T09:39:14.452794+00:00",
-   "category": "press_feature",
-   "importance": 66,
-   "summary": "! Image 1: Profile photo https://www.linkedin.com/authwall?trk=bf&trkInfo=AQEbVZFyZzTcIAAAAaHo3 HoYbssTTPg4jU6MHG-hL4YqY",
-   "angle": "Feature share. Pull one strong line; link the piece in stories.",
-   "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 882,
-   "company": "find_your_grind",
-   "title": "Final URL: https://www.linkedin.com/authwall?trk=bf&trkInfo=AQEbVZFyZzTcIAAAAaHo3 HoYbssTTPg4jU6MHG-hL4YqYWu5X1OdNhTL74OZWuaxvoHrGYpmnXcL1vW...",
-   "url": "https://www.linkedin.com/company/find-your-grind/posts/",
-   "source": "linkedin",
-   "author": "linkedin.com/company/find-your-grind",
-   "published_at": "2026-11-17T09:39:14.452016+00:00",
-   "category": "update",
-   "importance": 58,
-   "summary": "Final URL: https://www.linkedin.com/authwall?trk=bf&trkInfo=AQEbVZFyZzTcIAAAAaHo3 HoYbssTTPg4jU6MHG-hL4YqYWu5X1OdNhTL74O",
-   "angle": "Low priority. Reshare to stories if the week needs filling.",
-   "caption": "",
-   "view": "pending"
-  },
-  {
-   "id": 881,
-   "company": "gross_labs",
-   "title": "! Image 4 https://media.licdn.com/dms/image/v2/D5603AQGhYgmMDv3YtQ/profile-displayphoto-shrink 100 100/profile-displayphoto-shrink 100 100/0...",
-   "url": "https://www.linkedin.com/company/grosslabs/posts/",
-   "source": "linkedin",
-   "author": "linkedin.com/company/grosslabs",
-   "published_at": "2026-11-17T09:38:51.609483+00:00",
-   "category": "press_feature",
-   "importance": 81,
-   "summary": "! Image 4 https://media.licdn.com/dms/image/v2/D5603AQGhYgmMDv3YtQ/profile-displayphoto-shrink 100 100/profile-displayph",
-   "angle": "Feature share. Pull one strong line; link the piece in stories.",
-   "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 880,
@@ -721,7 +706,7 @@
    "summary": "Private Events",
    "angle": "Low priority. Reshare to stories if the week needs filling.",
    "caption": "",
-   "view": "pending"
+   "view": "archive"
   },
   {
    "id": 875,
